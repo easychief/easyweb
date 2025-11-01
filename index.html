@@ -1,0 +1,1272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Easy Chief – application sapeurs-pompiers : SITAC, fiches réflexes, cartes opérationnelles</title>
+
+  <!-- Résumé concis et unique (sert au snippet) -->
+  <meta name="description" content="Easy Chief, l’application pour sapeurs-pompiers : SITAC mobile, fiches réflexes personnalisables, cartes opérationnelles, exports PDF/PNG, outils chef d’agrès et chef de groupe.">
+
+  <!-- URL préférée pour éviter /index.html, http/https, etc. -->
+  <link rel="canonical" href="https://www.easychief.fr/">
+
+  <!-- Données structurées recommandées (WebSite + Organization) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Easy Chief",
+    "url": "https://www.easychief.fr/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.easychief.fr/recherche?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Easy Chief",
+      "url": "https://www.easychief.fr/"
+    }
+  }
+  </script>
+
+
+  <!-- Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================== Variables & reset ================== */
+    :root{
+      --bg:#000;                 /* fond de secours noir (si l’image charge lentement) */
+      --fg:#222223;
+      --muted:#29292a;
+      --accent:#e51313;
+      --border:#e5e7eb;
+      --nav-h:64px;              /* hauteur visuelle de la barre de navigation */
+       --pad-x: clamp(16px, 6vw, 74px);   /* marge horizontale globale des sections full width */
+  --col-pad: clamp(16px, 2vw, 24px); /* marge interne identique pour les 3 colonnes */
+    }
+    *{ box-sizing:border-box }
+    html, body { margin:0; height:100% }
+body {
+  font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color:var(--fg);
+  background:var(--bg);
+  padding-top: var(--nav-h);   /* décale tout le contenu sous la nav FIXE */
+}
+
+
+/* ================== NAV (blanc, FIXE) ================== */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+
+.nav-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  min-height:var(--nav-h);
+  padding: 12px 16px;
+}
+.brand{
+  font-weight:800; letter-spacing:.2px; font-size:1.125rem;
+  color:#111827; text-decoration:none;
+}
+.menu{ display:flex; align-items:center; gap:20px }
+.menu a{
+  text-decoration:none; color:#111827; font-weight:600;
+  padding:8px 10px; border-radius:8px;
+}
+.menu a:hover, .menu a:focus{ background:#f3f4f6; outline:none }
+.menu a.active{ color:var(--accent) }
+
+.toggle{
+  display:none;
+  background:transparent; border:1px solid var(--border);
+  color:#111827;
+  padding:8px 10px; border-radius:8px; cursor:pointer;
+}
+.toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
+
+.menu-mobile{
+  display:none; flex-direction:column; gap:6px;
+  padding:8px 16px 16px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.menu-mobile a{
+  text-decoration:none; color:#111827; font-weight:600;
+  padding:10px 12px; border-radius:8px;
+}
+.menu-mobile a:hover, .menu-mobile a:focus{ background:#f3f4f6; outline:none }
+
+@media (max-width:720px){
+  .menu{ display:none }
+  .toggle{ display:inline-flex; align-items:center; gap:8px }
+}
+
+    /* ================== HERO plein écran ================== */
+    main{ /* pas de max-width ici : l’image doit couvrir tout l’écran */
+      margin:0; padding:0;
+    }
+
+.hero{
+  position:relative;
+  min-height:100dvh;
+  display:grid; place-items:center;
+  text-align:center; color:#fff;
+  padding: 24px 16px 48px;      /* nav déjà compensée par body{padding-top} */
+  background:
+    url("images/BG_WEB-1.png") center/cover no-repeat;
+}
+
+
+    /* Optionnel : voile léger pour lisibilité (désactiver si inutile) */
+    /* .hero::before{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.18); z-index:0; }
+       .hero-inner{ position:relative; z-index:1; } */
+
+    .hero-inner{ max-width:900px; margin:0 auto; }
+
+    h1{ margin:0 0 12px }
+    p{ color:var(--muted); line-height:1.6 }   /* règle générale */
+    .hero p{ color:#fff }                      /* forcer le blanc dans le hero */
+
+    .hero h1{
+      font-size: clamp(22px, 4.5vw, 36px);
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+
+    .cta-row{
+      display:flex; align-items:center; justify-content:center;
+      gap:16px; flex-wrap:wrap; margin-top:12px;
+    }
+    .store-badge{
+      display:inline-block; line-height:0; border-radius:12px; overflow:hidden;
+      box-shadow:0 2px 12px rgba(0,0,0,.35);
+    }
+    .tagline{
+      margin-top:20px;
+      font-size:clamp(12px, 2.5vw, 18px);
+      color:#e5e7eb;
+    }
+
+/*SECTION 2--------------------------------------------------------------------*/
+
+/* === SECTION 3 COLONNES — fond noir, full-bleed === */
+.section-black {
+  background: #000;     /* aucun max-width ici : le fond couvre tout l'écran */
+  color: #fff;
+  width: 100%;
+}
+
+/* Grille pleine largeur, 3 colonnes égales */
+.section-black .grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  padding: 64px 74px;   /* respirations sur les bords */
+  align-items: start;
+}
+
+/* Chaque colonne centre son contenu (texte + images) */
+.section-black .grid3 > .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centre horizontalement les éléments */
+  text-align: center;    /* centre le texte */
+}
+
+/* Texte lisible sur fond noir */
+.section-black p {
+  margin: 0;
+  line-height: 1.65;
+  color: #e5e7eb;
+}
+
+/* Images responsive et centrées */
+.section-black img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;      /* optionnel */
+}
+
+/* Variante : limiter un peu la largeur visuelle dans chaque colonne (optionnel)
+.section-black .col > * { max-width: 560px; } */
+
+/* Responsive : passe en 1 colonne sur écrans étroits */
+@media (max-width: 960px) {
+  .section-black .grid3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Chaque colonne centre son contenu, texte par défaut centré */
+.section-black .grid3 > .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centre horizontalement le bloc dans la colonne */
+  text-align: center;    /* texte centré par défaut */
+}
+
+/* Colonne GAUCHE : texte aligné à gauche, mais bloc toujours centré */
+.section-black .grid3 > .col.left {
+  text-align: left;      /* aligne le texte à gauche */
+}
+/* Optionnel : limite confortable de largeur du texte et centre ce bloc */
+.section-black .grid3 > .col.left > * {
+  max-width: 720px;      /* ajuste si tu veux plus/moins large */
+  width: 100%;
+}
+
+/* Image de DROITE beaucoup plus petite */
+.section-black .icon-small {
+  width: 140px;          /* ajuste 100–160px selon ton goût */
+  height: auto;
+  display: block;
+}
+
+/*SECTION 3--------------------------------------------------------------------*/
+
+/* === SECTION 3 COLONNES — fond blanc, full-bleed === */
+.section-white {
+  background: #fff;
+  color: #111827;
+  width: 100%;
+  border-top: 1px solid #e5e7eb; /* léger séparateur avec la section au-dessus */
+}
+
+/* Titre de section : centré, responsive */
+.section-white .section-title {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 24px 8px;
+  text-align: center;
+}
+.section-white .section-title h2 {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 3vw, 32px); /* proche de ce qu’on a fait */
+  font-weight: 700;
+}
+.section-white .section-title p {
+  margin: 0 auto;
+  color: #6b7280; /* gris lisible */
+  font-size: clamp(16px, 2.2vw, 18px);
+  line-height: 1.7;
+  max-width: 820px;       /* lisibilité du chapo */
+}
+
+/* Grille 3 colonnes pleine largeur */
+.section-white .grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  padding: 32px 24px 64px;  /* respiration */
+  align-items: start;
+}
+
+/* Colonnes : bloc centré dans la colonne */
+.section-white .grid3 > .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* centre le bloc dans la colonne */
+  text-align: center;   /* par défaut, texte centré */
+}
+
+/* Variante “texte aligné à gauche mais bloc centré” */
+.section-white .grid3 > .col.left {
+  text-align: left;
+}
+/* Limite confortable de largeur pour les blocs de texte */
+.section-white .grid3 > .col.left > *,
+.section-white .grid3 > .col.middle > * {
+  max-width: 720px;
+  width: 100%;
+}
+
+/* Typo paragraphe de section blanche */
+.section-white p {
+  margin: 0;
+  font-size: clamp(16px, 2.2vw, 18px);
+  line-height: 1.7;
+  color: #374151; /* un peu plus foncé pour lecture */
+}
+
+/* Images responsives et centrées */
+.section-white img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;     /* cohérence visuelle */
+}
+
+/* Utilitaire : petite image (ex: icône) */
+.img-sm { width: 120px; height: auto; }
+
+/* Responsive : 1 colonne sur petits écrans */
+@media (max-width: 960px) {
+  .section-white .grid3 { grid-template-columns: 1fr; }
+  .section-white .section-title { padding: 40px 16px 8px; }
+  .section-white .grid3 { padding: 24px 16px 48px; }
+}
+
+/* Indentation cohérente entre sections (modifiable en un seul endroit) */
+:root { --left-indent: clamp(16px, 2vw, 24px); }
+
+/* Section blanche : bloc centré dans la colonne, texte aligné à gauche + léger retrait */
+.section-white .grid3 > .col.left {
+  align-items: center;   /* le bloc reste centré dans la colonne */
+  text-align: left;      /* mais le texte est aligné à gauche */
+}
+.section-white .grid3 > .col.left .inner {
+  max-width: 720px;      /* même logique que la section noire */
+  width: 100%;
+  padding-left: var(--left-indent); /* léger décalage du bord gauche */
+}
+
+/* (Optionnel) Faire pareil dans la section noire pour un alignement parfait */
+.section-black .grid3 > .col.left .inner {
+  max-width: 720px;
+  width: 100%;
+  padding-left: var(--left-indent);
+}
+
+/*SECTION 4--------------------------------------------------------------------*/
+
+/* === SECTION 2 COLONNES — fond blanc, full-bleed === */
+.section-white-2col {
+  background: #fff;
+  color: #111827;
+  width: 100%;
+  border-top: 1px solid #e5e7eb; /* cohérence visuelle */
+}
+
+/* Grille 2 colonnes pleine largeur */
+.section-white-2col .grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  padding: 48px 24px 64px;
+  align-items: stretch; /* pour pouvoir centrer verticalement la droite */
+}
+
+/* Colonnes */
+.section-white-2col .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centre le bloc dans la colonne */
+  text-align: center;    /* par défaut */
+}
+
+/* Colonne gauche : texte à gauche avec le même retrait que la section noire */
+:root { --left-indent: clamp(16px, 2vw, 24px); } /* si pas déjà défini */
+.section-white-2col .col.left .inner {
+  max-width: 720px;
+  width: 100%;
+  padding-left: var(--left-indent);
+  text-align: left;
+}
+
+/* Pile d'images avec espace réglable */
+.section-white-2col .stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap, 16px); /* ← règle l'espacement entre les 2 images */
+}
+.section-white-2col img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Colonne droite : centrer le texte au milieu de la page/colonne */
+.section-white-2col .col.right {
+  justify-content: center; /* centre verticalement */
+  text-align: center;
+}
+.section-white-2col .col.right .inner {
+  max-width: 720px;
+  width: 100%;
+}
+
+/* Typo (mêmes tailles que section blanche précédente) */
+.section-white-2col h2 { 
+  margin: 0 0 12px; 
+  font-size: clamp(22px, 3vw, 32px); 
+  font-weight: 700; 
+}
+.section-white-2col p { 
+  margin: 0; 
+  font-size: clamp(16px, 2.2vw, 18px); 
+  line-height: 1.7; 
+  color: #374151; 
+}
+
+/* Responsive : une seule colonne sur mobile */
+@media (max-width: 960px) {
+  .section-white-2col .grid2 { grid-template-columns: 1fr; }
+}
+
+/* Centre VERTICALEMENT le contenu d'une colonne .col */
+.vcenter { justify-content: center; }
+
+/* === SECTION 6 — fond image plein écran, carte noire à gauche === */
+.section-bg-hero {
+  width: 100%;
+  color: #fff;
+  background: url("images/BG_WEB-FF.png") center/cover no-repeat; /* ← ton image */
+}
+
+/* Grille 2 colonnes, même respiration latérale que la section noire (64px 74px) */
+.section-bg-hero .wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 64px 74px;
+  min-height: 80dvh;           /* occupe bien la page, ajuste si tu veux */
+  align-items: center;         /* centre verticalement le contenu des colonnes */
+}
+
+/* Colonne gauche : bloc centré, texte aligné à gauche avec le même retrait */
+.section-bg-hero .left {
+  display: flex;
+  justify-content: center;     /* centre horizontalement le cadre dans la moitié gauche */
+}
+.section-bg-hero .card {
+  background: rgba(0,0,0,.85); /* cadre noir (légèrement translucide) */
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.35);
+  padding: 24px 20px;
+  max-width: 720px;            /* cohérent avec tes autres sections */
+  width: 100%;
+}
+.section-bg-hero .card .inner {
+  padding-left: var(--left-indent);  /* même alignement que section noire */
+  text-align: left;
+}
+
+/* Typo des 4 lignes : même “esprit” que tes autres sections */
+.section-bg-hero .card p {
+  margin: 0 0 10px;
+  font-size: clamp(16px, 2.2vw, 18px);
+  line-height: 1.7;
+  color: #e5e7eb;
+}
+.section-bg-hero .card .title {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Colonne droite : libre pour image/vidéo (si tu veux plus tard) */
+.section-bg-hero .right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .section-bg-hero .wrap {
+    grid-template-columns: 1fr;
+    padding: 40px 16px 48px;
+    min-height: auto;
+  }
+  .section-bg-hero .card .inner {
+    padding-left: var(--left-indent);
+  }
+}
+
+
+/* === SECTION 7 — fond blanc, 2 colonnes, image gauche full-bleed (0 marge), overlap à droite === */
+.section-7 {
+  background:#fff; color:#111827; width:100%;
+  border-top:1px solid #e5e7eb;
+}
+.section-7 .wrap{
+  display:grid; grid-template-columns:1fr 1fr; gap:24px;
+  /* on supprime le padding gauche pour coller l'image au bord de la page */
+  padding:64px 74px;
+  padding-left:0;               /* ← image à gauche collée bord écran */
+  align-items:stretch;
+}
+
+/* COLONNE GAUCHE — vraie image (pas background) pour ne PAS la couper */
+.section-7 .left-pane{
+  position:relative;
+  display:block;
+  /* pas de border-radius/overflow ici, pour ne pas rogner l’image */
+}
+/* l'image s'affiche à sa taille réelle, et se réduit seulement si la colonne est trop étroite */
+.section-7 .left-pane .bg-img{
+  display:block;
+  width:auto;            /* taille réelle par défaut */
+  max-width:100%;        /* mais ne dépasse jamais la colonne (responsive) */
+  height:auto; 
+  margin:150;              /* collée au bord gauche (grâce à padding-left:0 du conteneur) */
+}
+/* overlay texte en haut, avec le même retrait gauche que tes autres sections */
+.section-7 .left-pane .overlay{
+  position:absolute;
+  top:30%;                      /* ↓ place autour du milieu vertical */
+  transform: translateY(-50%);  /* centre autour de top */
+  left: calc(var(--left-indent) + 64px); /* → décale un peu à droite */
+  right: 44px;
+  text-align:center;
+}
+
+.section-7 .left-pane .overlay h3{
+  margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; color:#111827;
+}
+.section-7 .left-pane .overlay p{
+  margin:0; font-size:clamp(16px,2.2vw,18px); line-height:1.7; color:#374151;
+}
+
+/* COLONNE DROITE — scène qui CONTIENT le chevauchement (pas de débordement inter-section) */
+.section-7 .right-pane{ display:flex; justify-content:center; align-items:center; }
+/* La scène s’adapte à la taille des images (plus de coupe) */
+.section-7 .stage{
+  display: grid;              /* superposition aisée */
+  place-items: center;
+  width: 100%;
+  max-width: 720px;
+  gap: 0;
+  border-radius: 12px;        /* optionnel */
+  overflow: visible;          /* on laisse respirer, mais le conteneur grandit de lui-même */
+}
+
+/* Image du fond : calée au centre, taille réglable inline */
+.section-7 .img-back{
+  grid-area: 1 / 1;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Image devant : même grille, chevauchement via transform */
+.section-7 .img-front{
+  grid-area: 1 / 1;
+  display: block;
+  border-radius: 12px;
+  transform: translate(var(--overlap-x, 24px), var(--overlap-y, -28px));
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+}
+/* Étire l’item de grille sur toute la hauteur de la ligne */
+.stretch { align-self: stretch; }
+
+
+/* Responsive */
+@media (max-width:960px){
+  .section-7 .wrap{ grid-template-columns:1fr; padding:40px 16px 48px; padding-left:16px; }
+  .section-7 .left-pane .overlay{ left:var(--left-indent); right:16px; }
+  .section-7 .stage{ min-height:320px; }
+}
+/* Étire un item de grille sur toute la hauteur de la ligne */
+.stretch { align-self: stretch; }
+
+/* Réduit la largeur du texte pour forcer plus de retours à la ligne */
+.narrow  { max-width: 480px; }  /* ajuste 520 / 480 si tu veux encore plus étroit */
+
+/* === SECTION 9 — Témoignages (fond blanc, 3 colonnes) === */
+.section-9 {
+  background:#fff; color:#111827; width:100%;
+  border-top:1px solid #e5e7eb;
+}
+.section-9 .wrap{
+  display:grid; grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:24px;
+  padding:64px 74px;   /* mêmes marges latérales que tes sections blanches/noires */
+  align-items:start;
+}
+
+/* Colonnes : contenu centré dans la colonne, texte aligné à gauche */
+.section-9 .col{
+  display:flex; flex-direction:column; align-items:center; text-align:left;
+}
+.section-9 .col .inner{
+  width:100%; max-width:720px; padding-left:var(--left-indent);
+}
+
+/* Cartes témoignages : blanc différent + arrondis + légère ombre */
+.section-9 .card{
+  background:#f9fafb;           /* blanc cassé pour contraster avec le fond */
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+  padding:20px 20px;
+  width:100%;
+}
+
+/* Typo */
+.section-9 h3{
+  margin:0 0 12px;
+  font-size:clamp(22px,3vw,30px);
+  font-weight:700;
+}
+.section-9 .card p{
+  margin:0;
+  font-size:clamp(15px,2.2vw,18px);
+  line-height:1.7;
+  color:#374151;
+}
+
+/* Espace entre plusieurs cartes si tu en ajoutes */
+.section-9 .stack{ display:flex; flex-direction:column; gap:16px; }
+
+/* Responsive */
+@media (max-width:960px){
+  .section-9 .wrap{ grid-template-columns:1fr; padding:40px 16px 48px; }
+  .section-9 .col .inner{ padding-left:var(--left-indent); }
+}
+
+
+/* En-tête de la section 9, pour que les cartes soient toutes au même niveau */
+.section-9 .header{
+  padding: 32px 74px 8px;      /* mêmes latéraux que le grid */
+}
+.section-9 .header h3{
+  margin: 0;
+  font-size: clamp(22px,3vw,30px);
+  font-weight: 700;
+  padding-left: var(--left-indent); /* aligné comme le reste */
+}
+
+/* Étoiles sous le nom */
+.section-9 .stars{
+  margin-top: 6px;
+  font-size: 14px;             /* ajuste si besoin */
+  line-height: 1;
+  color: #f59e0b;              /* or */
+}
+.section-9 .author{
+  margin-top: 10px;
+  font-weight: 600;
+  color: #111827;
+}
+
+
+/* === SECTION 10 — Présentation + Formulaire (fond blanc, 2 colonnes) === */
+/* === SECTION CONTACT — 3 colonnes full width, texte DARKLABS centré verticalement,
+   logo au centre, formulaire à droite (légèrement décalable si besoin) === */
+.section-contact {
+  background:#fff; color:#111827; width:100%;
+  border-top:1px solid #e5e7eb;
+}
+.section-contact .wrap{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;     /* ← 3 colonnes */
+  gap:24px;
+  width:100%; max-width:none; margin:0;   /* ← full width réel */
+  padding:64px var(--pad-x);
+  align-items:center;                      /* ← centre verticalement chaque colonne */
+}
+
+/* colonnes : même marge interne */
+.section-contact .col .inner{
+  padding-left: var(--col-pad);
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Colonne 1 (texte DARKLABS) : bloc simple, le centrage vertical est assuré par align-items:center ci-dessus */
+.section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
+.section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
+
+/* Colonne 2 (logo) : centrer l’image */
+.section-contact .logo-col .inner{
+  display:flex; justify-content:center; align-items:center;
+}
+.section-contact .logo-col img{
+  max-width: clamp(140px, 26vw, 260px);
+  height:auto; display:block;
+}
+
+/* Colonne 3 (formulaire) */
+.section-contact .form-card {
+  background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
+  max-width: 720px; width:100%;
+}
+.section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
+.section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
+.section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.section-contact input, .section-contact textarea {
+  width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
+}
+.section-contact textarea { min-height: 120px; resize: vertical; }
+.section-contact button[type="submit"] {
+  margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
+  background:#111827; color:#fff; font-weight:700;
+}
+.section-contact button[type="submit"]:hover { opacity:.92; }
+
+/* Mobile : empiler en 1 colonne */
+@media (max-width: 960px){
+  .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
+  .section-contact .col .inner{ padding-left: var(--col-pad); }
+}
+
+
+
+/* === FOOTER minime (identique index) === */
+.site-footer{
+  background:#fff;
+  border-top:1px solid #e5e7eb;
+}
+.site-footer .footer-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px 26px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  font-size:14px;
+}
+.site-footer a{ color:#111827; text-decoration:none; }
+.site-footer a:hover, .site-footer a:focus{ text-decoration:underline; outline:none; }
+
+
+
+
+
+
+/* === FOOTER minime === */
+.site-footer{
+  background:#fff;
+  border-top:1px solid #e5e7eb;
+}
+.site-footer .footer-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px 26px;           /* bande fine */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;                     /* espace entre liens */
+  font-size:14px;
+}
+.site-footer a{
+  color:#111827;
+  text-decoration:none;
+}
+.site-footer a:hover,
+.site-footer a:focus{
+  text-decoration:underline;
+  outline:none;
+}
+
+/* Option: sur fond sombre, inverse les couleurs
+.site-footer.dark{ background:#000; border-top:1px solid #111; }
+.site-footer.dark a{ color:#e5e7eb; } */
+
+
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">Easy Chief</a>
+
+      <div class="menu" role="menubar" aria-label="Liens principaux">
+        <a href="index.html" role="menuitem">Accueil</a>
+        <a href="fonction.html" role="menuitem">Fonctions</a>
+        <a href="tarif.html" role="menuitem">Tarifs</a>
+
+        <a href="apropos.html" role="menuitem">À propos</a>
+      </div>
+
+      <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Menu
+      </button>
+    </div>
+
+    <div class="menu-mobile" id="menuMobile">
+      <a href="index.html">Accueil</a>
+      <a href="fonction.html">Fonctions</a>
+      <a href="tarif.html">Tarifs</a>
+
+      <a href="apropos.html">À propos</a>
+    </div>
+  </nav>
+
+  <!-- HERO plein écran -->
+  <main>
+    <section class="hero" aria-label="Section de présentation">
+      <div class="hero-inner">
+        <h1>Une nouvelle ère pour les sapeurs-pompiers</h1>
+
+        <br><br><br>
+
+<div aria-label="Actions principales">
+  <p style="margin:0;font-size:clamp(16px,3vw,22px);font-weight:600;">
+    <a href="fonction.html" style="color:inherit;text-decoration:underline;">Découvrez</a> !
+  </p>
+  <p style="margin:.25rem 0 0;font-size:clamp(16px,3vw,22px);font-weight:600;">Téléchargez dès maintenant.</p>
+</div>
+
+
+        <div class="cta-row" style="margin-top:16px;">
+          <a class="store-badge" href="#" target="_blank" rel="noopener" aria-label="Télécharger sur l’App Store">
+            <img src="images/appstore.png" alt="Download on the App Store" loading="lazy" decoding="async" width="180" height="54" />
+          </a>
+          <a class="store-badge" href="#" target="_blank" rel="noopener" aria-label="Télécharger sur Google Play">
+            <img src="images/googlestore.png" alt="Get it on Google Play" loading="lazy" decoding="async" width="200" height="60" />
+          </a>
+        </div>
+
+        <p class="tagline">Sur intervention, zéro hésitation, Easychief te guide, tu conduis l'action.</p>
+      </div>
+    </section>
+
+
+<!-- SECTION 2 : 3 COLONNES (fond noir) -->
+<section class="section-black" aria-label="Présentation en trois colonnes">
+  <div class="grid3"style="margin-top:44px;">
+    <!-- Colonne gauche : TEXTE (aligné à gauche, bloc centré) -->
+    <div class="col left">
+      <br><br><br>
+      <h2 style="margin:0 0 12px;">VISION</h2>
+  <p style="font-size:26px; line-height:1.6;">
+  Enfin un bundle d’<a href="fonction.html" style="color:#e5e7eb;text-decoration:underline;">outils opérationnels</a> et fonctionnels au sein d’une seule application.
+</p>
+
+    <br>
+<p>
+  Notre application est conçue pour répondre à vos besoins spécifiques en tant que sapeur-pompier. Elle offre une multitude de fonctionnalités pour vous accompagner lors de vos interventions. <a href="fonction.html" style="color:#e5e7eb;text-decoration:underline;">Personnalisez-la</a> selon vos préférences pour une expérience optimale.
+</p>
+
+    </div>
+
+    <!-- Colonne milieu : IMAGE -->
+    <div class="col">
+        
+      <img src="images/iphone_expo.png" alt="Illustration centrale Easy Chief" loading="lazy" decoding="async">
+    </div>
+
+    <!-- Colonne droite : IMAGE (petite) + TEXTE -->
+    <div class="col" style="margin-top:124px;">
+      <img class="icon-small" src="images/icons/icon_expo.png" alt="Icône Easy Chief - module Expo"loading="lazy" decoding="async">
+      
+      <p style="margin-top:12px; font-size:20px; line-height:1.6;">
+        Exclusif : Easy Chief inclut votre carnet personnel aux expositions, saisissez vos interventions à risques en quelques secondes et exportez-les en différents formats si besoin. Easy Chief sauvegarde pour vous et facilite la gestion de ces nouvelles obligations.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION 3 : 3 COLONNES — FOND BLANC -->
+<section class="section-white" aria-label="Présentation blanche en trois colonnes">
+  <!-- Titre centré au-dessus des colonnes -->
+  <div class="section-title">
+    <h2>Un écosystème pensé pour l’intervention</h2>
+    <p>
+      Des outils clairs, une logique d’usage sur le terrain, et une expérience
+      qui s’adapte à vos besoins. Découvrez comment Easy Chief accompagne chaque étape.
+    </p>
+  </div>
+
+  <!-- Grille 3 colonnes -->
+<div class="grid3" style="min-height:520px;">
+
+    <!-- Colonne gauche : bloc centré, texte aligné à gauche -->
+  <div class="col left">
+  <div class="inner">
+    <h3 style="margin:0 0 12px; font-size:clamp(26px,2.6vw,26px); font-weight:700;">
+       FICHES RÉFLEXES
+      </h3>
+<p>
+  <a href="fonction.html" style="color:#111827;text-decoration:underline;">Créez vos fiches réflexes</a>, organisez l’affichage par « drag and drop », utilisez la fonction « lecture à voix haute » pour vous remémorer des points particuliers.
+</p>
+
+    </div>
+ </div>
+    <!-- Colonne milieu : image + texte, bloc centré, texte aligné à gauche -->
+    <div class="col middle">
+      <!-- Remplace l'image par la tienne -->
+      <img src="images/icons/icon_stockage.png" alt="Aperçu des fonctionnalités Easy Chief" loading="lazy" decoding="async" style="width:clamp(160px,45vw,60px);height:auto;">
+      <p style="margin-top:12px;">
+     Chef d'agrès, chef de groupe, vous avez besoin d'outils vous correspondant, c'est pourquoi Easy Chief intègre la personnalisation et augmente l'expérience utilisateur.
+      </p>
+<br>
+
+<p>Créer vos Fiches réflexes, organisez les rubriques via "Drag and Drop". Appuyez sur le bouton "Speaker" et laissez l'application lire vos données pour vous.</p>
+
+<br>
+<p><a href="fonction.html" style="color:#111827;text-decoration:underline;">Exportez vos fiches</a>, échangez avec celles de vos collègues et augmentez votre base de données.</p>
+
+
+    </div>
+
+    <!-- Colonne droite : image centrée -->
+    <div class="col">
+      <!-- Exemple d’icône plus petite centrée -->
+      <img class="img-sm" src="images/iphone_fiches.png" alt="Icône de module Easy Chief" loading="lazy" decoding="async"style="width:clamp(160px,22vw,280px);height:auto;">
+    </div>
+  </div>
+</section>
+
+
+
+<!-- SECTION 4 — 2 COLONNES -->
+<section class="section-white-2col" aria-label="Section deux colonnes">
+  <div class="grid2">
+    
+    <!-- Colonne GAUCHE : 2 images empilées + (optionnel) texte -->
+    <div class="col left">
+      <div class="inner">
+        <div class="stack" style="--stack-gap: 20px;"> <!-- ajuste l'espace ici -->
+          <img src="images/icons/icon_oct.png" alt="Capture d’écran supérieure" loading="lazy" decoding="async"style="width:clamp(160px,45vw,260px);height:auto;display:block;">
+          <img src="images/iphone_oct.png" alt="Capture d’écran inférieure"loading="lazy" decoding="async">
+        </div>
+
+        <!-- (Optionnel) texte sous les images -->
+        <!-- <p style="margin-top:12px;">Un petit descriptif…</p> -->
+      </div>
+    </div>
+
+    <!-- Colonne DROITE : texte centré au milieu -->
+    <div class="col right">
+      <div class="inner">
+         <h2 style="margin:20 0 42px; font-size:clamp(42px,3vw,42px); font-weight:700;">INFOS EN TEMPS RÉEL</h2>
+  <p>
+  Par SMS, mail ou via un <a href="fonction.html" style="color:#111827;text-decoration:underline;">export PDF</a>, partagez les données non soumises au RGPD facilement. (OCT, messages d’intervention…)
+</p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- SECTION 5 : 3 COLONNES (fond noir) -->
+<section class="section-black" aria-label="Section noire 3 colonnes">
+  <div class="grid3">
+    <!-- Colonne GAUCHE : texte aligné à gauche, bloc centré au milieu -->
+    <div class="col left vcenter">
+      <div class="inner">
+        <h2 style="margin:20 0 42px; font-size:clamp(42px,3vw,42px); font-weight:700;">
+          PERCEPTION ACTIVÉE
+        </h2>
+  <p style="font-size:clamp(16px,2.2vw,18px); line-height:1.7;">
+  L’<a href="fonction.html" style="color:#e5e7eb;text-decoration:underline;">outil SITAC</a> vous permet de décrire rapidement votre dispositif et d’anticiper la montée en puissance de l’intervention. Intuitif, simple et performant, il gère le drag and drop, le redimensionnement « pinch » sur tablette et une barre d’outils adaptée aux petits écrans. Easy Chief est pensé pour tous !
+</p>
+
+<br><br><br><br>
+
+   <h2 style="margin:10 0 32px; font-size:clamp(42px,3vw,42px); font-weight:700;">
+          Le terrain change, ta trajectoire reste nette 
+        </h2>
+
+
+      </div>
+    </div>
+
+    <!-- Colonne MILIEU : image (taille modifiable en inline) -->
+    <div class="col vcenter">
+      <!-- Ajuste la taille ici : min / fluide / max -->
+      <img src="images/icons/icon_sitac.png" alt="Visuel central"loading="lazy" decoding="async"
+           style="width:clamp(120px,38vw,320px);height:auto;display:block;border-radius:12px;">
+    </div>
+
+    <!-- Colonne DROITE : image (taille modifiable en inline) -->
+    <div class="col vcenter">
+      <!-- Ajuste la taille ici : min / fluide / max -->
+      <img src="images/Ipad_sitac.png" alt="Visuel droit"loading="lazy" decoding="async"
+           style="width:clamp(160px,26vw,460px);height:auto;display:block;border-radius:12px;">
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — fond image + cadre noir à gauche -->
+<section class="section-bg-hero" aria-label="Section fond image et encart texte">
+  <div class="wrap">
+    
+    <!-- Moitié GAUCHE : cadre noir arrondi avec 4 lignes -->
+    <div class="left">
+      <div class="card">
+        <div class="inner">
+          <h2 class="title">Notre engagement</h2>
+          <p>Convaincus que chaque sapeur-pompier mérite le meilleur, nous nous engageons à fournir une application qui évolue avec vos besoins et vos défis.</p>
+          <p>Nous sommes déterminés à soutenir la communauté des sapeurs-pompiers en proposant une solution innovante, flexible et adaptée à la réalité de notre métier. 
+</p>
+          <p>Nous serons à l’écoute de vos retours et bâtirons tous ensemble Easy Chief V2 ; découvrez les <a href="fonction.html" style="color:#e5e7eb;text-decoration:underline;">fonctions clés</a>.</p>
+
+  
+        </div>
+      </div>
+    </div>
+
+    <!-- Moitié DROITE (optionnelle) : tu peux y mettre une image, ou laisser vide -->
+    <div class="right">
+      <!-- Exemple (facultatif) : 
+      <img src="images/visuel-section6.png" alt="Illustration" 
+           style="width:clamp(220px,38vw,520px);height:auto;display:block;border-radius:12px;">
+      -->
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- SECTION 7 — 2 colonnes (fond blanc, image gauche collée, overlap à droite) -->
+<section class="section-7" aria-label="Section blanche avec image à gauche et chevauchement d’images à droite">
+  <div class="wrap">
+
+    <!-- COLONNE GAUCHE : image collée à gauche, taille réelle (réduction seulement si nécessaire) + texte en haut -->
+    <div class="left-pane">
+      <img class="bg-img" src="images/BG_WEB-HAND.png" alt="Visuel main"loading="lazy" decoding="async">
+      <div class="overlay">
+        <h3>Easy Chief</h3>
+ <p>Le terrain devient lisible. <a href="fonction.html" style="color:#111827;text-decoration:underline;">Ta mission, imparable</a>. </p>
+
+      </div>
+    </div>
+
+    <!-- COLONNE DROITE : 2 images qui se chevauchent, contenues dans la section -->
+    <div class="right-pane">
+<div class="stage" style="--overlap-x: -200px; --overlap-y: -130px;">
+
+        <!-- Grande image en arrière-plan (taille modifiable inline) -->
+        <img class="img-back" src="images/iphone_explo.png" alt="Aperçu large"loading="lazy" decoding="async"
+             style="width:clamp(140px,24vw,320px);height:auto;">
+        <!-- Petite image devant (taille modifiable inline) -->
+        <img class="img-front" src="images/iphone_vict.png" alt="Aperçu superposé"loading="lazy" decoding="async"
+             style="width:clamp(140px,24vw,220px);height:auto;">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 8 : 3 COLONNES (fond noir) -->
+<section class="section-black" aria-label="Section noire 3 colonnes — Wind / Loca / Texte">
+  <div class="grid3">
+    
+    <!-- Colonne GAUCHE : image centrée -->
+    <div class="col vcenter">
+      <img src="images/iphone_wind.png" alt="Aperçu module vent"loading="lazy" decoding="async"
+           style="width:clamp(160px,28vw,320px);height:auto;display:block;border-radius:12px;">
+    </div>
+
+    <!-- Colonne MILIEU : image centrée -->
+<div class="col vcenter stretch">
+  <img src="images/icons/icon_loca.png" alt="Icône localisation"loading="lazy" decoding="async"
+       style="width:clamp(120px,40vw,420px);height:auto;display:block;border-radius:12px;">
+</div>
+
+    <!-- Colonne DROITE : texte centré verticalement, aligné à gauche -->
+  <div class="col left vcenter stretch">
+      <div class="inner narrow" style="max-width:350px;">
+        <h2 style="margin:0 0 12px; font-size:clamp(22px,3vw,32px); font-weight:700;">
+         EASY
+        </h2>
+         <h2 style="margin:0 0 12px; font-size:clamp(22px,3vw,32px); font-weight:700;">
+   CHIEF 360°
+        </h2>
+        <p style="font-size:clamp(16px,2.2vw,26px); line-height:1.7;">
+     L’orientation sans doute, la décision sans délai. 
+        </p>
+<br>
+<p style="font-size:clamp(16px,2.2vw,18px); line-height:1.7;">
+  Calque DFCI, recherche de coordonnées (GPS et DFCI), visualisation des points d’eau, héliports, stades, direction du vent, obstacles aériens… <a href="fonction.html" style="color:#e5e7eb;text-decoration:underline;">Easy Chief</a> vous aide à trouver rapidement ce que vous cherchez via les données Open Data.
+</p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SECTION 9 — Témoignages -->
+<section class="section-9" aria-label="Témoignages utilisateurs">
+
+  <!-- Titre plein-largeur (n'influence pas l'alignement des cartes) -->
+  <div class="header">
+    <h3>Témoignages</h3>
+  </div>
+
+  <div class="wrap">
+    <!-- Colonne GAUCHE : carte témoignage -->
+    <div class="col">
+      <div class="inner">
+        <div class="stack">
+          <div class="card">
+  <p>
+  « L’application <a href="fonction.html" style="color:#111827;text-decoration:underline;">Easy Chief</a> offre une simplicité et une efficacité inégalées à ce jour. Tous mes besoins regroupés au même endroit ! Le rêve ! »
+</p>
+
+            <div class="author">Benjamin R.</div>
+            <div class="stars" aria-label="5 sur 5">★★★★★</div>
+          </div>
+
+          <!-- (Optionnel) Ajoute d’autres cartes ici
+          <div class="card"><p>…</p></div>
+          -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne MILIEU : carte témoignage -->
+    <div class="col">
+      <div class="inner">
+        <div class="stack">
+   <div class="card">
+  <p>
+    « Les calques et la SITAC sont impeccables en opération.
+    L’ergonomie sur tablette fait gagner un temps précieux. »
+  </p>
+  <div class="author">Sophie L.</div>
+  <div class="stars" aria-label="5 sur 5">★★★★★</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne DROITE : carte témoignage -->
+    <div class="col">
+      <div class="inner">
+        <div class="stack">
+        <div class="card">
+  <p>
+    « La personnalisation est un vrai plus : nos fiches, nos repères,
+    notre méthode. On reste focus sur l’essentiel. »
+  </p>
+  <div class="author">Marie M.</div>
+  <div class="stars" aria-label="5 sur 5">★★★★★</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 10 — Présentation DARKLABS + Formulaire de contact -->
+<section class="section-contact" aria-label="Présentation et contact">
+  <div class="wrap">
+
+    <!-- Colonne 1 : texte DARKLABS -->
+    <div class="col brand-col">
+      <div class="inner">
+        <div class="brand-text">
+          <h3>DARKLABS</h3>
+          <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+             au service des sapeurs-pompiers.</p>
+          <p>www.darklabs.fr</p>
+          <p>contact@darklabs.fr</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne 2 : logo centré -->
+    <div class="col logo-col">
+      <div class="inner">
+        <img src="images/Darklabs.png" alt="Logo DARKLABS"loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- Colonne 3 : formulaire -->
+    <div class="col form-col">
+      <div class="inner">
+        <div class="form-card">
+          <h3>Nous contacter</h3>
+          <form id="contactForm">
+            <div class="row-2">
+              <div>
+                <label for="nom">Nom</label>
+                <input id="nom" name="nom" type="text" required>
+              </div>
+              <div>
+                <label for="prenom">Prénom</label>
+                <input id="prenom" name="prenom" type="text" required>
+              </div>
+            </div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Envoyer</button>
+          </form>
+          <p style="margin-top:8px; font-size:12px; color:#6b7280;">
+            L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+  </main>
+
+  <script>
+    // Toggle du menu mobile
+    const btn = document.getElementById('navToggle');
+    const panel = document.getElementById('menuMobile');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const open = panel.style.display === 'block';
+        panel.style.display = open ? 'none' : 'block';
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+      panel.addEventListener('click', e => {
+        if (e.target.tagName === 'A') {
+          panel.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Surligne l'onglet actif selon le fichier
+(function highlightActive() {
+  const path = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
+    const href = a.getAttribute('href');
+    if (href === path || (path === '' && href === 'index.html')) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
+})();
+
+  </script>
+
+
+<!-- FOOTER -->
+<footer class="site-footer" aria-label="Pied de page">
+  <div class="footer-inner">
+    <a href="politique-confidentialite.html">Politique de confidentialité</a>
+    <span aria-hidden="true">•</span>
+    <a href="politique-cookies.html">Politique de cookies</a>
+    <span aria-hidden="true">•</span>
+    <a href="mentions-legales.html">Mentions légales</a>
+             <span aria-hidden="true">•</span>
+      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+  </div>
+</footer>
+
+</body>
+</html>

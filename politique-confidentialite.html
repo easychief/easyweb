@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Easy Chief — Politique de confidentialité</title>
+
+  <!-- Police Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fff;
+      --fg:#111827;
+      --muted:#6b7280;
+      --accent:#e51313;
+      --accent-orange:#f59e0b;
+      --border:#e5e7eb;
+      --nav-h:64px;
+      --container-w:1100px;
+      --left-indent: clamp(16px, 2vw, 24px);
+      --pad-x: clamp(16px, 6vw, 74px);
+      --col-pad: clamp(16px, 2vw, 24px); /* marge interne identique pour les 3 colonnes */
+    }
+    *{ box-sizing:border-box }
+    html,body{ margin:0 }
+    body{
+      font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--fg);
+      background:var(--bg);
+    }
+
+    /* NAV */
+    .nav{ position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--border) }
+    .nav-inner{
+      max-width:var(--container-w); margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      min-height:var(--nav-h); padding:12px 16px;
+    }
+    .brand{ font-weight:800; letter-spacing:.2px; font-size:1.125rem; color:var(--fg); text-decoration:none }
+    .menu{ display:flex; align-items:center; gap:20px }
+    .menu a{ text-decoration:none; color:var(--fg); font-weight:600; padding:8px 10px; border-radius:8px }
+    .menu a:hover,.menu a:focus{ background:#f3f4f6; outline:none }
+    .menu a.active{ color:var(--accent) }
+    .toggle{ display:none; background:transparent; border:1px solid var(--border); padding:8px 10px; border-radius:8px; cursor:pointer }
+    .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
+    .menu-mobile{ display:none; flex-direction:column; gap:6px; padding:8px 16px 16px; border-bottom:1px solid var(--border) }
+    .menu-mobile a{ text-decoration:none; color:var(--fg); font-weight:600; padding:10px 12px; border-radius:8px }
+    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f3f4f6; outline:none }
+    @media (max-width:720px){ .menu{ display:none } .toggle{ display:inline-flex; align-items:center; gap:8px } }
+
+    /* SECTION POLITIQUE — centrée, lisible */
+    main{ padding:24px 0 72px }
+    .container{ max-width:var(--container-w); margin:0 auto; padding:24px 16px; }
+
+    .page-title{
+      text-align:center;
+      margin: calc(var(--nav-h) + 12px) 0 12px;
+    }
+    .page-title h1{
+      margin:0 0 6px;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight:800; letter-spacing:.2px;
+      text-transform:uppercase;
+    }
+    .page-title p{ margin:0; color:var(--muted); font-size:clamp(14px,2vw,16px) }
+
+    .policy{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      padding: clamp(16px, 3vw, 28px);
+    }
+    .policy h2{
+      margin:22px 0 8px;
+      font-size: clamp(18px, 2.8vw, 24px);
+      font-weight:800;
+    }
+    .policy p{
+      margin:8px 0;
+      color:#374151;
+      line-height:1.75;
+      font-size: clamp(14px, 2.2vw, 16px);
+    }
+    .policy ul{ margin:8px 0 8px 1.2em; padding:0; }
+    .policy li{ margin:4px 0; }
+    .policy a{ color:#1d4ed8; text-decoration:underline; }
+    .policy .meta{ color:#6b7280; font-size:14px; }
+    .policy .orange{ color: var(--accent-orange); font-weight:700; }
+
+    /* === CONTACT — 3 colonnes full width === */
+    .section-contact {
+      background:#fff; color:#111827; width:100%;
+      border-top:1px solid #e5e7eb;
+    }
+    .section-contact .wrap{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;   /* ← 3 colonnes */
+      gap:24px;
+      width:100%; max-width:none; margin:0;
+      padding:64px var(--pad-x);
+  align-items:stretch; 
+    }
+    /* mêmes marges internes pour chaque colonne */
+    .section-contact .col .inner{
+      padding-left: var(--col-pad);
+      max-width: 900px; width: 100%;
+    }
+
+    /* Colonne gauche : texte */
+    .section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
+    .section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
+    /* Centrage vertical de la colonne texte DARKLABS */
+.section-contact .brand-col{
+  display:flex;              /* la colonne devient un conteneur flex */
+  flex-direction:column;  
+}
+.section-contact .brand-col .inner{
+  margin:auto 0;             /* centre verticalement le bloc .inner */
+}
+
+.section-contact .brand-col { align-items:center; } /* optionnel */
+
+
+    /* Colonne milieu : logo centré */
+    .section-contact .logo-col .inner{
+      display:flex; justify-content:center; align-items:center;
+    }
+    .section-contact .logo-col img{
+      max-width: clamp(140px, 26vw, 260px);
+      height:auto; display:block;
+    }
+
+    /* Colonne droite : formulaire */
+    .section-contact .form-card {
+      background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
+      box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
+      max-width: 720px; width:100%;
+    }
+    .section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
+    .section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
+    .section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .section-contact input, .section-contact textarea {
+      width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
+    }
+    .section-contact textarea { min-height: 120px; resize: vertical; }
+    .section-contact button[type="submit"] {
+      margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
+      background:#111827; color:#fff; font-weight:700;
+    }
+    .section-contact button[type="submit"]:hover { opacity:.92; }
+
+    @media (max-width: 960px){
+      .section-contact .wrap {
+        grid-template-columns: 1fr;           /* 1 colonne sur mobile */
+        padding:40px var(--pad-x) 48px;
+      }
+      .section-contact .col .inner{ padding-left: var(--col-pad); }
+    }
+/* === CONTACT : centrer verticalement chaque colonne par rapport à la plus haute (image) === */
+.section-contact .wrap{
+  align-items: center;   /* ← chaque item du grid est centré verticalement */
+}
+
+/* La colonne texte (gauche) redevient un bloc normal (pas de flex) */
+.section-contact .brand-col{
+  display: block;
+}
+.section-contact .brand-col .inner{
+  margin: 0;             /* on annule le margin:auto 0 */
+}
+
+/* Optionnel : s'assurer que chaque colonne suit le centrage vertical */
+.section-contact .col{
+  align-self: center;
+}
+
+/* Mobile : on revient à un flux normal (1 colonne empilée) */
+@media (max-width: 960px){
+  .section-contact .wrap{
+    align-items: start;
+  }
+}
+
+
+    /* FOOTER */
+    .site-footer{
+      background:#fff; border-top:1px solid #e5e7eb;
+    }
+    .site-footer .footer-inner{
+      max-width:1100px; margin:0 auto; padding:20px 26px;
+      display:flex; justify-content:center; align-items:center; gap:18px; font-size:14px;
+    }
+    .site-footer a{ color:#111827; text-decoration:none; }
+    .site-footer a:hover,.site-footer a:focus{ text-decoration:underline; outline:none; }
+  </style>
+</head>
+<body>
+  <!-- NAV (sans “Contact”) -->
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">Easy Chief</a>
+      <div class="menu" role="menubar" aria-label="Liens principaux">
+        <a href="index.html" role="menuitem">Accueil</a>
+        <a href="fonction.html" role="menuitem">Fonctions</a>
+        <a href="tarif.html" role="menuitem">Tarifs</a>
+        <a href="apropos.html" role="menuitem">À propos</a>
+      </div>
+      <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Menu
+      </button>
+    </div>
+    <div class="menu-mobile" id="menuMobile">
+      <a href="index.html">Accueil</a>
+      <a href="fonction.html">Fonctions</a>
+      <a href="tarif.html">Tarifs</a>
+      <a href="apropos.html">À propos</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <header class="page-title">
+        <h1>Politique de confidentialité</h1>
+        <p class="meta">Easy Chief — Version : 29 octobre 2025 — Entrée en vigueur : 01 novembre 2025</p>
+      </header>
+
+      <!-- SECTION CENTRALE : contenu -->
+      <article class="policy" aria-label="Politique de confidentialité">
+        <h2>1. Qui sommes-nous ?</h2>
+        <p>Éditeur : Pierre DAZIN – EI - DARKLABS<br>
+           Adresse : 88 rue de jarlard 81000 Albi<br>
+           Contact : <a href="mailto:contact@easychief.fr">contact@easychief.fr</a>
+        </p>
+
+        <h2>2. Portée</h2>
+        <p>Cette politique décrit la manière dont Easy Chief traite les données lorsque vous utilisez l’application sur iOS et/ou Android.</p>
+
+        <h2>3. Philosophie “privacy-first”</h2>
+        <ul>
+          <li>Pas de compte, pas d’e-mail, pas de profilage.</li>
+          <li>Aucune publicité ciblée dans l’app.</li>
+          <li>Les achats intégrés (y compris essai 7 jours puis abonnement) sont gérés par Apple et Google. Nous n’avons pas accès à vos coordonnées de paiement.</li>
+        </ul>
+
+        <h2>4. Quelles données traitons-nous ?</h2>
+
+        <h3>4.1 Données que nous ne collectons pas</h3>
+        <ul>
+          <li>Aucune donnée d’identité (nom, e-mail, téléphone).</li>
+          <li>Aucun contenu utilisateur stocké sur nos serveurs.</li>
+        </ul>
+
+        <h3>4.2 Données nécessaires au fonctionnement</h3>
+        <ul>
+          <li>
+            Informations de transaction d’abonnement fournies par Apple/Google (ex. statut d’essai/renouvellement, date d’expiration).<br>
+            <em>Finalité :</em> activer vos fonctionnalités premium.<br>
+            <em>Base légale (UE/RGPD) :</em> exécution du contrat (art. 6(1)(b)).
+          </li>
+          <li>
+            Identifiant technique anonyme pour lier l’achat à votre session/appareil (ex. appUserId anonyme ou identifiant généré par l’app).<br>
+            <em>Finalité :</em> vérifier localement si votre accès premium est actif et / ou activer des fonctionnalités payantes.<br>
+            <em>Base légale :</em> intérêt légitime (art. 6(1)(f)) à sécuriser l’accès.
+          </li>
+        </ul>
+        <p>Si vous activez RevenueCat : nous pouvons utiliser leur SDK sans transmettre d’e-mail. RevenueCat traite les reçus Apple/Google pour confirmer l’abonnement et nous retourner un entitlement (droit d’accès). Voir §8 (sous-traitants).</p>
+
+        <h3>4.3 Cartographie &amp; données de localisation (Google Maps Platform)</h3>
+        <p><strong>Quelles données ?</strong><br>
+        Lorsque vous utilisez les fonctionnalités de carte, d’itinéraire ou d’autocomplétion d’adresse, EasyChief peut traiter :</p>
+        <ul>
+          <li>Données de localisation : position approximative ou précise (si vous l’autorisez), coordonnées GPS, adresse IP, et/ou points d’intérêt à proximité ;</li>
+          <li>Requêtes de recherche/entrée d’adresse et identifiants techniques (p. ex. identifiant de session ou de requête) nécessaires au fonctionnement du service.</li>
+        </ul>
+        <p><strong>Finalités.</strong><br>
+        Afficher la carte, proposer des adresses et des lieux, calculer des trajets, améliorer la pertinence des résultats et assurer la sécurité/fonctionnement du service.</p>
+        <p><strong>Base légale (RGPD).</strong></p>
+        <ul>
+          <li>Exécution du contrat (art. 6(1)(b)) pour fournir les fonctionnalités cartographiques demandées ;</li>
+          <li>Consentement (art. 6(1)(a)) pour l’accès à la localisation précise de l’appareil ; vous pouvez retirer ce consentement à tout moment dans les réglages de votre appareil ;</li>
+          <li>Intérêt légitime (art. 6(1)(f)) pour prévenir l’abus et assurer la sécurité du service.</li>
+        </ul>
+        <p><strong>Partage avec Google.</strong><br>
+        Ces fonctionnalités s’appuient sur Google Maps Platform. Les données strictement nécessaires aux requêtes cartographiques peuvent être transmises à Google en qualité de fournisseur. Pour certaines opérations, Google peut agir en responsable de traitement indépendant conformément à ses propres politiques. Consultez la Politique de confidentialité de Google : <a href="https://policies.google.com/privacy?hl=fr" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+        <p><strong>Transferts hors UE.</strong><br>
+        Google peut traiter des données en dehors de l’UE (notamment aux États-Unis). Ces transferts reposent sur les garanties applicables (p. ex. cadre de protection des données UE–États-Unis et/ou clauses contractuelles types).</p>
+        <p><strong>Durée de conservation.</strong><br>
+        Easy Chief conserve les journaux techniques et requêtes associés aux fonctionnalités cartographiques pour la durée strictement nécessaire à leur fourniture, au dépannage et à la sécurité, puis les supprime ou les anonymisent. Google détermine ses propres durées selon ses politiques.</p>
+        <p><strong>Vos choix.</strong></p>
+        <ul>
+          <li>Refuser ou retirer l’autorisation Localisation dans les réglages de votre appareil ; certaines fonctionnalités pourraient alors être indisponibles.</li>
+          <li>Gérer les autorisations spécifiques de l’app (localisation “Toujours”, “Quand l’app est active”, “Jamais”, selon votre OS).</li>
+        </ul>
+
+        <h3>4.3 Journaux techniques (logs) minimaux</h3>
+        <ul>
+          <li>Événements de base (ex. démarrage de l’app, réussite/échec d’achat).</li>
+          <li>Ces journaux n’incluent aucune donnée d’identité.</li>
+          <li>Finalité : diagnostic et lutte anti-fraude de base.</li>
+          <li>Base légale : intérêt légitime (art. 6(1)(f)).</li>
+        </ul>
+
+        <h3>4.4 Analytics (optionnel)</h3>
+        <ul>
+          <li>Si nous activons des statistiques respectueuses de la vie privée (sans identifiants publicitaires, sans e-mail), nous l’indiquerons ici : “Aucun”.</li>
+        </ul>
+
+        <h2>5. Vos droits (UE/RGPD)</h2>
+        <p>Vous disposez des droits : d’accès, rectification, effacement, opposition, limitation et portabilité.<br>
+        Pour exercer vos droits : contactez-nous à <a href="mailto:support@easychief.fr">support@easychief.fr</a>.<br>
+        Vous pouvez également saisir l’autorité de contrôle de votre pays (en France : CNIL).</p>
+
+        <h2>6. Conservation</h2>
+        <ul>
+          <li>Statut d’abonnement (dates, type d’offre) : jusqu’à 24 mois après la dernière activité, sauf obligation légale différente.</li>
+          <li>Journaux techniques : ≤ 12 mois, puis suppression ou anonymisation.</li>
+          <li>Aucune conservation d’e-mails (nous n’en collectons pas).</li>
+        </ul>
+
+        <h2>7. Sécurité</h2>
+        <p>Nous appliquons des mesures techniques et organisationnelles raisonnables (chiffrement en transit, contrôle d’accès, principe du moindre privilège). Aucune méthode n’est infaillible à 100 %, mais nous nous engageons à corriger rapidement toute faille découverte.</p>
+
+        <h2>8. Partage et sous-traitants</h2>
+        <p>Nous ne vendons pas vos données. Nous partageons uniquement ce qui est nécessaire au fonctionnement :</p>
+        <ul>
+          <li>Apple (App Store) &amp; Google (Play Store) : traitement des achats et abonnements.</li>
+          <li>RevenueCat : validation des reçus et gestion des entitlements (sans e-mail par défaut).</li>
+        </ul>
+        <p>Des transferts hors UE peuvent exister (ex. États-Unis) — dans ce cas, nous nous appuyons sur des garanties légales adéquates (clauses contractuelles types, etc.).</p>
+
+        <h2>9. Cookies &amp; traceurs</h2>
+        <p>Aucun cookie dans l’application mobile. Pas d’ID publicitaire utilisé à des fins de ciblage.</p>
+
+        <h2>10. Mineurs</h2>
+        <p>L’app n’est pas destinée aux moins de 18 ans. Si vous pensez qu’un mineur nous a fourni des informations, contactez-nous pour suppression.</p>
+
+        <h2>11. Changements de cette politique</h2>
+        <p>Nous pouvons mettre à jour ce document. En cas de changement matériel, nous l’indiquerons dans l’app et/ou via une note de version. Date de dernière mise à jour : 29 octobre 2025.</p>
+
+        <h2>12. Nous contacter</h2>
+        <p>Éditeur : Pierre DAZIN – EI - DARKLABS<br>
+           Adresse : 88 rue de jarlard 81000 Albi<br>
+           Contact : <a href="mailto:contact@easychief.fr">contact@easychief.fr</a>
+        </p>
+      </article>
+    </div>
+
+    <!-- SECTION CONTACT — 3 colonnes -->
+    <section class="section-contact" aria-label="Présentation et contact">
+      <div class="wrap">
+        <!-- Colonne 1 : texte -->
+        <div class="col brand-col">
+          <div class="inner">
+            <div class="brand-text">
+              <h3>DARKLABS</h3>
+              <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+                 au service des sapeurs-pompiers.</p>
+              <p>www.darklabs.fr</p>
+              <p>contact@darklabs.fr</p>
+        
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne 2 : logo centré -->
+        <div class="col logo-col">
+          <div class="inner">
+            <img src="images/Darklabs.png" alt="Logo DARKLABS">
+          </div>
+        </div>
+
+        <!-- Colonne 3 : formulaire -->
+        <div class="col form-col">
+          <div class="inner">
+            <div class="form-card">
+              <h3>Nous contacter</h3>
+              <form id="contactForm">
+                <div class="row-2">
+                  <div>
+                    <label for="nom">Nom</label>
+                    <input id="nom" name="nom" type="text" required>
+                  </div>
+                  <div>
+                    <label for="prenom">Prénom</label>
+                    <input id="prenom" name="prenom" type="text" required>
+                  </div>
+                </div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required>
+                <label for="message">Votre message</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Envoyer</button>
+              </form>
+              <p style="margin-top:8px; font-size:12px; color:#6b7280;">
+                L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" aria-label="Pied de page">
+    <div class="footer-inner">
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <span aria-hidden="true">•</span>
+      <a href="politique-cookies.html">Politique de cookies</a>
+      <span aria-hidden="true">•</span>
+      <a href="mentions-legales.html">Mentions légales</a>
+               <span aria-hidden="true">•</span>
+      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+    </div>
+  </footer>
+
+  <!-- Scripts : menu mobile + onglet actif + mailto formulaire -->
+  <script>
+    // Menu mobile
+    const btn = document.getElementById('navToggle');
+    const panel = document.getElementById('menuMobile');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const open = panel.style.display === 'block';
+        panel.style.display = open ? 'none' : 'block';
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+      panel.addEventListener('click', e => {
+        if (e.target.tagName === 'A') {
+          panel.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Lien actif (générique)
+    (function highlightActive() {
+      const path = location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href === path || (path === '' && href === 'index.html')) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+    })();
+
+    // Formulaire -> mailto
+    (function wireMailto(){
+      const f = document.getElementById('contactForm');
+      if(!f) return;
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nom = encodeURIComponent(document.getElementById('nom').value || '');
+        const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
+        const email = encodeURIComponent(document.getElementById('email').value || '');
+        const msg = encodeURIComponent(document.getElementById('message').value || '');
+        const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
+        const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
+        window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
+      });
+    })();
+  </script>
+</body>
+</html>

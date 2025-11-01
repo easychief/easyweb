@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Plan de site Easy Chief — format XML conforme au protocole Sitemaps -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Page d’accueil (canonique) -->
+  <url>
+    <loc>https://www.easychief.fr/</loc>
+    <lastmod>2025-11-01T00:00:00+01:00</lastmod>
+  </url>
+
+  <!-- Pages principales -->
+  <url>
+    <loc>https://www.easychief.fr/fonction.html</loc>
+    <lastmod>2025-11-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>https://www.easychief.fr/tarif.html</loc>
+    <lastmod>2025-11-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>https://www.easychief.fr/apropos.html</loc>
+    <lastmod>2025-11-01T00:00:00+01:00</lastmod>
+  </url>
+
+  <!-- Pages légales -->
+  <url>
+    <loc>https://www.easychief.fr/mentions-legales.html</loc>
+    <lastmod>2025-11-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>https://www.easychief.fr/politique-confidentialite.html</loc>
+    <lastmod>2025-11-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>https://www.easychief.fr/politique-cookies.html</loc>
+    <lastmod>2025-11-01T00:00:00+01:00</lastmod>
+  </url>
+</urlset>

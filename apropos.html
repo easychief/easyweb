@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Easy Chief — À propos</title>
+
+  <!-- Police Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================== Variables & reset ================== */
+    :root{
+      --bg:#fff;
+      --fg:#111827;
+      --muted:#6b7280;
+      --accent:#e51313;
+      --accent-orange:#f59e0b;
+      --border:#e5e7eb;
+      --nav-h:64px;
+
+      /* marge horizontale globale des sections full-width */
+      --pad-x: clamp(16px, 6vw, 74px);
+       --pad-x: clamp(16px, 6vw, 74px);   /* marge horizontale globale des sections full width */
+  --col-pad: clamp(16px, 2vw, 24px); /* marge interne identique pour les 3 colonnes */
+    }
+    *{ box-sizing:border-box }
+    html,body{ margin:0 }
+    body{
+      font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--fg);
+      background:var(--bg);
+    }
+
+    /* ================== NAV identique ================== */
+    .nav{ position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--border) }
+    .nav-inner{
+      max-width:1100px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      min-height:var(--nav-h); padding:12px 16px;
+    }
+    .brand{ font-weight:800; letter-spacing:.2px; font-size:1.125rem; color:var(--fg); text-decoration:none }
+    .menu{ display:flex; align-items:center; gap:20px }
+    .menu a{ text-decoration:none; color:var(--fg); font-weight:600; padding:8px 10px; border-radius:8px }
+    .menu a:hover,.menu a:focus{ background:#f3f4f6; outline:none }
+    .menu a.active{ color:var(--accent) }
+    .toggle{ display:none; background:transparent; border:1px solid var(--border); padding:8px 10px; border-radius:8px; cursor:pointer }
+    .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
+    .menu-mobile{ display:none; flex-direction:column; gap:6px; padding:8px 16px 16px; border-bottom:1px solid var(--border) }
+    .menu-mobile a{ text-decoration:none; color:var(--fg); font-weight:600; padding:10px 12px; border-radius:8px }
+    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f3f4f6; outline:none }
+    @media (max-width:720px){ .menu{ display:none } .toggle{ display:inline-flex; align-items:center; gap:8px } }
+
+    /* ================== SECTION 1 — Intro centrée (fond blanc) ================== */
+    .about-hero{
+      background:#fff; color:#111827; width:100%;
+      padding: calc(var(--nav-h) + 24px) var(--pad-x) 56px;
+      text-align:center;
+    }
+    .about-hero h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight:800;
+      letter-spacing:.4px;
+    }
+    .about-hero .subtitle{
+      margin:0 0 16px;
+      font-size: clamp(16px, 2.8vw, 20px);
+      color:#374151;
+      font-weight:600;
+    }
+    .about-hero .italique{
+      margin:0 auto 14px;
+      font-style: italic;
+      color:#374151;
+      font-size: clamp(15px, 2.4vw, 18px);
+      line-height:1.75;
+      max-width: 900px;
+    }
+    .about-hero .signature{
+      margin:10px 0 0;
+      color: var(--accent-orange);
+      font-weight:300;
+      text-transform:none;
+      font-size: clamp(14px, 2.4vw, 18px);
+    }
+
+    /* ================== SECTION 2 — 2 colonnes (fond noir plein écran) ================== */
+    .about-duo{
+      width:100%;
+      background:#000; color:#e5e7eb;
+      padding: 56px var(--pad-x);
+    }
+.about-duo .grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap:28px;
+  align-items:stretch;   /* ← permet aux colonnes d’avoir la même hauteur */
+}
+/* Centre VERTICALEMENT le contenu de la colonne gauche */
+.about-duo .left{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;   /* ← centrage vertical du titre, sous-titre, texte, puces */
+  min-height:100%;
+}
+
+    /* Colonne gauche : textes + puces */
+    .about-duo .left h2{
+      margin:0 0 8px;
+      font-size: clamp(22px, 3.6vw, 32px);
+      font-weight:800;
+      color:#fff;
+      letter-spacing:.3px;
+      text-transform:uppercase;
+    }
+    .about-duo .left h3{
+      margin:0 0 10px;
+      font-size: clamp(18px, 3vw, 24px);
+      font-weight:700;
+      color: var(--accent-orange);
+    }
+    .about-duo .left p{
+      margin:0 0 12px;
+      color:#d1d5db;
+      font-size: clamp(14px, 2.4vw, 17px);
+      line-height:1.75;
+    }
+    .about-duo .left ul{
+      margin: 6px 0 0;
+      padding-left:0;
+      list-style: disc inside;   /* puces collées au texte */
+      text-align:left;           /* alignement gauche garanti */
+      color:#d1d5db;
+      font-size: clamp(14px, 2.4vw, 16px);
+      line-height:1.7;
+    }
+    .about-duo .left li{ margin: 4px 0; }
+
+    /* Colonne droite : image + texte sous l’image */
+    .about-duo .right{
+      text-align:center;
+      display:flex; flex-direction:column; align-items:center;
+    }
+    .about-duo .right img{
+      display:block;
+      width: clamp(180px, 38vw, 420px);
+      height:auto;
+      border-radius: 12px; /* optionnel */
+    }
+    .about-duo .right p{
+      margin:10px 0 0;
+      color:#d1d5db;
+      font-size: clamp(14px, 2.4vw, 16px);
+      line-height:1.6;
+      max-width: 720px;
+    }
+
+    @media (max-width: 960px){
+      .about-duo .grid{ grid-template-columns: 1fr; }
+      .about-duo .right{ align-items:center; }
+    }
+
+
+    /* Carte arrondie dans la colonne gauche */
+.about-duo .left{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;         /* ← centrage vertical */
+  min-height:100%;
+  padding: 0 12px;                /* petite respiration sur bords */
+}
+
+.about-duo .left .card{
+  width:100%;
+  max-width: 720px;               /* même logique que le reste du site */
+  margin: 0 auto;                 /* centre la carte dans la colonne */
+  background: rgba(255,255,255,.06);           /* “verre fumé” lisible sur fond noir */
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.25);
+  padding: 24px 20px;
+  backdrop-filter: saturate(140%) blur(2px);   /* optionnel mais joli */
+}
+
+/* Typo interne (contraste lisible sur fond sombre) */
+.about-duo .left .card h2,
+.about-duo .left .card h3{ color:#fff; margin:0 0 10px; }
+.about-duo .left .card p{ color:#e5e7eb; margin:0 0 10px; line-height:1.7; }
+.about-duo .left .card .orange{ color:#f59e0b; font-weight:700; }
+
+/* Puces alignées à gauche dans la carte */
+.about-duo .left .card ul{
+  margin: 8px 0 0;
+  padding-left: 0;
+  list-style: disc inside;
+  color:#e5e7eb;
+  line-height:1.7;
+  text-align:left;
+}
+
+
+    /* ================== SECTION 3 — Bande image de fond (full-bleed) ================== */
+    .full-bg{
+      width:100%;
+      min-height: 40dvh;                 /* ajuste la hauteur souhaitée */
+      background: center/cover no-repeat;
+      /* Remplace l’URL ci-dessous directement sur l’élément via style="" */
+    }
+
+    /* ================== SECTION CONTACT (reprise, FULL WIDTH) ================== */
+/* === SECTION CONTACT — 3 colonnes full width, texte DARKLABS centré verticalement,
+   logo au centre, formulaire à droite (légèrement décalable si besoin) === */
+.section-contact {
+  background:#fff; color:#111827; width:100%;
+  border-top:1px solid #e5e7eb;
+}
+.section-contact .wrap{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;     /* ← 3 colonnes */
+  gap:24px;
+  width:100%; max-width:none; margin:0;   /* ← full width réel */
+  padding:64px var(--pad-x);
+  align-items:center;                      /* ← centre verticalement chaque colonne */
+}
+
+/* colonnes : même marge interne */
+.section-contact .col .inner{
+  padding-left: var(--col-pad);
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Colonne 1 (texte DARKLABS) : bloc simple, le centrage vertical est assuré par align-items:center ci-dessus */
+.section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
+.section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
+
+/* Colonne 2 (logo) : centrer l’image */
+.section-contact .logo-col .inner{
+  display:flex; justify-content:center; align-items:center;
+}
+.section-contact .logo-col img{
+  max-width: clamp(140px, 26vw, 260px);
+  height:auto; display:block;
+}
+
+/* Colonne 3 (formulaire) */
+.section-contact .form-card {
+  background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
+  max-width: 720px; width:100%;
+}
+.section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
+.section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
+.section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.section-contact input, .section-contact textarea {
+  width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
+}
+.section-contact textarea { min-height: 120px; resize: vertical; }
+.section-contact button[type="submit"] {
+  margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
+  background:#111827; color:#fff; font-weight:700;
+}
+.section-contact button[type="submit"]:hover { opacity:.92; }
+
+/* Mobile : empiler en 1 colonne */
+@media (max-width: 960px){
+  .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
+  .section-contact .col .inner{ padding-left: var(--col-pad); }
+}
+
+
+    /* ================== FOOTER ================== */
+    .site-footer{
+      background:#fff; border-top:1px solid #e5e7eb;
+      width:100%;
+    }
+    .site-footer .footer-inner{
+      max-width:1100px; margin:0 auto; padding:20px 26px;
+      display:flex; justify-content:center; align-items:center; gap:18px; font-size:14px;
+    }
+    .site-footer a{ color:#111827; text-decoration:none; }
+    .site-footer a:hover,.site-footer a:focus{ text-decoration:underline; outline:none; }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">Easy Chief</a>
+      <div class="menu" role="menubar" aria-label="Liens principaux">
+        <a href="index.html" role="menuitem">Accueil</a>
+        <a href="fonction.html" role="menuitem">Fonctions</a>
+        <a href="tarif.html" role="menuitem">Tarifs</a>
+
+        <a href="apropos.html" role="menuitem">À propos</a>
+      </div>
+      <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Menu
+      </button>
+    </div>
+    <div class="menu-mobile" id="menuMobile">
+      <a href="index.html">Accueil</a>
+      <a href="fonction.html">Fonctions</a>
+      <a href="tarif.html">Tarifs</a>
+
+      <a href="apropos.html">À propos</a>
+    </div>
+  </nav>
+
+  <!-- CONTENU -->
+  <main>
+    <!-- SECTION 1 : Intro centrée -->
+    <section class="about-hero" aria-label="Notre parcours">
+      <h1>NOTRE PARCOURS</h1>
+      <p class="subtitle">Pourquoi cette application est née ?</p>
+      <p class="italique">
+        <!-- Colle ici ton texte en italique -->
+     "Sapeur-pompier professionnel, j’avais un besoin simple sur certains départ : retrouver immédiatement des informations techniques essentielles. Ne trouvant aucune application fiable pour ranger mes documents et créer des fiches réflexes/mémos accessibles en un clin d’œil, j’ai décidé d'allier mes compétences de développeur à mon métier. Une fois le premier module crée, tout était clair, je ne m'arrêterai pas en chemin, j'irai au bout du sommet et EASYCHIEF est né."
+      </p>
+      <p class="signature">Pierre - Fondateur des établissements DARKLABS et créateur d'EASY CHIEF.</p>
+    </section>
+
+    <!-- SECTION 2 : 2 colonnes fond noir -->
+ <section class="about-duo" aria-label="Parcours & Portrait">
+  <div class="grid">
+    <!-- Colonne GAUCHE (texte) -->
+    <div class="left">
+      <div class="card">
+          <h2>Ce que propose Easy Chief</h2>
+          <h3>Ambition : une application inédite, pensée par et pour les sapeurs-pompiers, afin d’accélérer l’accès à l’information et d’améliorer l’efficacité sur intervention.</h3>
+          <p>
+            Nous concevons des outils opérationnels qui s’adaptent aux contraintes du terrain : usage tablette/smartphone,
+            lecture immédiate, personnalisation au poste et export rapide des informations clés.
+          </p>
+          <ul>
+            <li>Vos documents, au bon endroit : organisation claire pour retrouver les informations opérationnelles sans perdre de temps.</li>
+            <li>Fiches réflexes & mémos : création et consultation rapides pour soutenir la décision sur le terrain.</li>
+            <li>Modules ajoutés au fil des besoins : l’objectif est de tout réunir au même endroit pour les sapeurs-pompiers, et d’outiller réellement l’intervention.</li>
+
+          </ul>
+        </div>
+  </div>
+        <!-- Colonne droite : image + texte -->
+        <div class="right">
+          <img src="images/Pierre.png" alt="Pierre — fondateur DARKLABS">
+          <p>
+            Sérénité. Confiance. Stabilité.
+C’est la signature de Pierre, StarClimber international, qui transforme les paliers en trajectoire vers le sommet.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 : Bande image de fond (full-bleed) -->
+    <!-- Remplace l’URL ci-dessous par ton image de fond -->
+    <section class="full-bg" aria-label="Illustration" style="background-image:url('images/BG_WEB-MTN.png');"></section>
+
+    <!-- SECTION CONTACT (identique aux autres pages, full-width) -->
+<section class="section-contact" aria-label="Présentation et contact">
+  <div class="wrap">
+
+    <!-- Colonne 1 : texte DARKLABS -->
+    <div class="col brand-col">
+      <div class="inner">
+        <div class="brand-text">
+          <h3>DARKLABS</h3>
+          <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+             au service des sapeurs-pompiers.</p>
+          <p>www.darklabs.fr</p>
+          <p>contact@darklabs.fr</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne 2 : logo centré -->
+    <div class="col logo-col">
+      <div class="inner">
+        <img src="images/Darklabs.png" alt="Logo DARKLABS">
+      </div>
+    </div>
+
+    <!-- Colonne 3 : formulaire -->
+    <div class="col form-col">
+      <div class="inner">
+        <div class="form-card">
+          <h3>Nous contacter</h3>
+          <form id="contactForm">
+            <div class="row-2">
+              <div>
+                <label for="nom">Nom</label>
+                <input id="nom" name="nom" type="text" required>
+              </div>
+              <div>
+                <label for="prenom">Prénom</label>
+                <input id="prenom" name="prenom" type="text" required>
+              </div>
+            </div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Envoyer</button>
+          </form>
+          <p style="margin-top:8px; font-size:12px; color:#6b7280;">
+            L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" aria-label="Pied de page">
+    <div class="footer-inner">
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <span aria-hidden="true">•</span>
+      <a href="politique-cookies.html">Politique de cookies</a>
+      <span aria-hidden="true">•</span>
+      <a href="mentions-legales.html">Mentions légales</a>
+               <span aria-hidden="true">•</span>
+      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+    </div>
+  </footer>
+
+  <!-- Scripts : menu mobile + lien actif + mailto -->
+  <script>
+    // Menu mobile
+    const btn = document.getElementById('navToggle');
+    const panel = document.getElementById('menuMobile');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const open = panel.style.display === 'block';
+        panel.style.display = open ? 'none' : 'block';
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+      panel.addEventListener('click', e => {
+        if (e.target.tagName === 'A') {
+          panel.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Lien actif
+(function highlightActive() {
+  const path = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
+    const href = a.getAttribute('href');
+    if (href === path || (path === '' && href === 'index.html')) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
+})();
+
+
+    // Formulaire -> mailto
+    (function wireMailto(){
+      const f = document.getElementById('contactForm');
+      if(!f) return;
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nom = encodeURIComponent(document.getElementById('nom').value || '');
+        const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
+        const email = encodeURIComponent(document.getElementById('email').value || '');
+        const msg = encodeURIComponent(document.getElementById('message').value || '');
+        const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
+        const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
+        window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
+      });
+    })();
+  </script>
+</body>
+</html>

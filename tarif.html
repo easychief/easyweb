@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Easy Chief — Tarifs</title>
+
+  <!-- Police Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fff;
+      --fg:#111827;
+      --muted:#6b7280;
+      --accent:#e51313;
+      --accent-orange:#f59e0b;
+      --border:#e5e7eb;
+      --nav-h:64px;
+      --container-w:1100px;
+      --pad-x: clamp(16px, 4vw, 74px);
+       --pad-x: clamp(16px, 6vw, 74px);   /* marge horizontale globale des sections full width */
+  --col-pad: clamp(16px, 2vw, 24px); /* marge interne identique pour les 3 colonnes */
+    }
+    *{ box-sizing:border-box }
+    html,body{ margin:0 }
+    body{
+      font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--fg);
+      background:var(--bg);
+    }
+
+    /* NAV */
+    .nav{ position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--border) }
+    .nav-inner{
+      max-width:var(--container-w); margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      min-height:var(--nav-h); padding:12px 16px;
+    }
+    .brand{ font-weight:800; letter-spacing:.2px; font-size:1.125rem; color:var(--fg); text-decoration:none }
+    .menu{ display:flex; align-items:center; gap:20px }
+    .menu a{ text-decoration:none; color:var(--fg); font-weight:600; padding:8px 10px; border-radius:8px }
+    .menu a:hover,.menu a:focus{ background:#f3f4f6; outline:none }
+    .menu a.active{ color:var(--accent) }
+    .toggle{ display:none; background:transparent; border:1px solid var(--border); padding:8px 10px; border-radius:8px; cursor:pointer }
+    .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
+    .menu-mobile{ display:none; flex-direction:column; gap:6px; padding:8px 16px 16px; border-bottom:1px solid var(--border) }
+    .menu-mobile a{ text-decoration:none; color:var(--fg); font-weight:600; padding:10px 12px; border-radius:8px }
+    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f3f4f6; outline:none }
+    @media (max-width:720px){ .menu{ display:none } .toggle{ display:inline-flex; align-items:center; gap:8px } }
+
+    /* ========== TOUTES LES SECTIONS EN PLEINE LARGEUR ========== */
+    .section{
+      width:100%;
+      padding-left:var(--pad-x);
+      padding-right:var(--pad-x);
+    }
+    .section .inner{
+      max-width:var(--container-w);
+      margin:0 auto;
+      padding-top:24px;
+      padding-bottom:32px;
+    }
+
+    /* Titre de page (full width) */
+    .page-title.section .inner{
+      text-align:center;
+      padding-top: calc(var(--nav-h) + 12px);
+    }
+    .page-title h1{
+      margin:0 0 6px;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight:800; letter-spacing:.2px;
+    }
+    .page-title p{ margin:0; color:var(--muted); font-size:clamp(14px,2vw,16px) }
+
+    /* Cartes tarifs */
+    .pricing-wrap{ display:flex; flex-direction:column; gap:28px; }
+    .pricing-row{ display:flex; }
+    .pricing-row.left{ justify-content:flex-start; }
+    .pricing-row.right{ justify-content:flex-end; }
+    .pricing-card{
+      background:#fff;
+      border:2px solid #111827;
+      border-radius:16px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      padding:20px 24px;
+      width:min(860px, 92vw);
+    }
+    .pricing-card h2{
+      margin:0 0 8px;
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight:800; letter-spacing:.4px;
+    }
+    .pricing-card h2.accent{ color:var(--accent-orange); }
+    .pricing-divider{ height:3px; width:120px; background:#111827; border-radius:2px; margin:10px 0 14px; }
+    .pricing-main{ margin:0 0 8px; font-size: clamp(18px, 2.4vw, 22px); font-weight:700; }
+    .pricing-text{ margin:0; color:#374151; font-size: clamp(14px, 2.2vw, 16px); line-height:1.7; }
+
+    /* Bande image full-bleed */
+    .full-bleed{ width:100%; padding:0; margin:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .full-bleed img{ display:block; width:100%; height:auto; }
+
+/* PRO 2 colonnes — FULL WIDTH */
+.pro .inner{
+  max-width: none;   /* ← on enlève la contrainte de largeur */
+  margin: 0;
+  padding: 48px var(--pad-x) 64px;  /* padding gauche/droite identique au reste du site */
+}
+.pro-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+    .pro-left{
+      background:#000; color:#e5e7eb; border-radius:16px;
+      padding:28px 28px 28px clamp(28px, 4vw, 42px);
+      display:flex; flex-direction:column; justify-content:center;
+    }
+    .pro-left h3{
+      margin:0 0 10px; color:var(--accent-orange);
+      font-weight:800; font-size: clamp(20px, 2.8vw, 28px); letter-spacing:.3px; text-transform:uppercase;
+    }
+    .pro-left .divider{ height:3px; width:120px; background:var(--accent-orange); border-radius:2px; margin:8px 0 16px; }
+    .pro-left .price{ margin:0 0 10px; font-size: clamp(18px, 2.6vw, 22px); font-weight:700; color:#fff; }
+    .pro-left p{ margin:0; color:#d1d5db; line-height:1.7; font-size: clamp(14px, 2.2vw, 16px); }
+    .pro-right{
+      border-radius:16px; min-height:340px;
+      background:#111 center/cover no-repeat; position:relative; overflow:hidden;
+    }
+    .pro-right::after{ content:""; position:absolute; inset:0; background: radial-gradient(transparent 40%, rgba(0,0,0,.25) 100%); pointer-events:none; }
+
+    /* Contact (repris de l'accueil) */
+/* === SECTION CONTACT — 3 colonnes full width, texte DARKLABS centré verticalement,
+   logo au centre, formulaire à droite (légèrement décalable si besoin) === */
+.section-contact {
+  background:#fff; color:#111827; width:100%;
+  border-top:1px solid #e5e7eb;
+}
+.section-contact .wrap{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;     /* ← 3 colonnes */
+  gap:24px;
+  width:100%; max-width:none; margin:0;   /* ← full width réel */
+  padding:64px var(--pad-x);
+  align-items:center;                      /* ← centre verticalement chaque colonne */
+}
+
+/* colonnes : même marge interne */
+.section-contact .col .inner{
+  padding-left: var(--col-pad);
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Colonne 1 (texte DARKLABS) : bloc simple, le centrage vertical est assuré par align-items:center ci-dessus */
+.section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
+.section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
+
+/* Colonne 2 (logo) : centrer l’image */
+.section-contact .logo-col .inner{
+  display:flex; justify-content:center; align-items:center;
+}
+.section-contact .logo-col img{
+  max-width: clamp(140px, 26vw, 260px);
+  height:auto; display:block;
+}
+
+/* Colonne 3 (formulaire) */
+.section-contact .form-card {
+  background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
+  max-width: 720px; width:100%;
+}
+.section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
+.section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
+.section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.section-contact input, .section-contact textarea {
+  width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
+}
+.section-contact textarea { min-height: 120px; resize: vertical; }
+.section-contact button[type="submit"] {
+  margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
+  background:#111827; color:#fff; font-weight:700;
+}
+.section-contact button[type="submit"]:hover { opacity:.92; }
+
+/* Mobile : empiler en 1 colonne */
+@media (max-width: 960px){
+  .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
+  .section-contact .col .inner{ padding-left: var(--col-pad); }
+}
+
+/* === FOOTER minime (identique index) === */
+.site-footer{
+  background:#fff;
+  border-top:1px solid #e5e7eb;
+}
+.site-footer .footer-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px 26px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  font-size:14px;
+}
+.site-footer a{ color:#111827; text-decoration:none; }
+.site-footer a:hover, .site-footer a:focus{ text-decoration:underline; outline:none; }
+
+
+
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">Easy Chief</a>
+      <div class="menu" role="menubar" aria-label="Liens principaux">
+        <a href="index.html" role="menuitem">Accueil</a>
+        <a href="fonction.html" role="menuitem">Fonctions</a>
+        <a href="tarif.html" role="menuitem">Tarifs</a>
+  
+        <a href="apropos.html" role="menuitem">À propos</a>
+      </div>
+      <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Menu
+      </button>
+    </div>
+    <div class="menu-mobile" id="menuMobile">
+      <a href="index.html">Accueil</a>
+      <a href="fonction.html">Fonctions</a>
+      <a href="tarif.html">Tarifs</a>
+
+      <a href="apropos.html">À propos</a>
+    </div>
+  </nav>
+
+  <!-- TITRE (FULL WIDTH) -->
+  <section class="section page-title" aria-label="Titre de page">
+    <div class="inner">
+      <h1>TARIF</h1>
+      <p>Des formules simples et lisibles — pour les particuliers et les pros.</p>
+    </div>
+  </section>
+
+  <!-- PRICING (FULL WIDTH) -->
+  <section class="section" aria-label="Offres">
+    <div class="inner">
+      <div class="pricing-wrap">
+        <!-- Particulier (gauche) -->
+        <div class="pricing-row left">
+          <article class="pricing-card" aria-label="Tarif Particulier">
+            <h2 class="accent">TARIF PARTICULIER</h2>
+            <div class="pricing-divider" aria-hidden="true"></div>
+            <p class="pricing-main">0,99 € / mois &nbsp;ou&nbsp; 9,99 € / an</p>
+            <p class="pricing-text">
+              Certaines briques techniques — par exemple les services cartographiques Google Maps — sont facturées à l’usage (au nombre de requêtes). La gratuité n’est donc pas possible. Nous proposons le prix le plus bas pour permettre au plus grand nombre d'avoir accès à EASYCHIEF.
+            </p>
+          </article>
+        </div>
+
+        <!-- En clair (droite) -->
+        <div class="pricing-row right">
+          <article class="pricing-card" aria-label="En clair">
+            <h2 class="accent">EN CLAIR</h2>
+            <div class="pricing-divider" aria-hidden="true"></div>
+            <p class="pricing-main">Pour l’équivalent d'un café, vous disposez d’une aide à la décision conçue pour nos actions quotidiennes.</p>
+            <p class="pricing-text">À VOUS DE VOIR !</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANDE IMAGE (FULL WIDTH) -->
+  <section class="full-bleed" aria-label="Bandeau image">
+    <img src="images/BG_WEB-VEST.png" alt="Bandeau illustratif des tarifs">
+  </section>
+
+  <!-- PRO (FULL WIDTH) -->
+  <section class="section pro" aria-label="Tarif PRO">
+    <div class="inner">
+      <div class="pro-grid">
+        <div class="pro-left">
+          <h3>TARIF PRO</h3>
+          <div class="divider" aria-hidden="true"></div>
+          <p class="price">À partir de 4,99 € / mois / utilisateur</p>
+          <p>
+            Pour les licences professionnelles, la gestion passe par des serveurs back-end dédiés (serveurs de licences, authentification/SSO, bases de données, supervision), ce qui entraîne des coûts récurrents d’infrastructure (calcul, stockage, transfert), de sécurité et de qualité de service (disponibilité, temps de réponse..). Concrètement : héberger et faire tourner ces services dans le cloud est facturé à l’usage (ex. modèle pay-as-you-go), la mise en place d’un serveur de licences nécessite une administration spécifique, et les fonctionnalités entreprise d’authentification ont un surcoût par rapport à un usage individuel. C’est cet ensemble qui justifie un tarif plus élevé côté clients professionnels, alors que le modèle particulier n’exige pas ce niveau d’engagement opérationnel.
+          </p>
+        </div>
+        <div class="pro-right" style="background-image:url('images/BG_WEB-PRO.png');" aria-label="Visuel PRO"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT (FULL WIDTH) -->
+ <section class="section-contact" aria-label="Présentation et contact">
+  <div class="wrap">
+
+    <!-- Colonne 1 : texte DARKLABS -->
+    <div class="col brand-col">
+      <div class="inner">
+        <div class="brand-text">
+          <h3>DARKLABS</h3>
+          <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+             au service des sapeurs-pompiers.</p>
+          <p>www.darklabs.fr</p>
+          <p>contact@darklabs.fr</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne 2 : logo centré -->
+    <div class="col logo-col">
+      <div class="inner">
+        <img src="images/Darklabs.png" alt="Logo DARKLABS">
+      </div>
+    </div>
+
+    <!-- Colonne 3 : formulaire -->
+    <div class="col form-col">
+      <div class="inner">
+        <div class="form-card">
+          <h3>Nous contacter</h3>
+          <form id="contactForm">
+            <div class="row-2">
+              <div>
+                <label for="nom">Nom</label>
+                <input id="nom" name="nom" type="text" required>
+              </div>
+              <div>
+                <label for="prenom">Prénom</label>
+                <input id="prenom" name="prenom" type="text" required>
+              </div>
+            </div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Envoyer</button>
+          </form>
+          <p style="margin-top:8px; font-size:12px; color:#6b7280;">
+            L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" aria-label="Pied de page">
+    <div class="footer-inner">
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <span aria-hidden="true">•</span>
+      <a href="politique-cookies.html">Politique de cookies</a>
+      <span aria-hidden="true">•</span>
+      <a href="mentions-legales.html">Mentions légales</a>
+               <span aria-hidden="true">•</span>
+      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+    </div>
+  </footer>
+
+  <!-- Scripts : menu mobile + lien actif + mailto -->
+  <script>
+    // Menu mobile
+    const btn = document.getElementById('navToggle');
+    const panel = document.getElementById('menuMobile');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const open = panel.style.display === 'block';
+        panel.style.display = open ? 'none' : 'block';
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+      panel.addEventListener('click', e => {
+        if (e.target.tagName === 'A') {
+          panel.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Lien actif
+(function highlightActive() {
+  const path = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
+    const href = a.getAttribute('href');
+    if (href === path || (path === '' && href === 'index.html')) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
+})();
+
+
+    // Formulaire -> mailto
+    (function wireMailto(){
+      const f = document.getElementById('contactForm');
+      if(!f) return;
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nom = encodeURIComponent(document.getElementById('nom').value || '');
+        const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
+        const email = encodeURIComponent(document.getElementById('email').value || '');
+        const msg = encodeURIComponent(document.getElementById('message').value || '');
+        const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
+        const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
+        window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
+      });
+    })();
+  </script>
+</body>
+</html>

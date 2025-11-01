@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Easy Chief — Mentions légales</title>
+
+  <!-- Police Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fff;
+      --fg:#111827;
+      --muted:#6b7280;
+      --accent:#e51313;
+      --accent-orange:#f59e0b;
+      --border:#e5e7eb;
+      --nav-h:64px;
+      --container-w:1100px;
+
+      /* espacements globaux */
+      --pad-x: clamp(16px, 6vw, 74px);
+      --col-pad: clamp(16px, 2vw, 24px);
+      --left-indent: clamp(16px, 2vw, 24px);
+    }
+    *{ box-sizing:border-box }
+    html,body{ margin:0 }
+    body{
+      font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--fg);
+      background:var(--bg);
+    }
+
+    /* NAV (sans “Contact”) */
+    .nav{ position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--border) }
+    .nav-inner{
+      max-width:var(--container-w); margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      min-height:var(--nav-h); padding:12px 16px;
+    }
+    .brand{ font-weight:800; letter-spacing:.2px; font-size:1.125rem; color:var(--fg); text-decoration:none }
+    .menu{ display:flex; align-items:center; gap:20px }
+    .menu a{ text-decoration:none; color:var(--fg); font-weight:600; padding:8px 10px; border-radius:8px }
+    .menu a:hover,.menu a:focus{ background:#f3f4f6; outline:none }
+    .menu a.active{ color:var(--accent) }
+    .toggle{ display:none; background:transparent; border:1px solid var(--border); padding:8px 10px; border-radius:8px; cursor:pointer }
+    .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
+    .menu-mobile{ display:none; flex-direction:column; gap:6px; padding:8px 16px 16px; border-bottom:1px solid var(--border) }
+    .menu-mobile a{ text-decoration:none; color:var(--fg); font-weight:600; padding:10px 12px; border-radius:8px }
+    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f3f4f6; outline:none }
+    @media (max-width:720px){ .menu{ display:none } .toggle{ display:inline-flex; align-items:center; gap:8px } }
+
+    /* SECTION de contenu — centrée */
+    main{ padding:24px 0 72px }
+    .container{ max-width:var(--container-w); margin:0 auto; padding:24px 16px; }
+
+    .page-title{
+      text-align:center;
+      margin: calc(var(--nav-h) + 12px) 0 12px;
+    }
+    .page-title h1{
+      margin:0 0 6px;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight:800; letter-spacing:.2px;
+      text-transform:uppercase;
+    }
+    .page-title p{ margin:0; color:var(--muted); font-size:clamp(14px,2vw,16px) }
+
+    .policy{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 6px 18px rgba(0,0,0,.06);
+      padding: clamp(16px, 3vw, 28px);
+    }
+    .policy h2{
+      margin:22px 0 8px;
+      font-size: clamp(18px, 2.8vw, 24px);
+      font-weight:800;
+    }
+    .policy p{
+      margin:8px 0;
+      color:#374151;
+      line-height:1.75;
+      font-size: clamp(14px, 2.2vw, 16px);
+    }
+    .policy a{ color:#1d4ed8; text-decoration:underline; }
+
+    /* === SECTION CONTACT — 3 colonnes full width === */
+    .section-contact {
+      background:#fff; color:#111827; width:100%;
+      border-top:1px solid #e5e7eb;
+    }
+    .section-contact .wrap{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:24px;
+      width:100%; max-width:none; margin:0;
+      padding:64px var(--pad-x);
+      align-items:center; /* centre verticalement les 3 colonnes */
+    }
+
+    /* colonnes : même marge interne */
+    .section-contact .col .inner{
+      padding-left: var(--col-pad);
+      max-width: 900px;
+      width: 100%;
+    }
+
+    /* Colonne 1 : texte DARKLABS (centrée verticalement via align-items:center ci-dessus) */
+    .section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
+    .section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
+
+    /* Colonne 2 : logo centré */
+    .section-contact .logo-col .inner{
+      display:flex; justify-content:center; align-items:center;
+    }
+    .section-contact .logo-col img{
+      max-width: clamp(140px, 26vw, 260px);
+      height:auto; display:block;
+    }
+
+    /* Colonne 3 : formulaire */
+    .section-contact .form-card {
+      background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
+      box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
+      max-width: 720px; width:100%;
+    }
+    .section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
+    .section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
+    .section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .section-contact input, .section-contact textarea {
+      width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
+    }
+    .section-contact textarea { min-height: 120px; resize: vertical; }
+    .section-contact button[type="submit"] {
+      margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
+      background:#111827; color:#fff; font-weight:700;
+    }
+    .section-contact button[type="submit"]:hover { opacity:.92; }
+
+    @media (max-width: 960px){
+      .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
+      .section-contact .col .inner{ padding-left: var(--col-pad); }
+    }
+
+    /* FOOTER (aligné comme les sections full-width) */
+    .site-footer{
+      background:#fff; border-top:1px solid #e5e7eb;
+      width:100%;
+      padding-left: var(--pad-x);
+      padding-right: var(--pad-x);
+    }
+    .site-footer .footer-inner{
+      max-width:1100px; margin:0 auto; padding:20px 0;
+      display:flex; justify-content:center; align-items:center; gap:18px; font-size:14px;
+    }
+    .site-footer a{ color:#111827; text-decoration:none; }
+    .site-footer a:hover,.site-footer a:focus{ text-decoration:underline; outline:none; }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">Easy Chief</a>
+      <div class="menu" role="menubar" aria-label="Liens principaux">
+        <a href="index.html" role="menuitem">Accueil</a>
+        <a href="fonction.html" role="menuitem">Fonctions</a>
+        <a href="tarif.html" role="menuitem">Tarifs</a>
+        <a href="apropos.html" role="menuitem">À propos</a>
+      </div>
+      <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Menu
+      </button>
+    </div>
+    <div class="menu-mobile" id="menuMobile">
+      <a href="index.html">Accueil</a>
+      <a href="fonction.html">Fonctions</a>
+      <a href="tarif.html">Tarifs</a>
+      <a href="apropos.html">À propos</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <header class="page-title">
+        <h1>MENTIONS LÉGALES</h1>
+        <p class="meta">Easy Chief</p>
+      </header>
+
+      <!-- SECTION CENTRALE : contenu -->
+      <article class="policy" aria-label="Mentions légales">
+        <h2>Mentions légales</h2>
+        <p>En conformité avec les dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, veuillez trouver ci-dessous les informations concernant ce site :</p>
+
+        <p><strong>Raison sociale :</strong> Entreprise Individuelle<br>
+           <strong>Adresse du siège social :</strong> 88 rue de Jarlard 81000 Albi<br>
+           <strong>Dirigeant :</strong> Pierre DAZIN<br>
+           <strong>Email :</strong> <a href="mailto:contact@easychief.fr">contact@easychief.fr</a><br>
+           <strong>Numéro SIRET :</strong> 99327277200019<br>
+           <strong>Hébergeur du site :</strong> GITHUB
+        </p>
+
+        <p>
+          En cas de litige, vous avez la possibilité de recourir à la plateforme de règlement des litiges en ligne (RLL) mise à disposition par la Commission européenne.
+          Pour ce faire, veuillez vous rendre sur le site :
+          <a href="http://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">ec.europa.eu/consumers/odr/</a>.
+        </p>
+      </article>
+    </div>
+
+    <!-- SECTION CONTACT — 3 colonnes -->
+    <section class="section-contact" aria-label="Présentation et contact">
+      <div class="wrap">
+        <!-- Colonne 1 : texte -->
+        <div class="col brand-col">
+          <div class="inner">
+            <div class="brand-text">
+              <h3>DARKLABS</h3>
+              <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+                 au service des sapeurs-pompiers.</p>
+              <p>www.darklabs.fr</p>
+              <p>contact@darklabs.fr</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne 2 : logo centré -->
+        <div class="col logo-col">
+          <div class="inner">
+            <img src="images/Darklabs.png" alt="Logo DARKLABS">
+          </div>
+        </div>
+
+        <!-- Colonne 3 : formulaire -->
+        <div class="col form-col">
+          <div class="inner">
+            <div class="form-card">
+              <h3>Nous contacter</h3>
+              <form id="contactForm">
+                <div class="row-2">
+                  <div>
+                    <label for="nom">Nom</label>
+                    <input id="nom" name="nom" type="text" required>
+                  </div>
+                  <div>
+                    <label for="prenom">Prénom</label>
+                    <input id="prenom" name="prenom" type="text" required>
+                  </div>
+                </div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required>
+                <label for="message">Votre message</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Envoyer</button>
+              </form>
+              <p style="margin-top:8px; font-size:12px; color:#6b7280;">
+                L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" aria-label="Pied de page">
+    <div class="footer-inner">
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <span aria-hidden="true">•</span>
+      <a href="politique-cookies.html">Politique de cookies</a>
+      <span aria-hidden="true">•</span>
+      <a href="mentions-legales.html">Mentions légales</a>
+               <span aria-hidden="true">•</span>
+      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+    </div>
+  </footer>
+
+  <!-- Scripts : menu mobile + onglet actif + mailto -->
+  <script>
+    // Menu mobile
+    const btn = document.getElementById('navToggle');
+    const panel = document.getElementById('menuMobile');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const open = panel.style.display === 'block';
+        panel.style.display = open ? 'none' : 'block';
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+      panel.addEventListener('click', e => {
+        if (e.target.tagName === 'A') {
+          panel.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Lien actif
+    (function highlightActive() {
+      const path = location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href === path || (path === '' && href === 'index.html')) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+    })();
+
+    // Formulaire -> mailto
+    (function wireMailto(){
+      const f = document.getElementById('contactForm');
+      if(!f) return;
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nom = encodeURIComponent(document.getElementById('nom').value || '');
+        const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
+        const email = encodeURIComponent(document.getElementById('email').value || '');
+        const msg = encodeURIComponent(document.getElementById('message').value || '');
+        const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
+        const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
+        window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
+      });
+    })();
+  </script>
+</body>
+</html>
