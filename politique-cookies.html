@@ -21,7 +21,6 @@
       --nav-h:64px;
       --container-w:1100px;
 
-      /* espacements globaux */
       --pad-x: clamp(16px, 6vw, 74px);
       --col-pad: clamp(16px, 2vw, 24px);
       --left-indent: clamp(16px, 2vw, 24px);
@@ -32,10 +31,14 @@
       font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--fg);
       background:var(--bg);
+      padding-top: var(--nav-h); /* nav FIXE => décale le contenu */
     }
 
-    /* NAV (sans “Contact”) */
-    .nav{ position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--border) }
+    /* ===== NAV identique index : FIXE + menu mobile animé ===== */
+    .nav{
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:#fff; border-bottom:1px solid var(--border);
+    }
     .nav-inner{
       max-width:var(--container-w); margin:0 auto;
       display:flex; align-items:center; justify-content:space-between;
@@ -46,12 +49,60 @@
     .menu a{ text-decoration:none; color:var(--fg); font-weight:600; padding:8px 10px; border-radius:8px }
     .menu a:hover,.menu a:focus{ background:#f3f4f6; outline:none }
     .menu a.active{ color:var(--accent) }
-    .toggle{ display:none; background:transparent; border:1px solid var(--border); padding:8px 10px; border-radius:8px; cursor:pointer }
+
+    /* Bouton hamburger */
+    .toggle{
+      display:none; background:transparent; border:1px solid var(--border);
+      padding:8px 10px; border-radius:8px; cursor:pointer; color:var(--fg);
+    }
     .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
-    .menu-mobile{ display:none; flex-direction:column; gap:6px; padding:8px 16px 16px; border-bottom:1px solid var(--border) }
-    .menu-mobile a{ text-decoration:none; color:var(--fg); font-weight:600; padding:10px 12px; border-radius:8px }
-    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f3f4f6; outline:none }
-    @media (max-width:720px){ .menu{ display:none } .toggle{ display:inline-flex; align-items:center; gap:8px } }
+
+    /* Panneau mobile fermé (animé via max-height) */
+    .menu-mobile{
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      max-height: 0;                 /* fermé */
+      overflow: hidden;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      display:block;                 /* on gère l’ouverture avec max-height */
+      transition: max-height .25s ease;
+      z-index: 999;                  /* sous la barre (1000) mais au-dessus du contenu */
+    }
+    .menu-mobile a{
+      display:block;
+      padding:14px 16px;
+      text-decoration:none;
+      color:var(--fg);
+      font-weight:600;
+      font-size: clamp(16px, 4.5vw, 18px);
+      line-height: 1.3;
+      white-space: nowrap;           /* évite “À” seul sur une ligne */
+      border-top:1px solid #f3f4f6;  /* séparateurs fins */
+    }
+    .menu-mobile a:first-child{ border-top:0 }
+    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f9fafb; outline:none }
+    .menu-mobile.open{ max-height:60vh; }
+
+    /* voile cliquable (scrim) */
+    .scrim{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.35);
+      display: none;
+      z-index: 998;
+    }
+    .scrim.show{ display:block; }
+
+    /* bloque le scroll quand ouvert */
+    body.no-scroll{ overflow:hidden }
+
+    /* Mobile : cacher le menu desktop, montrer le bouton */
+    @media (max-width:720px){
+      .menu{ display:none }
+      .toggle{ display:inline-flex; align-items:center; gap:8px }
+    }
 
     /* SECTION de contenu — centrée */
     main{ padding:24px 0 72px }
@@ -103,28 +154,15 @@
       padding:64px var(--pad-x);
       align-items:center; /* centre verticalement les 3 colonnes */
     }
-
-    /* colonnes : même marge interne */
     .section-contact .col .inner{
       padding-left: var(--col-pad);
       max-width: 900px;
       width: 100%;
     }
-
-    /* Colonne 1 : texte DARKLABS (bloc centré verticalement via align-items:center ci-dessus) */
     .section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
     .section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
-
-    /* Colonne 2 : logo centré */
-    .section-contact .logo-col .inner{
-      display:flex; justify-content:center; align-items:center;
-    }
-    .section-contact .logo-col img{
-      max-width: clamp(140px, 26vw, 260px);
-      height:auto; display:block;
-    }
-
-    /* Colonne 3 : formulaire */
+    .section-contact .logo-col .inner{ display:flex; justify-content:center; align-items:center; }
+    .section-contact .logo-col img{ max-width: clamp(140px, 26vw, 260px); height:auto; display:block; }
     .section-contact .form-card {
       background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
       box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
@@ -148,19 +186,45 @@
       .section-contact .col .inner{ padding-left: var(--col-pad); }
     }
 
-    /* FOOTER (aligné comme les sections full-width) */
+    /* === FOOTER responsive === */
     .site-footer{
-      background:#fff; border-top:1px solid #e5e7eb;
-      width:100%;
-      padding-left: var(--pad-x);
-      padding-right: var(--pad-x);
+      background:#fff;
+      border-top:1px solid #e5e7eb;
     }
     .site-footer .footer-inner{
-      max-width:1100px; margin:0 auto; padding:20px 0;
-      display:flex; justify-content:center; align-items:center; gap:18px; font-size:14px;
+      max-width:1100px;
+      margin:0 auto;
+      padding:20px 26px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:18px;
+      font-size:14px;
+      flex-wrap: wrap;
+      row-gap: 8px;
+      column-gap: 14px;
+      text-align: center;
     }
-    .site-footer a{ color:#111827; text-decoration:none; }
-    .site-footer a:hover,.site-footer a:focus{ text-decoration:underline; outline:none; }
+    .site-footer a{
+      color:#111827; text-decoration:none;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      max-width: 100%;
+    }
+    .site-footer a:hover, .site-footer a:focus{
+      text-decoration:underline; outline:none;
+    }
+    @media (max-width: 720px){
+      .site-footer .footer-inner{
+        padding:16px;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .site-footer .footer-inner span[aria-hidden="true"]{ display:none; }
+      .site-footer a{ display: block; }
+    }
   </style>
 </head>
 <body>
@@ -286,58 +350,76 @@
       <a href="politique-cookies.html">Politique de cookies</a>
       <span aria-hidden="true">•</span>
       <a href="mentions-legales.html">Mentions légales</a>
-               <span aria-hidden="true">•</span>
-      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+      <span aria-hidden="true">•</span>
+      <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
     </div>
   </footer>
 
-  <!-- Scripts : menu mobile + onglet actif + mailto -->
+  <!-- SCRIM requis par le menu -->
+  <div class="scrim" id="navScrim" hidden></div>
+
+  <!-- Scripts : menu mobile (identique index) + lien actif + mailto -->
   <script>
-    // Menu mobile
-    const btn = document.getElementById('navToggle');
-    const panel = document.getElementById('menuMobile');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const open = panel.style.display === 'block';
-        panel.style.display = open ? 'none' : 'block';
-        btn.setAttribute('aria-expanded', String(!open));
-      });
-      panel.addEventListener('click', e => {
-        if (e.target.tagName === 'A') {
-          panel.style.display = 'none';
+    document.addEventListener('DOMContentLoaded', function () {
+      // ===== Menu mobile : .open + scrim + blocage scroll
+      (function mobileMenu(){
+        const btn   = document.getElementById('navToggle');
+        const panel = document.getElementById('menuMobile');
+        const scrim = document.getElementById('navScrim');
+        if(!btn || !panel || !scrim) return;
+
+        function openMenu(){
+          panel.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('no-scroll');
+          scrim.hidden = false;
+          scrim.classList.add('show');
+        }
+        function closeMenu(){
+          panel.classList.remove('open');
           btn.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('no-scroll');
+          scrim.classList.remove('show');
+          setTimeout(()=>{ scrim.hidden = true; }, 250);
         }
-      });
-    }
+        function toggleMenu(){ panel.classList.contains('open') ? closeMenu() : openMenu(); }
 
-    // Lien actif
-    (function highlightActive() {
-      const path = location.pathname.split('/').pop() || 'index.html';
-      document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
-        const href = a.getAttribute('href');
-        if (href === path || (path === '' && href === 'index.html')) {
-          a.classList.add('active');
-        } else {
-          a.classList.remove('active');
-        }
-      });
-    })();
+        btn.addEventListener('click', toggleMenu);
+        scrim.addEventListener('click', closeMenu);
+        panel.addEventListener('click', (e)=>{ if(e.target.closest('a')) closeMenu(); });
+        document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && panel.classList.contains('open')) closeMenu(); });
 
-    // Formulaire -> mailto
-    (function wireMailto(){
-      const f = document.getElementById('contactForm');
-      if(!f) return;
-      f.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nom = encodeURIComponent(document.getElementById('nom').value || '');
-        const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
-        const email = encodeURIComponent(document.getElementById('email').value || '');
-        const msg = encodeURIComponent(document.getElementById('message').value || '');
-        const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
-        const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
-        window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
-      });
-    })();
+        // Nettoyage en repassant desktop
+        const mql = window.matchMedia('(min-width: 721px)');
+        mql.addEventListener('change', (ev)=>{ if(ev.matches) closeMenu(); });
+      })();
+
+      // ===== Lien actif
+      (function highlightActive() {
+        const path = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
+          const href = a.getAttribute('href');
+          if (href === path || (path === '' && href === 'index.html')) a.classList.add('active');
+          else a.classList.remove('active');
+        });
+      })();
+
+      // ===== Formulaire -> mailto
+      (function wireMailto(){
+        const f = document.getElementById('contactForm');
+        if(!f) return;
+        f.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nom = encodeURIComponent(document.getElementById('nom').value || '');
+          const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
+          const email = encodeURIComponent(document.getElementById('email').value || '');
+          const msg = encodeURIComponent(document.getElementById('message').value || '');
+          const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
+          const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
+          window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
+        });
+      })();
+    });
   </script>
 </body>
 </html>

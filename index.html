@@ -431,18 +431,56 @@ body.no-scroll{ overflow:hidden }
 }
 
 
-    /* === FOOTER minime === */
-    .site-footer{ background:#fff; border-top:1px solid #e5e7eb; }
-    .site-footer .footer-inner{
-      max-width:1100px; margin:0 auto; padding:20px 26px;
-      display:flex; justify-content:center; align-items:center; gap:18px; font-size:14px;
-    }
-    .site-footer a{ color:#111827; text-decoration:none; }
-    .site-footer a:hover, .site-footer a:focus{ text-decoration:underline; outline:none; }
-    @media (max-width: 720px){
-      .site-footer .footer-inner{ flex-wrap:wrap; row-gap:8px; column-gap:14px; text-align:center; }
-      .site-footer .footer-inner span[aria-hidden="true"]{ display:none; }
-    }
+/* === FOOTER minime — version responsive (wrap + anti-overflow) === */
+.site-footer{
+  background:#fff;
+  border-top:1px solid #e5e7eb;
+}
+.site-footer .footer-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px 26px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  font-size:14px;
+
+  /* clé : permettre le retour à la ligne en desktop si besoin */
+  flex-wrap: wrap;
+  row-gap: 8px;
+  column-gap: 14px;
+  text-align: center;
+}
+.site-footer a{
+  color:#111827; text-decoration:none;
+
+  /* clé : ne pas forcer sur une seule ligne + couper proprement */
+  white-space: normal;
+  overflow-wrap: anywhere;   /* coupe même un très long mot/URL */
+  word-break: break-word;    /* secours */
+  max-width: 100%;
+}
+.site-footer a:hover, .site-footer a:focus{
+  text-decoration:underline; outline:none;
+}
+
+/* Mobile : une ligne par élément, points séparateurs masqués */
+@media (max-width: 720px){
+  .site-footer .footer-inner{
+    padding:16px;
+    flex-direction: column;   /* pile les éléments */
+    align-items: center;
+    gap: 8px;
+  }
+  .site-footer .footer-inner span[aria-hidden="true"]{
+    display:none;             /* masque les “•” sur mobile */
+  }
+  .site-footer a{
+    display: block;
+  }
+}
+
 
 
     
@@ -805,18 +843,19 @@ body.no-scroll{ overflow:hidden }
 </script>
 
 
-  <!-- FOOTER -->
-  <footer class="site-footer" aria-label="Pied de page">
-    <div class="footer-inner">
-      <a href="politique-confidentialite.html">Politique de confidentialité</a>
-      <span aria-hidden="true">•</span>
-      <a href="politique-cookies.html">Politique de cookies</a>
-      <span aria-hidden="true">•</span>
-      <a href="mentions-legales.html">Mentions légales</a>
-      <span aria-hidden="true">•</span>
-      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
-    </div>
-  </footer>
+<!-- FOOTER -->
+<footer class="site-footer" aria-label="Pied de page">
+  <div class="footer-inner">
+    <a href="politique-confidentialite.html">Politique de confidentialité</a>
+    <span aria-hidden="true">•</span>
+    <a href="politique-cookies.html">Politique de cookies</a>
+    <span aria-hidden="true">•</span>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <span aria-hidden="true">•</span>
+    <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+  </div>
+</footer>
+
 
   <div class="scrim" id="navScrim" hidden></div>
 
