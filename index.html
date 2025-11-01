@@ -179,9 +179,9 @@ body.no-scroll{ overflow:hidden }
 
       display: grid;
       grid-template-columns: var(--side-col) minmax(360px, 1fr) var(--side-col);
-      gap: 24px;
+      gap: 8px;
 
-      padding: 24px var(--pad-x) 0;
+      padding: 8px var(--pad-x) 0;
       align-items: stretch;  /* nécessaire pour coller en bas à gauche */
       overflow: hidden;
     }
@@ -369,6 +369,67 @@ body.no-scroll{ overflow:hidden }
     .section-9 .header h3{ margin:0; font-size:clamp(22px,3vw,30px); font-weight:700; padding-left:var(--left-indent); }
     .section-9 .stars{ margin-top:6px; font-size:14px; line-height:1; color:#f59e0b; }
     .section-9 .author{ margin-top:10px; font-weight:600; color:#111827; }
+
+    /* === SECTION CONTACT — 3 colonnes full width, texte DARKLABS centré verticalement,
+   logo au centre, formulaire à droite (légèrement décalable si besoin) === */
+.section-contact {
+  background:#fff; color:#111827; width:100%;
+  border-top:1px solid #e5e7eb;
+}
+.section-contact .wrap{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;     /* ← 3 colonnes */
+  gap:24px;
+  width:100%; max-width:none; margin:0;   /* ← full width réel */
+  padding:64px var(--pad-x);
+  align-items:center;                      /* ← centre verticalement chaque colonne */
+}
+
+/* colonnes : même marge interne */
+.section-contact .col .inner{
+  padding-left: var(--col-pad);
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Colonne 1 (texte DARKLABS) */
+.section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
+.section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
+
+/* Colonne 2 (logo) */
+.section-contact .logo-col .inner{
+  display:flex; justify-content:center; align-items:center;
+}
+.section-contact .logo-col img{
+  max-width: clamp(140px, 26vw, 260px);
+  height:auto; display:block;
+}
+
+/* Colonne 3 (formulaire) */
+.section-contact .form-card {
+  background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
+  max-width: 720px; width:100%;
+}
+.section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
+.section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
+.section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.section-contact input, .section-contact textarea {
+  width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
+}
+.section-contact textarea { min-height: 120px; resize: vertical; }
+.section-contact button[type="submit"] {
+  margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
+  background:#111827; color:#fff; font-weight:700;
+}
+.section-contact button[type="submit"]:hover { opacity:.92; }
+
+/* Mobile : empiler en 1 colonne */
+@media (max-width: 960px){
+  .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
+  .section-contact .col .inner{ padding-left: var(--col-pad); }
+}
+
 
     /* === FOOTER minime === */
     .site-footer{ background:#fff; border-top:1px solid #e5e7eb; }
@@ -659,57 +720,108 @@ body.no-scroll{ overflow:hidden }
       </div>
     </section>
 
-    <!-- SECTION 10 — Présentation DARKLABS + Formulaire -->
-    <section class="section-contact" aria-label="Présentation et contact">
-      <div class="wrap">
-        <div class="col brand-col">
-          <div class="inner">
-            <div class="brand-text">
-              <h3>DARKLABS</h3>
-              <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité au service des sapeurs-pompiers.</p>
-              <p>www.darklabs.fr</p>
-              <p>contact@darklabs.fr</p>
-            </div>
-          </div>
-        </div>
-        <div class="col logo-col">
-          <div class="inner">
-            <img src="images/Darklabs.png" alt="Logo DARKLABS" loading="lazy" decoding="async">
-          </div>
-        </div>
-        <div class="col form-col">
-          <div class="inner">
-            <div class="form-card">
-              <h3>Nous contacter</h3>
-              <form id="contactForm">
-                <div class="row-2">
-                  <div>
-                    <label for="nom">Nom</label>
-                    <input id="nom" name="nom" type="text" required>
-                  </div>
-                  <div>
-                    <label for="prenom">Prénom</label>
-                    <input id="prenom" name="prenom" type="text" required>
-                  </div>
-                </div>
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" required>
-                <label for="message">Votre message</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Envoyer</button>
-              </form>
-              <p style="margin-top:8px; font-size:12px; color:#6b7280;">
-                L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
-              </p>
-            </div>
-          </div>
+<!-- CONTACT (FULL WIDTH) -->
+ <section class="section-contact" aria-label="Présentation et contact">
+  <div class="wrap">
+
+    <!-- Colonne 1 : texte DARKLABS -->
+    <div class="col brand-col">
+      <div class="inner">
+        <div class="brand-text">
+          <h3>DARKLABS</h3>
+          <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+             au service des sapeurs-pompiers.</p>
+          <p>www.darklabs.fr</p>
+          <p>contact@darklabs.fr</p>
         </div>
       </div>
-    </section>
+    </div>
+
+    <!-- Colonne 2 : logo centré -->
+    <div class="col logo-col">
+      <div class="inner">
+        <img src="images/Darklabs.png" alt="Logo DARKLABS">
+      </div>
+    </div>
+
+    <!-- Colonne 3 : formulaire -->
+    <div class="col form-col">
+      <div class="inner">
+        <div class="form-card">
+          <h3>Nous contacter</h3>
+          <form id="contactForm">
+            <div class="row-2">
+              <div>
+                <label for="nom">Nom</label>
+                <input id="nom" name="nom" type="text" required>
+              </div>
+              <div>
+                <label for="prenom">Prénom</label>
+                <input id="prenom" name="prenom" type="text" required>
+              </div>
+            </div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+            <label for="message">Votre message</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Envoyer</button>
+          </form>
+          <p style="margin-top:8px; font-size:12px; color:#6b7280;">
+            L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
   </main>
 
+
+
 <script>
+  (function mobileMenu(){
+    /* ton code existant du menu mobile */
+  })();
+</script>
+
+<script>
+  // Formulaire -> mailto (identique à tarif.html)
+  (function wireMailto(){
+    const f = document.getElementById('contactForm');
+    if(!f) return;
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nom = encodeURIComponent(document.getElementById('nom').value || '');
+      const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
+      const email = encodeURIComponent(document.getElementById('email').value || '');
+      const msg = encodeURIComponent(document.getElementById('message').value || '');
+      const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
+      const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
+      window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
+    });
+  })();
+</script>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer" aria-label="Pied de page">
+    <div class="footer-inner">
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <span aria-hidden="true">•</span>
+      <a href="politique-cookies.html">Politique de cookies</a>
+      <span aria-hidden="true">•</span>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <span aria-hidden="true">•</span>
+      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+    </div>
+  </footer>
+
+  <div class="scrim" id="navScrim" hidden></div>
+
+
+  <script>
   (function mobileMenu(){
     const btn   = document.getElementById('navToggle');
     const panel = document.getElementById('menuMobile');
@@ -757,21 +869,5 @@ body.no-scroll{ overflow:hidden }
     });
   })();
 </script>
-
-  <!-- FOOTER -->
-  <footer class="site-footer" aria-label="Pied de page">
-    <div class="footer-inner">
-      <a href="politique-confidentialite.html">Politique de confidentialité</a>
-      <span aria-hidden="true">•</span>
-      <a href="politique-cookies.html">Politique de cookies</a>
-      <span aria-hidden="true">•</span>
-      <a href="mentions-legales.html">Mentions légales</a>
-      <span aria-hidden="true">•</span>
-      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
-    </div>
-  </footer>
-
-  <div class="scrim" id="navScrim" hidden></div>
-
 </body>
 </html>
