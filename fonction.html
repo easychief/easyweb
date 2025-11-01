@@ -122,13 +122,27 @@
     .feature-block.reverse .media{ order:1 }
     .feature-block.reverse .content{ order:0 }
 
-    /* Responsive : pile en 1 colonne — on ne centre PAS le texte */
-    @media (max-width: 960px){
-      .feature-block, .feature-block.reverse{
-        grid-template-columns: 1fr;
-      }
-      :root{ --feature-img-w: clamp(120px, 34vw, 180px); }
-    }
+/* Responsive : pile en 1 colonne — et impose l’ordre image puis texte */
+@media (max-width: 960px){
+  .feature-block,
+  .feature-block.reverse{
+    grid-template-columns: 1fr;   /* 1 seule colonne */
+  }
+
+  /* >>> clé : en mobile, on annule le quinconce
+     et on force toujours media (image) avant content (texte) */
+  .feature-block .media,
+  .feature-block.reverse .media{
+    order: 0 !important;
+  }
+  .feature-block .content,
+  .feature-block.reverse .content{
+    order: 1 !important;
+  }
+
+  /* taille d’image mobile (garde si tu veux) */
+  :root{ --feature-img-w: clamp(120px, 34vw, 180px); }
+}
 
     /* Petite séparation entre sous-sections (optionnel) */
     .soft-sep{ height:1px; background:var(--border); margin:8px 0 20px; }

@@ -46,7 +46,68 @@
     .menu a.active{ color:var(--accent) }
     .toggle{ display:none; background:transparent; border:1px solid var(--border); padding:8px 10px; border-radius:8px; cursor:pointer }
     .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
-    .menu-mobile{ display:none; flex-direction:column; gap:6px; padding:8px 16px 16px; border-bottom:1px solid var(--border) }
+/* ===== NAV mobile propre : panneau empilé 1 item/ligne ===== */
+.toggle{
+  display:none;
+  background:transparent; border:1px solid var(--border);
+  color:#111827; padding:8px 10px; border-radius:8px; cursor:pointer;
+}
+.toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
+
+/* panneau fermé par défaut */
+.menu-mobile{
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  max-height: 0;                 /* fermé */
+  overflow: hidden;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  display:block;                 /* on gère l’ouverture avec max-height */
+  transition: max-height .25s ease;
+  z-index: 999;                  /* sous la barre (1000) mais au-dessus du contenu */
+}
+
+/* liens : 1 par ligne, grosse hit-area, pas de wrap moche */
+.menu-mobile a{
+  display:block;
+  padding:14px 16px;
+  text-decoration:none;
+  color:#111827;
+  font-weight:600;
+  font-size: clamp(16px, 4.5vw, 18px);
+  line-height: 1.3;
+  white-space: nowrap;           /* évite “À” seul sur une ligne */
+  border-top:1px solid #f3f4f6;  /* séparateurs fins */
+}
+.menu-mobile a:first-child{ border-top:0 }
+.menu-mobile a:hover, .menu-mobile a:focus{ background:#f9fafb; outline:none }
+
+/* état OUVERT : on donne une hauteur suffisante pour voir tous les liens */
+.menu-mobile.open{
+  max-height: 60vh;              /* assez pour 6–8 items; ajuste si besoin */
+}
+
+/* voile cliquable (scrim) pour fermer en tapant dehors */
+.scrim{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  display: none;
+  z-index: 998;                  /* juste sous le panneau */
+}
+.scrim.show{ display:block; }
+
+/* quand le menu est ouvert, on bloque le scroll du body */
+body.no-scroll{ overflow:hidden }
+
+/* En mobile : cacher le menu desktop, afficher le bouton */
+@media (max-width: 720px){
+  .menu{ display:none }
+  .toggle{ display:inline-flex; align-items:center; gap:8px }
+}
+
     .menu-mobile a{ text-decoration:none; color:var(--fg); font-weight:600; padding:10px 12px; border-radius:8px }
     .menu-mobile a:hover,.menu-mobile a:focus{ background:#f3f4f6; outline:none }
     @media (max-width:720px){ .menu{ display:none } .toggle{ display:inline-flex; align-items:center; gap:8px } }
@@ -133,6 +194,24 @@
       background:#111 center/cover no-repeat; position:relative; overflow:hidden;
     }
     .pro-right::after{ content:""; position:absolute; inset:0; background: radial-gradient(transparent 40%, rgba(0,0,0,.25) 100%); pointer-events:none; }
+
+    /* ==== PRO — empiler en mobile : texte d’abord, image dessous ==== */
+@media (max-width: 960px){
+  .pro-grid{
+    grid-template-columns: 1fr;   /* 1 seule colonne */
+    gap: 16px;                     /* un peu moins d'espace en mobile */
+  }
+
+  /* ordre : left (texte) en haut, right (image) en bas */
+  .pro-left{ order: 0; }
+  .pro-right{
+    order: 1;
+    min-height: 42vh;              /* assez haut pour voir l'image (ajuste si tu veux) */
+    background-position: center;   /* bien cadrée */
+    background-size: cover;        /* couvre sans bandes */
+    border-radius: 16px;           /* garde les arrondis */
+  }
+}
 
     /* Contact (repris de l'accueil) */
 /* === SECTION CONTACT — 3 colonnes full width, texte DARKLABS centré verticalement,
@@ -375,23 +454,54 @@
   </footer>
 
   <!-- Scripts : menu mobile + lien actif + mailto -->
-  <script>
-    // Menu mobile
-    const btn = document.getElementById('navToggle');
+<script>
+  (function mobileMenu(){
+    const btn   = document.getElementById('navToggle');
     const panel = document.getElementById('menuMobile');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const open = panel.style.display === 'block';
-        panel.style.display = open ? 'none' : 'block';
-        btn.setAttribute('aria-expanded', String(!open));
-      });
-      panel.addEventListener('click', e => {
-        if (e.target.tagName === 'A') {
-          panel.style.display = 'none';
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      });
+    const scrim = document.getElementById('navScrim');
+
+    if(!btn || !panel || !scrim) return;
+
+    function openMenu(){
+      panel.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('no-scroll');
+      scrim.hidden = false;
+      scrim.classList.add('show');
     }
+    function closeMenu(){
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+      scrim.classList.remove('show');
+      // attendre la fin de la transition pour masquer totalement le scrim
+      setTimeout(()=>{ scrim.hidden = true; }, 250);
+    }
+    function toggleMenu(){
+      panel.classList.contains('open') ? closeMenu() : openMenu();
+    }
+
+    btn.addEventListener('click', toggleMenu);
+    scrim.addEventListener('click', closeMenu);
+
+    // Fermer quand on clique un lien du menu
+    panel.addEventListener('click', (e)=>{
+      const a = e.target.closest('a');
+      if(a) closeMenu();
+    });
+
+    // Fermer à Échap
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && panel.classList.contains('open')) closeMenu();
+    });
+
+    // Sécurité : si on repasse en desktop, on nettoie
+    const mql = window.matchMedia('(min-width: 721px)');
+    mql.addEventListener('change', (ev)=>{
+      if(ev.matches) closeMenu();
+    });
+  })();
+</script>
 
     // Lien actif
 (function highlightActive() {
@@ -423,5 +533,7 @@
       });
     })();
   </script>
+  <div class="scrim" id="navScrim" hidden></div>
+
 </body>
 </html>
