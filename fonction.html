@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Easy Chief — Fonctions</title>
 
-  <!-- Police Montserrat (identique à index) -->
+  <!-- Police Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -21,10 +21,12 @@
       --nav-h:64px;
       --container-w:1100px;
 
-      /* TAILLE UNIQUE DES IMAGES DE FONCTION (à ajuster ici) */
+      /* TAILLE UNIQUE DES IMAGES DE FONCTION */
       --feature-img-w: clamp(140px, 18vw, 180px);
-       --pad-x: clamp(16px, 6vw, 74px);   /* marge horizontale globale des sections full width */
-  --col-pad: clamp(16px, 2vw, 24px); /* marge interne identique pour les 3 colonnes */
+
+      /* espacements global (aligné sur index.html) */
+      --pad-x: clamp(16px, 6vw, 74px);
+      --col-pad: clamp(16px, 2vw, 24px);
     }
 
     *{ box-sizing:border-box }
@@ -33,28 +35,94 @@
       font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--fg);
       background:var(--bg);
+      padding-top: var(--nav-h); /* nav fixe => décale le contenu */
     }
 
-    /* ================== Navigation (même look & feel) ================== */
-    .nav{ position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--border) }
+    /* ================== NAV (identique index) ================== */
+    .nav{
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+    }
     .nav-inner{
-      max-width:var(--container-w); margin:0 auto;
+      max-width:1100px;
+      margin:0 auto;
       display:flex; align-items:center; justify-content:space-between;
-      min-height:var(--nav-h); padding:12px 16px;
+      min-height:var(--nav-h);
+      padding: 12px 16px;
     }
-    .brand{ font-weight:800; letter-spacing:.2px; font-size:1.125rem; color:var(--fg); text-decoration:none }
+    .brand{
+      font-weight:800; letter-spacing:.2px; font-size:1.125rem;
+      color:#111827; text-decoration:none;
+    }
     .menu{ display:flex; align-items:center; gap:20px }
-    .menu a{ text-decoration:none; color:var(--fg); font-weight:600; padding:8px 10px; border-radius:8px }
-    .menu a:hover,.menu a:focus{ background:#f3f4f6; outline:none }
+    .menu a{
+      text-decoration:none; color:#111827; font-weight:600;
+      padding:8px 10px; border-radius:8px;
+    }
+    .menu a:hover, .menu a:focus{ background:#f3f4f6; outline:none }
     .menu a.active{ color:var(--accent) }
-    .toggle{ display:none; background:transparent; border:1px solid var(--border); padding:8px 10px; border-radius:8px; cursor:pointer }
-    .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
-    .menu-mobile{ display:none; flex-direction:column; gap:6px; padding:8px 16px 16px; border-bottom:1px solid var(--border) }
-    .menu-mobile a{ text-decoration:none; color:var(--fg); font-weight:600; padding:10px 12px; border-radius:8px }
-    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f3f4f6; outline:none }
-    @media (max-width:720px){ .menu{ display:none } .toggle{ display:inline-flex; align-items:center; gap:8px } }
 
-    /* ================== Conteneur central (section principale) ================== */
+    /* Bouton mobile */
+    .toggle{
+      display:none;
+      background:transparent; border:1px solid var(--border);
+      color:#111827;
+      padding:8px 10px; border-radius:8px; cursor:pointer;
+    }
+    .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
+
+    /* Panneau mobile fermé (animé via max-height) */
+    .menu-mobile{
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      max-height: 0;
+      overflow: hidden;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      display:block;
+      transition: max-height .25s ease;
+      z-index: 999;
+    }
+
+    /* Liens empilés 1 par ligne */
+    .menu-mobile a{
+      display:block;
+      padding:14px 16px;
+      text-decoration:none;
+      color:#111827;
+      font-weight:600;
+      font-size: clamp(16px, 4.5vw, 18px);
+      line-height: 1.3;
+      white-space: nowrap;
+      border-top:1px solid #f3f4f6;
+    }
+    .menu-mobile a:first-child{ border-top:0 }
+    .menu-mobile a:hover, .menu-mobile a:focus{ background:#f9fafb; outline:none }
+    .menu-mobile.open{ max-height:60vh; }
+
+    /* voile cliquable */
+    .scrim{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.35);
+      display: none;
+      z-index: 998;
+    }
+    .scrim.show{ display:block; }
+
+    /* bloque le scroll quand ouvert */
+    body.no-scroll{ overflow:hidden }
+
+    /* Mobile : cache le menu desktop, montre le bouton */
+    @media (max-width: 720px){
+      .menu{ display:none }
+      .toggle{ display:inline-flex; align-items:center; gap:8px }
+    }
+
+    /* ================== CONTENU ================== */
     main{ padding:24px 0 72px }
     .container{
       max-width:var(--container-w);
@@ -62,37 +130,32 @@
       padding:24px 16px;
     }
 
-    /* ================== Titre de page ================== */
     .page-title{
       text-align:center;
-      margin: calc(var(--nav-h) + 12px) 0 24px;
+      margin: 0 0 24px;
     }
     .page-title h1{ margin:0 0 6px; font-size:clamp(24px,4vw,48px); font-weight:800; letter-spacing:.2px }
     .page-title p{ margin:0; color:var(--muted); font-size:clamp(14px,2vw,16px) }
 
-    /* ================== Blocs “fonction” ================== */
+    /* Blocs “fonction” */
     .feature-block{
       display:grid; grid-template-columns: 1.2fr 1fr; gap:28px;
       align-items:center;
       padding:28px 0;
     }
-    /* quinconce (image à droite) */
     .feature-block.reverse{ grid-template-columns: 1fr 1.2fr }
 
-    /* Images de fonction : même largeur réglable partout */
     .feature-block img{
       width: var(--feature-img-w);
       height: auto;
       display: block;
       border-radius: 12px;
-      margin-inline: auto; /* centre l’image dans sa colonne (indépendant du texte) */
+      margin-inline: auto;
     }
 
-    /* Texte TOUJOURS aligné à gauche */
     .feature-content{ text-align:left; }
     .feature-title{ margin:0 0 8px; font-size:clamp(20px,3vw,28px); font-weight:700; text-align:left; }
 
-    /* Ligne noire sous le titre : collée à gauche */
     .feature-divider{
       width:clamp(60px,20%,140px); height:3px; background:#000;
       margin:10px 0 14px; border-radius:2px;
@@ -104,7 +167,6 @@
       text-align:left;
     }
 
-    /* Liste de points : puces collées + alignement gauche */
     .feature-list{
       margin:8px 0 0;
       padding-left:0;
@@ -116,158 +178,132 @@
     }
     .feature-list li{ margin:2px 0; }
 
-    /* Ordre des colonnes (image / texte) */
     .feature-block .media{ order:0 }
     .feature-block .content{ order:1 }
     .feature-block.reverse .media{ order:1 }
     .feature-block.reverse .content{ order:0 }
 
-/* Responsive : pile en 1 colonne — et impose l’ordre image puis texte */
-@media (max-width: 960px){
-  .feature-block,
-  .feature-block.reverse{
-    grid-template-columns: 1fr;   /* 1 seule colonne */
-  }
+    /* Mobile : pile en 1 colonne, image avant texte */
+    @media (max-width: 960px){
+      .feature-block,
+      .feature-block.reverse{
+        grid-template-columns: 1fr;
+      }
+      .feature-block .media,
+      .feature-block.reverse .media{ order: 0 !important; }
+      .feature-block .content,
+      .feature-block.reverse .content{ order: 1 !important; }
+      :root{ --feature-img-w: clamp(120px, 34vw, 180px); }
+    }
 
-  /* >>> clé : en mobile, on annule le quinconce
-     et on force toujours media (image) avant content (texte) */
-  .feature-block .media,
-  .feature-block.reverse .media{
-    order: 0 !important;
-  }
-  .feature-block .content,
-  .feature-block.reverse .content{
-    order: 1 !important;
-  }
-
-  /* taille d’image mobile (garde si tu veux) */
-  :root{ --feature-img-w: clamp(120px, 34vw, 180px); }
-}
-
-    /* Petite séparation entre sous-sections (optionnel) */
     .soft-sep{ height:1px; background:var(--border); margin:8px 0 20px; }
 
+    /* Bandeau image pleine largeur */
+    .full-bleed{
+      position:relative;
+      width:100vw;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
+      padding:0;
+      border-top:1px solid var(--border);
+    }
+    .full-bleed img{
+      display:block;
+      width:100%;
+      height:auto;
+      max-width:none;
+    }
 
-/* Bandeau image 100% fenêtre, sans bandes blanches */
-.full-bleed{
-  position:relative;
-  width:100vw;                           /* occupe toute la largeur de la fenêtre */
-  margin-left:calc(50% - 50vw);          /* casse l’alignement centré éventuel */
-  margin-right:calc(50% - 50vw);         /* idem côté droit */
-  padding:0;
-  border-top:1px solid var(--border);    /* optionnel, tu peux supprimer */
-}
-.full-bleed img{
-  display:block;
-  width:100%;
-  height:auto;
-  max-width:none;                        /* évite une limitation héritée */
-}
+    /* NOTE finale */
+    .section-note{ background:#fff; border-top:1px solid var(--border); }
+    .section-note .container{ max-width:var(--container-w); margin:0 auto; padding:28px 16px 48px; }
+    .section-note p{ margin:0; color:#374151; font-size:clamp(15px,2.2vw,18px); line-height:1.7; text-align:left; }
+    .section-note.center .container{ text-align:center; }
+    .section-note.center p{ text-align:center; margin:0 auto; max-width: 820px; }
 
-/* Petite section finale "texte seul" */
-.section-note{
-  background:#fff;
-  border-top:1px solid var(--border);
-}
-.section-note .container{
-  max-width:var(--container-w);
-  margin:0 auto;
-  padding:28px 16px 48px;
-}
-.section-note p{
-  margin:0;
-  color:#374151;
-  font-size:clamp(15px,2.2vw,18px);
-  line-height:1.7;
-  text-align:left; /* comme demandé : tout le texte à gauche */
-}
-/* Variante centrée pour la section-note */
-.section-note.center .container{ text-align:center; }
-.section-note.center p{
-  text-align:center;
-  margin:0 auto;              /* centre le bloc */
-  max-width: 820px;           /* lisible, ajuste si besoin */
-}/* === SECTION 10 — Présentation + Formulaire (fond blanc, 2 colonnes) === */
-/* === SECTION CONTACT — 3 colonnes full width, texte DARKLABS centré verticalement,
-   logo au centre, formulaire à droite (légèrement décalable si besoin) === */
-.section-contact {
-  background:#fff; color:#111827; width:100%;
-  border-top:1px solid #e5e7eb;
-}
-.section-contact .wrap{
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr;     /* ← 3 colonnes */
-  gap:24px;
-  width:100%; max-width:none; margin:0;   /* ← full width réel */
-  padding:64px var(--pad-x);
-  align-items:center;                      /* ← centre verticalement chaque colonne */
-}
+    /* === SECTION CONTACT (identique à index/tarif) === */
+    .section-contact {
+      background:#fff; color:#111827; width:100%;
+      border-top:1px solid #e5e7eb;
+    }
+    .section-contact .wrap{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:24px;
+      width:100%; max-width:none; margin:0;
+      padding:64px var(--pad-x);
+      align-items:center;
+    }
+    .section-contact .col .inner{
+      padding-left: var(--col-pad);
+      max-width: 900px;
+      width: 100%;
+    }
+    .section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
+    .section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
+    .section-contact .logo-col .inner{ display:flex; justify-content:center; align-items:center; }
+    .section-contact .logo-col img{ max-width: clamp(140px, 26vw, 260px); height:auto; display:block; }
+    .section-contact .form-card {
+      background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
+      box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
+      max-width: 720px; width:100%;
+    }
+    .section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
+    .section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
+    .section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .section-contact input, .section-contact textarea {
+      width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
+    }
+    .section-contact textarea { min-height: 120px; resize: vertical; }
+    .section-contact button[type="submit"] {
+      margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
+      background:#111827; color:#fff; font-weight:700;
+    }
+    .section-contact button[type="submit"]:hover { opacity:.92; }
+    @media (max-width: 960px){
+      .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
+      .section-contact .col .inner{ padding-left: var(--col-pad); }
+    }
 
-/* colonnes : même marge interne */
-.section-contact .col .inner{
-  padding-left: var(--col-pad);
-  max-width: 900px;
-  width: 100%;
-}
-
-/* Colonne 1 (texte DARKLABS) : bloc simple, le centrage vertical est assuré par align-items:center ci-dessus */
-.section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
-.section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
-
-/* Colonne 2 (logo) : centrer l’image */
-.section-contact .logo-col .inner{
-  display:flex; justify-content:center; align-items:center;
-}
-.section-contact .logo-col img{
-  max-width: clamp(140px, 26vw, 260px);
-  height:auto; display:block;
-}
-
-/* Colonne 3 (formulaire) */
-.section-contact .form-card {
-  background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
-  box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
-  max-width: 720px; width:100%;
-}
-.section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
-.section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
-.section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.section-contact input, .section-contact textarea {
-  width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
-}
-.section-contact textarea { min-height: 120px; resize: vertical; }
-.section-contact button[type="submit"] {
-  margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
-  background:#111827; color:#fff; font-weight:700;
-}
-.section-contact button[type="submit"]:hover { opacity:.92; }
-
-/* Mobile : empiler en 1 colonne */
-@media (max-width: 960px){
-  .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
-  .section-contact .col .inner{ padding-left: var(--col-pad); }
-}
-
-
-/* === FOOTER minime (identique index) === */
-.site-footer{
-  background:#fff;
-  border-top:1px solid #e5e7eb;
-}
-.site-footer .footer-inner{
-  max-width:1100px;
-  margin:0 auto;
-  padding:20px 26px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:18px;
-  font-size:14px;
-}
-.site-footer a{ color:#111827; text-decoration:none; }
-.site-footer a:hover, .site-footer a:focus{ text-decoration:underline; outline:none; }
-
-
+    /* === FOOTER responsive === */
+    .site-footer{
+      background:#fff;
+      border-top:1px solid #e5e7eb;
+    }
+    .site-footer .footer-inner{
+      max-width:1100px;
+      margin:0 auto;
+      padding:20px 26px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:18px;
+      font-size:14px;
+      flex-wrap: wrap;
+      row-gap: 8px;
+      column-gap: 14px;
+      text-align: center;
+    }
+    .site-footer a{
+      color:#111827; text-decoration:none;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      max-width: 100%;
+    }
+    .site-footer a:hover, .site-footer a:focus{
+      text-decoration:underline; outline:none;
+    }
+    @media (max-width: 720px){
+      .site-footer .footer-inner{
+        padding:16px;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .site-footer .footer-inner span[aria-hidden="true"]{ display:none; }
+      .site-footer a{ display: block; }
+    }
   </style>
 </head>
 <body>
@@ -275,26 +311,21 @@
   <nav class="nav" aria-label="Navigation principale">
     <div class="nav-inner">
       <a class="brand" href="index.html">Easy Chief</a>
-
       <div class="menu" role="menubar" aria-label="Liens principaux">
         <a href="index.html" role="menuitem">Accueil</a>
         <a href="fonction.html" role="menuitem">Fonctions</a>
         <a href="tarif.html" role="menuitem">Tarifs</a>
-     
         <a href="apropos.html" role="menuitem">À propos</a>
       </div>
-
       <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
         <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
         Menu
       </button>
     </div>
-
     <div class="menu-mobile" id="menuMobile">
       <a href="index.html">Accueil</a>
       <a href="fonction.html">Fonctions</a>
       <a href="tarif.html">Tarifs</a>
-
       <a href="apropos.html">À propos</a>
     </div>
   </nav>
@@ -302,13 +333,12 @@
   <!-- CONTENU -->
   <main>
     <div class="container">
-      <!-- Titre de page -->
       <header class="page-title">
         <h1>FONCTIONNALITÉS</h1>
         <p>Un concentré d’outils pensés pour l’intervention — clairs, rapides, fiables.</p>
       </header>
 
-      <!-- ===== Sous-section 1 (image gauche) ===== -->
+      <!-- Sous-section 1 -->
       <section class="feature-block" aria-label="Fonction 1">
         <div class="media">
           <img src="images/icons/icon_fiches.png" alt="Aperçu fonction 1">
@@ -324,7 +354,7 @@
 
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- ===== Sous-section 2 (image droite) ===== -->
+      <!-- Sous-section 2 -->
       <section class="feature-block reverse" aria-label="Fonction 2">
         <div class="media">
           <img src="images/icons/icon_stockage.png" alt="Aperçu fonction 2">
@@ -340,7 +370,7 @@
 
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- ===== Sous-section 3 (image gauche) ===== -->
+      <!-- Sous-section 3 -->
       <section class="feature-block" aria-label="Fonction 3">
         <div class="media">
           <img src="images/icons/icon_consignes.png" alt="Aperçu fonction 3">
@@ -356,7 +386,7 @@
 
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- ===== Sous-section 4 (image droite) ===== -->
+      <!-- Sous-section 4 -->
       <section class="feature-block reverse" aria-label="Fonction 4">
         <div class="media">
           <img src="images/icons/icon_victimes.png" alt="Aperçu fonction 4">
@@ -372,7 +402,7 @@
 
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- ===== Sous-section 5 (image gauche) ===== -->
+      <!-- Sous-section 5 -->
       <section class="feature-block" aria-label="Fonction 5">
         <div class="media">
           <img src="images/icons/icon_loca.png" alt="Aperçu fonction 5">
@@ -380,10 +410,7 @@
         <div class="content feature-content">
           <h2 class="feature-title">EASYCHIEF 360</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-
-          <p class="feature-text">
-            RÉGLEZ LE CURSEUR ET ACCÉDEZ AUX INFORMATIONS OPS AUTOUR DE VOUS :
-          </p>
+          <p class="feature-text">RÉGLEZ LE CURSEUR ET ACCÉDEZ AUX INFORMATIONS OPS AUTOUR DE VOUS :</p>
           <ul class="feature-list">
             <li>POINTS D'EAU NATURELS / ARTIFICIELS</li>
             <li>HÉLIPORTS</li>
@@ -395,312 +422,262 @@
           </ul>
         </div>
       </section>
+    </div> <!-- /container -->
 
-      <div class="soft-sep" aria-hidden="true"></div>
-
-    </div> <!-- fin .container -->
-
-    <!-- Bandeau image pleine largeur -->
+    <!-- Bandeau image -->
     <section class="full-bleed" aria-label="Bandeau image pleine largeur">
       <img src="images/BG_WEB_VL.png" alt="Bandeau Easy Chief pleine largeur">
     </section>
 
-    <!-- ============ NOUVELLES SECTIONS ============ -->
-
-    <!-- SECTION A : 5 images + 5 textes (quinconce) -->
+    <!-- Autres blocs (A1..B5) -->
     <div class="container">
-      <!-- Bloc A1 (image gauche) -->
       <section class="feature-block" aria-label="Fonction A1">
-        <div class="media">
-          <img src="images/icons/icon_perte.png" alt="Aperçu A1">
-        </div>
+        <div class="media"><img src="images/icons/icon_perte.png" alt="Aperçu A1"></div>
         <div class="content feature-content">
           <h2 class="feature-title">PERTE DE CHARGE</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">UNE LONGUEUR D'ÉTABLISSEMENT, UN DIAMÈTRE DE TUYAU, UN DÉBIT ET UNE PRESSION SOUHAITÉ, CET OUTIL CALCUL POUR VOUS LES PERTES DE CHARGES ET VOUS PROPOSE LES RELAIS NECESSAIRE. PENSÉ POUR TOUS, LA PERSONNALISATION DES CARACTÉRISTIQUES DES POMPES EST POSSIBLE.</p>
         </div>
       </section>
-
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Bloc A2 (image droite) -->
       <section class="feature-block reverse" aria-label="Fonction A2">
-        <div class="media">
-          <img src="images/icons/icon_xplo.png" alt="Aperçu A2">
-        </div>
+        <div class="media"><img src="images/icons/icon_xplo.png" alt="Aperçu A2"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EXPLOSIMÉTRIE</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">DU GAZ ÉTALON AU GAZ CIBLE, UNE PASSERELLE INSTANTANÉE.</p>
         </div>
       </section>
-
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Bloc A3 (image gauche) -->
       <section class="feature-block" aria-label="Fonction A3">
-        <div class="media">
-          <img src="images/icons/icon_lif.png" alt="Aperçu A3">
-        </div>
+        <div class="media"><img src="images/icons/icon_lif.png" alt="Aperçu A3"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY LIF</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">CALCUL AUTOMATIQUE DES QUANTITÉS D'EMULSEUR.</p>
         </div>
       </section>
-
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Bloc A4 (image droite) -->
       <section class="feature-block reverse" aria-label="Fonction A4">
-        <div class="media">
-          <img src="images/icons/icon_onu.png" alt="Aperçu A4">
-        </div>
+        <div class="media"><img src="images/icons/icon_onu.png" alt="Aperçu A4"></div>
         <div class="content feature-content">
           <h2 class="feature-title">CODE O.N.U</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">RECHERCHEZ N'IMPORTE QUEL CODE DANGER, EASYCHIEF L'IDENTIFIE ET VOUS DONNE UNE FICHE DÉTAILLÉE AVEC SCORE ET FICHE INTERVENTION.</p>
         </div>
       </section>
-
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Bloc A5 (image gauche) -->
       <section class="feature-block" aria-label="Fonction A5">
-        <div class="media">
-          <img src="images/icons/icon_propag.png" alt="Aperçu A5">
-        </div>
+        <div class="media"><img src="images/icons/icon_propag.png" alt="Aperçu A5"></div>
         <div class="content feature-content">
           <h2 class="feature-title">PROPAGATOR</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">CE SIMULATEUR DE PROPAGATION DE FEUX D'ESPACES NATURELS VOUS PERMETTRA CHAQUE JOUR D'AVOIR UNE IDÉE DE LA VITESSE DE PROPAGATION SUR VOTRE SECTEUR ET SELON LE TYPE DE VÉGÉTATION.</p>
         </div>
       </section>
-    </div> <!-- /container SECTION A -->
+    </div>
 
-    <!-- BANDE PLEINE LARGEUR (bg-web-vl2.png) -->
+    <!-- Bandeau image 2 -->
     <section class="full-bleed" aria-label="Bandeau image pleine largeur 2">
       <img src="images/BG_WEB_VL2.png" alt="Bandeau Easy Chief pleine largeur 2">
     </section>
 
-    <!-- SECTION B : 5 images + 5 textes (quinconce) -->
     <div class="container">
-      <!-- Bloc B1 (image gauche) -->
       <section class="feature-block" aria-label="Fonction B1">
-        <div class="media">
-          <img src="images/icons/icon_sitac.png" alt="Aperçu B1">
-        </div>
+        <div class="media"><img src="images/icons/icon_sitac.png" alt="Aperçu B1"></div>
         <div class="content feature-content">
           <h2 class="feature-title">SITAC</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">DESSINEZ VOTRE SITAC RAPIDEMENT DEPUIS VOTRE TABLETTE, ENREGISTREMENT, EXPORT, IMPORT DE SYMBOLES... UN OUTIL INCROYABLE À LA PORTÉE DE TOUS !</p>
         </div>
       </section>
-
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Bloc B2 (image droite) -->
       <section class="feature-block reverse" aria-label="Fonction B2">
-        <div class="media">
-          <img src="images/icons/icon_oct.png" alt="Aperçu B2">
-        </div>
+        <div class="media"><img src="images/icons/icon_oct.png" alt="Aperçu B2"></div>
         <div class="content feature-content">
           <h2 class="feature-title">O.C.T</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">CRÉER VOTRE O.C.T, SAUVEGARDEZ LE MODÈLE, ADAPTEZ ET PARTAGEZ !</p>
         </div>
       </section>
-
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Bloc B3 (image gauche) -->
       <section class="feature-block" aria-label="Fonction B3">
-        <div class="media">
-          <img src="images/icons/icon_charte.png" alt="Aperçu B3">
-        </div>
+        <div class="media"><img src="images/icons/icon_charte.png" alt="Aperçu B3"></div>
         <div class="content feature-content">
           <h2 class="feature-title">CHARTE GRAPHIQUE</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">OFFICIER RENS-MOYENS, UN SYMBOLE OUBLIÉ? EASYCHIEF VOUS AIDE À GARDER LA MÉMOIRE.</p>
         </div>
       </section>
-
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Bloc B4 (image droite) -->
       <section class="feature-block reverse" aria-label="Fonction B4">
-        <div class="media">
-          <img src="images/icons/icon_radio.png" alt="Aperçu B4">
-        </div>
+        <div class="media"><img src="images/icons/icon_radio.png" alt="Aperçu B4"></div>
         <div class="content feature-content">
           <h2 class="feature-title">RADIO</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">AJOUTEZ VOS FRÉQUENCES FACILEMENT ET RETROUVEZ-LES EN UN CLIC.</p>
         </div>
       </section>
-
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Bloc B5 (image gauche) -->
       <section class="feature-block" aria-label="Fonction B5">
-        <div class="media">
-          <img src="images/icons/icon_expo.png" alt="Aperçu B5">
-        </div>
+        <div class="media"><img src="images/icons/icon_expo.png" alt="Aperçu B5"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EXPOSITIONS</h2>
           <div class="feature-divider" aria-hidden="true"></div>
           <p class="feature-text">GARDEZ UNE TRACE DE VOS EXPOSITIONS À RISQUES, EASYCHIEF INTÈGRE UNE DESCRIPTION EXTRÊMEMENT DÉTAILLÉE ET PERMET UN EXPORT MULTI-FORMAT POUR INTÉGRATION EXTERNE.</p>
         </div>
       </section>
-    </div> <!-- /container SECTION B -->
-
-    
-
-<!-- PETITE SECTION TEXTE SEUL -->
-<section class="section-note center" aria-label="Note finale">
-  <div class="container">
-    <p>
-      SÉCURITÉ AVANCÉE
-    </p>
-    <p>
-      La protection des données est notre priorité, EASYCHIEF vous offre deux options d'authentification, biométrique ou code pin, pour accéder à l'application et aux pages sensibles. (Victimes / Expositions / Identités)
-    </p>
-  </div>
-</section>
-
-
-    <!-- ============ FIN DES NOUVELLES SECTIONS ============ -->
-
-    <!-- SECTION 10 — Présentation DARKLABS + Formulaire de contact -->
-<section class="section-contact" aria-label="Présentation et contact">
-  <div class="wrap">
-
-    <!-- Colonne 1 : texte DARKLABS -->
-    <div class="col brand-col">
-      <div class="inner">
-        <div class="brand-text">
-          <h3>DARKLABS</h3>
-          <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
-             au service des sapeurs-pompiers.</p>
-          <p>www.darklabs.fr</p>
-          <p>contact@darklabs.fr</p>
-        </div>
-      </div>
     </div>
 
-    <!-- Colonne 2 : logo centré -->
-    <div class="col logo-col">
-      <div class="inner">
-        <img src="images/Darklabs.png" alt="Logo DARKLABS">
+    <!-- Note finale -->
+    <section class="section-note center" aria-label="Note finale">
+      <div class="container">
+        <p>SÉCURITÉ AVANCÉE</p>
+        <p>La protection des données est notre priorité, EASYCHIEF vous offre deux options d'authentification, biométrique ou code pin, pour accéder à l'application et aux pages sensibles. (Victimes / Expositions / Identités)</p>
       </div>
-    </div>
+    </section>
 
-    <!-- Colonne 3 : formulaire -->
-    <div class="col form-col">
-      <div class="inner">
-        <div class="form-card">
-          <h3>Nous contacter</h3>
-          <form id="contactForm">
-            <div class="row-2">
-              <div>
-                <label for="nom">Nom</label>
-                <input id="nom" name="nom" type="text" required>
-              </div>
-              <div>
-                <label for="prenom">Prénom</label>
-                <input id="prenom" name="prenom" type="text" required>
-              </div>
+    <!-- SECTION 10 — Contact -->
+    <section class="section-contact" aria-label="Présentation et contact">
+      <div class="wrap">
+        <div class="col brand-col">
+          <div class="inner">
+            <div class="brand-text">
+              <h3>DARKLABS</h3>
+              <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+                 au service des sapeurs-pompiers.</p>
+              <p>www.darklabs.fr</p>
+              <p>contact@darklabs.fr</p>
             </div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required>
-            <label for="message">Votre message</label>
-            <textarea id="message" name="message" required></textarea>
-            <button type="submit">Envoyer</button>
-          </form>
-          <p style="margin-top:8px; font-size:12px; color:#6b7280;">
-            L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
-          </p>
+          </div>
         </div>
+
+        <div class="col logo-col">
+          <div class="inner">
+            <img src="images/Darklabs.png" alt="Logo DARKLABS">
+          </div>
+        </div>
+
+        <div class="col form-col">
+          <div class="inner">
+            <div class="form-card">
+              <h3>Nous contacter</h3>
+              <form id="contactForm">
+                <div class="row-2">
+                  <div>
+                    <label for="nom">Nom</label>
+                    <input id="nom" name="nom" type="text" required>
+                  </div>
+                  <div>
+                    <label for="prenom">Prénom</label>
+                    <input id="prenom" name="prenom" type="text" required>
+                  </div>
+                </div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required>
+                <label for="message">Votre message</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Envoyer</button>
+              </form>
+              <p style="margin-top:8px; font-size:12px; color:#6b7280;">
+                L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-  </div>
-</section>
-
-
-
+    </section>
   </main>
 
-  <!-- FOOTER minimal -->
-
-  <footer class="site-footer" aria-label="Pied de page" style="background:#fff;border-top:1px solid #e5e7eb;">
-    <div class="footer-inner" style="max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;justify-content:center;gap:18px;font-size:14px;">
-      <a href="politique-confidentialite.html" style="color:#111827;text-decoration:none;">Politique de confidentialité</a>
+  <!-- FOOTER -->
+  <footer class="site-footer" aria-label="Pied de page">
+    <div class="footer-inner">
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
       <span aria-hidden="true">•</span>
-      <a href="politique-cookies.html" style="color:#111827;text-decoration:none;">Politique de cookies</a>
+      <a href="politique-cookies.html">Politique de cookies</a>
       <span aria-hidden="true">•</span>
-      <a href="mentions-legales.html" style="color:#111827;text-decoration:none;">Mentions légales</a>
-         <span aria-hidden="true">•</span>
-      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <span aria-hidden="true">•</span>
+      <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
     </div>
   </footer>
 
-  <!-- Scripts : menu mobile + surlignage du lien actif -->
+
+
   <script>
-    // Menu mobile
-    const btn = document.getElementById('navToggle');
-    const panel = document.getElementById('menuMobile');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const open = panel.style.display === 'block';
-        panel.style.display = open ? 'none' : 'block';
-        btn.setAttribute('aria-expanded', String(!open));
+    // Formulaire -> mailto
+    (function wireMailto(){
+      const f = document.getElementById('contactForm');
+      if(!f) return;
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nom = encodeURIComponent(document.getElementById('nom').value || '');
+        const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
+        const email = encodeURIComponent(document.getElementById('email').value || '');
+        const msg = encodeURIComponent(document.getElementById('message').value || '');
+        const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
+        const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
+        window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
       });
-      panel.addEventListener('click', e => {
-        if (e.target.tagName === 'A') {
-          panel.style.display = 'none';
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-
-    // Met en surbrillance le lien actif selon le fichier ouvert
-(function highlightActive() {
-  const path = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html')) {
-      a.classList.add('active');
-    } else {
-      a.classList.remove('active');
-    }
-  });
-})();
-
+    })();
   </script>
 
+  <!-- SCRIM requis par le menu -->
+  <div class="scrim" id="navScrim" hidden></div>
+
+    <!-- SCRIPTS : un seul menu mobile (identique index) + mailto -->
   <script>
-  // Envoi du formulaire -> mailto contact@easychief.fr
-  (function(){
-    const form = document.getElementById('contactForm');
-    if(!form) return;
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      const nom = (document.getElementById('nom')?.value || '').trim();
-      const prenom = (document.getElementById('prenom')?.value || '').trim();
-      const email = (document.getElementById('email')?.value || '').trim();
-      const message = (document.getElementById('message')?.value || '').trim();
+    (function mobileMenu(){
+      const btn   = document.getElementById('navToggle');
+      const panel = document.getElementById('menuMobile');
+      const scrim = document.getElementById('navScrim');
 
-      const to = 'contact@easychief.fr';
-      const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
-      const body = encodeURIComponent(
-        `Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${message}`
-      );
+      if(!btn || !panel || !scrim) return;
 
-      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-    });
-  })();
-</script>
+      function openMenu(){
+        panel.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('no-scroll');
+        scrim.hidden = false;
+        scrim.classList.add('show');
+      }
+      function closeMenu(){
+        panel.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('no-scroll');
+        scrim.classList.remove('show');
+        setTimeout(()=>{ scrim.hidden = true; }, 250);
+      }
+      function toggleMenu(){
+        panel.classList.contains('open') ? closeMenu() : openMenu();
+      }
 
+      btn.addEventListener('click', toggleMenu);
+      scrim.addEventListener('click', closeMenu);
+
+      panel.addEventListener('click', (e)=>{
+        const a = e.target.closest('a');
+        if(a) closeMenu();
+      });
+
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape' && panel.classList.contains('open')) closeMenu();
+      });
+
+      const mql = window.matchMedia('(min-width: 721px)');
+      mql.addEventListener('change', (ev)=>{
+        if(ev.matches) closeMenu();
+      });
+    })();
+  </script>
 </body>
 </html>

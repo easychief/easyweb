@@ -20,20 +20,24 @@
       --border:#e5e7eb;
       --nav-h:64px;
       --container-w:1100px;
-      --pad-x: clamp(16px, 4vw, 74px);
-       --pad-x: clamp(16px, 6vw, 74px);   /* marge horizontale globale des sections full width */
-  --col-pad: clamp(16px, 2vw, 24px); /* marge interne identique pour les 3 colonnes */
+      --pad-x: clamp(16px, 6vw, 74px);
+      --col-pad: clamp(16px, 2vw, 24px);
     }
+
     *{ box-sizing:border-box }
     html,body{ margin:0 }
     body{
       font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--fg);
       background:var(--bg);
+      padding-top: var(--nav-h); /* nav FIXE => décale le contenu */
     }
 
-    /* NAV */
-    .nav{ position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--border) }
+    /* ===== NAV identique index : FIXE + menu mobile animé ===== */
+    .nav{
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:#fff; border-bottom:1px solid var(--border);
+    }
     .nav-inner{
       max-width:var(--container-w); margin:0 auto;
       display:flex; align-items:center; justify-content:space-between;
@@ -44,73 +48,60 @@
     .menu a{ text-decoration:none; color:var(--fg); font-weight:600; padding:8px 10px; border-radius:8px }
     .menu a:hover,.menu a:focus{ background:#f3f4f6; outline:none }
     .menu a.active{ color:var(--accent) }
-    .toggle{ display:none; background:transparent; border:1px solid var(--border); padding:8px 10px; border-radius:8px; cursor:pointer }
+
+    /* Bouton hamburger */
+    .toggle{
+      display:none; background:transparent; border:1px solid var(--border);
+      padding:8px 10px; border-radius:8px; cursor:pointer; color:var(--fg);
+    }
     .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
-/* ===== NAV mobile propre : panneau empilé 1 item/ligne ===== */
-.toggle{
-  display:none;
-  background:transparent; border:1px solid var(--border);
-  color:#111827; padding:8px 10px; border-radius:8px; cursor:pointer;
-}
-.toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
 
-/* panneau fermé par défaut */
-.menu-mobile{
-  position: fixed;
-  top: var(--nav-h);
-  left: 0;
-  right: 0;
-  max-height: 0;                 /* fermé */
-  overflow: hidden;
-  background:#fff;
-  border-bottom:1px solid var(--border);
-  display:block;                 /* on gère l’ouverture avec max-height */
-  transition: max-height .25s ease;
-  z-index: 999;                  /* sous la barre (1000) mais au-dessus du contenu */
-}
+    /* Panneau mobile fermé (animé via max-height) */
+    .menu-mobile{
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      max-height: 0;                 /* fermé */
+      overflow: hidden;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      display:block;                 /* on gère l’ouverture avec max-height */
+      transition: max-height .25s ease;
+      z-index: 999;                  /* sous la barre (1000) mais au-dessus du contenu */
+    }
+    .menu-mobile a{
+      display:block;
+      padding:14px 16px;
+      text-decoration:none;
+      color:var(--fg);
+      font-weight:600;
+      font-size: clamp(16px, 4.5vw, 18px);
+      line-height: 1.3;
+      white-space: nowrap;           /* évite “À” seul sur une ligne */
+      border-top:1px solid #f3f4f6;  /* séparateurs fins */
+    }
+    .menu-mobile a:first-child{ border-top:0 }
+    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f9fafb; outline:none }
+    .menu-mobile.open{ max-height:60vh; }
 
-/* liens : 1 par ligne, grosse hit-area, pas de wrap moche */
-.menu-mobile a{
-  display:block;
-  padding:14px 16px;
-  text-decoration:none;
-  color:#111827;
-  font-weight:600;
-  font-size: clamp(16px, 4.5vw, 18px);
-  line-height: 1.3;
-  white-space: nowrap;           /* évite “À” seul sur une ligne */
-  border-top:1px solid #f3f4f6;  /* séparateurs fins */
-}
-.menu-mobile a:first-child{ border-top:0 }
-.menu-mobile a:hover, .menu-mobile a:focus{ background:#f9fafb; outline:none }
+    /* voile cliquable (scrim) */
+    .scrim{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.35);
+      display: none;
+      z-index: 998;
+    }
+    .scrim.show{ display:block; }
 
-/* état OUVERT : on donne une hauteur suffisante pour voir tous les liens */
-.menu-mobile.open{
-  max-height: 60vh;              /* assez pour 6–8 items; ajuste si besoin */
-}
+    /* bloque le scroll quand ouvert */
+    body.no-scroll{ overflow:hidden }
 
-/* voile cliquable (scrim) pour fermer en tapant dehors */
-.scrim{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.35);
-  display: none;
-  z-index: 998;                  /* juste sous le panneau */
-}
-.scrim.show{ display:block; }
-
-/* quand le menu est ouvert, on bloque le scroll du body */
-body.no-scroll{ overflow:hidden }
-
-/* En mobile : cacher le menu desktop, afficher le bouton */
-@media (max-width: 720px){
-  .menu{ display:none }
-  .toggle{ display:inline-flex; align-items:center; gap:8px }
-}
-
-    .menu-mobile a{ text-decoration:none; color:var(--fg); font-weight:600; padding:10px 12px; border-radius:8px }
-    .menu-mobile a:hover,.menu-mobile a:focus{ background:#f3f4f6; outline:none }
-    @media (max-width:720px){ .menu{ display:none } .toggle{ display:inline-flex; align-items:center; gap:8px } }
+    /* Mobile : cacher le menu desktop, montrer le bouton */
+    @media (max-width:720px){
+      .menu{ display:none }
+      .toggle{ display:inline-flex; align-items:center; gap:8px }
+    }
 
     /* ========== TOUTES LES SECTIONS EN PLEINE LARGEUR ========== */
     .section{
@@ -164,19 +155,18 @@ body.no-scroll{ overflow:hidden }
     .full-bleed{ width:100%; padding:0; margin:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .full-bleed img{ display:block; width:100%; height:auto; }
 
-/* PRO 2 colonnes — FULL WIDTH */
-.pro .inner{
-  max-width: none;   /* ← on enlève la contrainte de largeur */
-  margin: 0;
-  padding: 48px var(--pad-x) 64px;  /* padding gauche/droite identique au reste du site */
-}
-.pro-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: stretch;
-}
-
+    /* PRO 2 colonnes — FULL WIDTH */
+    .pro .inner{
+      max-width: none;
+      margin: 0;
+      padding: 48px var(--pad-x) 64px;
+    }
+    .pro-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
     .pro-left{
       background:#000; color:#e5e7eb; border-radius:16px;
       padding:28px 28px 28px clamp(28px, 4vw, 42px);
@@ -195,105 +185,64 @@ body.no-scroll{ overflow:hidden }
     }
     .pro-right::after{ content:""; position:absolute; inset:0; background: radial-gradient(transparent 40%, rgba(0,0,0,.25) 100%); pointer-events:none; }
 
-    /* ==== PRO — empiler en mobile : texte d’abord, image dessous ==== */
-@media (max-width: 960px){
-  .pro-grid{
-    grid-template-columns: 1fr;   /* 1 seule colonne */
-    gap: 16px;                     /* un peu moins d'espace en mobile */
-  }
+    /* PRO — empiler en mobile : texte d’abord, image dessous */
+    @media (max-width: 960px){
+      .pro-grid{ grid-template-columns: 1fr; gap: 16px; }
+      .pro-left{ order: 0; }
+      .pro-right{ order: 1; min-height: 42vh; background-position:center; background-size:cover; border-radius:16px; }
+    }
 
-  /* ordre : left (texte) en haut, right (image) en bas */
-  .pro-left{ order: 0; }
-  .pro-right{
-    order: 1;
-    min-height: 42vh;              /* assez haut pour voir l'image (ajuste si tu veux) */
-    background-position: center;   /* bien cadrée */
-    background-size: cover;        /* couvre sans bandes */
-    border-radius: 16px;           /* garde les arrondis */
-  }
-}
+    /* === SECTION CONTACT — 3 colonnes full width === */
+    .section-contact { background:#fff; color:#111827; width:100%; border-top:1px solid #e5e7eb; }
+    .section-contact .wrap{
+      display:grid; grid-template-columns: 1fr 1fr 1fr; gap:24px;
+      width:100%; max-width:none; margin:0; padding:64px var(--pad-x);
+      align-items:center;
+    }
+    .section-contact .col .inner{ padding-left: var(--col-pad); max-width: 900px; width: 100%; }
+    .section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
+    .section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
+    .section-contact .logo-col .inner{ display:flex; justify-content:center; align-items:center; }
+    .section-contact .logo-col img{ max-width: clamp(140px, 26vw, 260px); height:auto; display:block; }
+    .section-contact .form-card {
+      background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
+      box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
+      max-width: 720px; width:100%;
+    }
+    .section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
+    .section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
+    .section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .section-contact input, .section-contact textarea {
+      width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
+    }
+    .section-contact textarea { min-height: 120px; resize: vertical; }
+    .section-contact button[type="submit"] {
+      margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
+      background:#111827; color:#fff; font-weight:700;
+    }
+    .section-contact button[type="submit"]{ cursor:pointer; }
+    .section-contact button[type="submit"]:hover { opacity:.92; }
+    @media (max-width: 960px){
+      .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
+      .section-contact .col .inner{ padding-left: var(--col-pad); }
+    }
 
-    /* Contact (repris de l'accueil) */
-/* === SECTION CONTACT — 3 colonnes full width, texte DARKLABS centré verticalement,
-   logo au centre, formulaire à droite (légèrement décalable si besoin) === */
-.section-contact {
-  background:#fff; color:#111827; width:100%;
-  border-top:1px solid #e5e7eb;
-}
-.section-contact .wrap{
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr;     /* ← 3 colonnes */
-  gap:24px;
-  width:100%; max-width:none; margin:0;   /* ← full width réel */
-  padding:64px var(--pad-x);
-  align-items:center;                      /* ← centre verticalement chaque colonne */
-}
-
-/* colonnes : même marge interne */
-.section-contact .col .inner{
-  padding-left: var(--col-pad);
-  max-width: 900px;
-  width: 100%;
-}
-
-/* Colonne 1 (texte DARKLABS) : bloc simple, le centrage vertical est assuré par align-items:center ci-dessus */
-.section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
-.section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
-
-/* Colonne 2 (logo) : centrer l’image */
-.section-contact .logo-col .inner{
-  display:flex; justify-content:center; align-items:center;
-}
-.section-contact .logo-col img{
-  max-width: clamp(140px, 26vw, 260px);
-  height:auto; display:block;
-}
-
-/* Colonne 3 (formulaire) */
-.section-contact .form-card {
-  background:#f9fafb; border:1px solid #e5e7eb; border-radius:16px;
-  box-shadow:0 4px 14px rgba(0,0,0,.06); padding:20px;
-  max-width: 720px; width:100%;
-}
-.section-contact h3 { margin:0 0 12px; font-size:clamp(22px,3vw,28px); font-weight:700; }
-.section-contact label { display:block; font-weight:600; margin:10px 0 6px; }
-.section-contact .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.section-contact input, .section-contact textarea {
-  width:100%; padding:12px 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font:inherit;
-}
-.section-contact textarea { min-height: 120px; resize: vertical; }
-.section-contact button[type="submit"] {
-  margin-top:14px; padding:12px 16px; border:0; border-radius:10px; cursor:pointer;
-  background:#111827; color:#fff; font-weight:700;
-}
-.section-contact button[type="submit"]:hover { opacity:.92; }
-
-/* Mobile : empiler en 1 colonne */
-@media (max-width: 960px){
-  .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
-  .section-contact .col .inner{ padding-left: var(--col-pad); }
-}
-
-/* === FOOTER minime (identique index) === */
-.site-footer{
-  background:#fff;
-  border-top:1px solid #e5e7eb;
-}
-.site-footer .footer-inner{
-  max-width:1100px;
-  margin:0 auto;
-  padding:20px 26px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:18px;
-  font-size:14px;
-}
-.site-footer a{ color:#111827; text-decoration:none; }
-.site-footer a:hover, .site-footer a:focus{ text-decoration:underline; outline:none; }
-
-
-
+    /* === FOOTER responsive === */
+    .site-footer{ background:#fff; border-top:1px solid #e5e7eb; }
+    .site-footer .footer-inner{
+      max-width:1100px; margin:0 auto; padding:20px 26px;
+      display:flex; justify-content:center; align-items:center; gap:18px; font-size:14px;
+      flex-wrap: wrap; row-gap: 8px; column-gap: 14px; text-align: center;
+    }
+    .site-footer a{
+      color:#111827; text-decoration:none; white-space: normal; overflow-wrap:anywhere; word-break:break-word; max-width:100%;
+    }
+    .site-footer a:hover, .site-footer a:focus{ text-decoration:underline; outline:none; }
+    @media (max-width: 720px){
+      .site-footer .footer-inner{ padding:16px; flex-direction: column; align-items: center; gap: 8px; }
+      .site-footer .footer-inner span[aria-hidden="true"]{ display:none; }
+      .site-footer a{ display:block; }
+    }
   </style>
 </head>
 <body>
@@ -305,7 +254,6 @@ body.no-scroll{ overflow:hidden }
         <a href="index.html" role="menuitem">Accueil</a>
         <a href="fonction.html" role="menuitem">Fonctions</a>
         <a href="tarif.html" role="menuitem">Tarifs</a>
-  
         <a href="apropos.html" role="menuitem">À propos</a>
       </div>
       <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
@@ -317,7 +265,6 @@ body.no-scroll{ overflow:hidden }
       <a href="index.html">Accueil</a>
       <a href="fonction.html">Fonctions</a>
       <a href="tarif.html">Tarifs</a>
-
       <a href="apropos.html">À propos</a>
     </div>
   </nav>
@@ -382,63 +329,56 @@ body.no-scroll{ overflow:hidden }
   </section>
 
   <!-- CONTACT (FULL WIDTH) -->
- <section class="section-contact" aria-label="Présentation et contact">
-  <div class="wrap">
-
-    <!-- Colonne 1 : texte DARKLABS -->
-    <div class="col brand-col">
-      <div class="inner">
-        <div class="brand-text">
-          <h3>DARKLABS</h3>
-          <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
-             au service des sapeurs-pompiers.</p>
-          <p>www.darklabs.fr</p>
-          <p>contact@darklabs.fr</p>
+  <section class="section-contact" aria-label="Présentation et contact">
+    <div class="wrap">
+      <div class="col brand-col">
+        <div class="inner">
+          <div class="brand-text">
+            <h3>DARKLABS</h3>
+            <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+               au service des sapeurs-pompiers.</p>
+            <p>www.darklabs.fr</p>
+            <p>contact@darklabs.fr</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Colonne 2 : logo centré -->
-    <div class="col logo-col">
-      <div class="inner">
-        <img src="images/Darklabs.png" alt="Logo DARKLABS">
-      </div>
-    </div>
-
-    <!-- Colonne 3 : formulaire -->
-    <div class="col form-col">
-      <div class="inner">
-        <div class="form-card">
-          <h3>Nous contacter</h3>
-          <form id="contactForm">
-            <div class="row-2">
-              <div>
-                <label for="nom">Nom</label>
-                <input id="nom" name="nom" type="text" required>
-              </div>
-              <div>
-                <label for="prenom">Prénom</label>
-                <input id="prenom" name="prenom" type="text" required>
-              </div>
-            </div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required>
-            <label for="message">Votre message</label>
-            <textarea id="message" name="message" required></textarea>
-            <button type="submit">Envoyer</button>
-          </form>
-          <p style="margin-top:8px; font-size:12px; color:#6b7280;">
-            L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
-          </p>
+      <div class="col logo-col">
+        <div class="inner">
+          <img src="images/Darklabs.png" alt="Logo DARKLABS">
         </div>
       </div>
+
+      <div class="col form-col">
+        <div class="inner">
+          <div class="form-card">
+            <h3>Nous contacter</h3>
+            <form id="contactForm">
+              <div class="row-2">
+                <div>
+                  <label for="nom">Nom</label>
+                  <input id="nom" name="nom" type="text" required>
+                </div>
+                <div>
+                  <label for="prenom">Prénom</label>
+                  <input id="prenom" name="prenom" type="text" required>
+                </div>
+              </div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required>
+              <label for="message">Votre message</label>
+              <textarea id="message" name="message" required></textarea>
+              <button type="submit">Envoyer</button>
+            </form>
+            <p style="margin-top:8px; font-size:12px; color:#6b7280;">
+              L’envoi ouvre votre client mail et préremplit un message à <strong>contact@easychief.fr</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-  </div>
-</section>
-
-  
-  </main>
+  </section>
 
   <!-- FOOTER -->
   <footer class="site-footer" aria-label="Pied de page">
@@ -448,92 +388,76 @@ body.no-scroll{ overflow:hidden }
       <a href="politique-cookies.html">Politique de cookies</a>
       <span aria-hidden="true">•</span>
       <a href="mentions-legales.html">Mentions légales</a>
-               <span aria-hidden="true">•</span>
-      <a href="index.html" style="color:#111827;text-decoration:none;">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+      <span aria-hidden="true">•</span>
+      <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
     </div>
   </footer>
 
-  <!-- Scripts : menu mobile + lien actif + mailto -->
-<script>
-  (function mobileMenu(){
-    const btn   = document.getElementById('navToggle');
-    const panel = document.getElementById('menuMobile');
-    const scrim = document.getElementById('navScrim');
-
-    if(!btn || !panel || !scrim) return;
-
-    function openMenu(){
-      panel.classList.add('open');
-      btn.setAttribute('aria-expanded', 'true');
-      document.body.classList.add('no-scroll');
-      scrim.hidden = false;
-      scrim.classList.add('show');
-    }
-    function closeMenu(){
-      panel.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('no-scroll');
-      scrim.classList.remove('show');
-      // attendre la fin de la transition pour masquer totalement le scrim
-      setTimeout(()=>{ scrim.hidden = true; }, 250);
-    }
-    function toggleMenu(){
-      panel.classList.contains('open') ? closeMenu() : openMenu();
-    }
-
-    btn.addEventListener('click', toggleMenu);
-    scrim.addEventListener('click', closeMenu);
-
-    // Fermer quand on clique un lien du menu
-    panel.addEventListener('click', (e)=>{
-      const a = e.target.closest('a');
-      if(a) closeMenu();
-    });
-
-    // Fermer à Échap
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape' && panel.classList.contains('open')) closeMenu();
-    });
-
-    // Sécurité : si on repasse en desktop, on nettoie
-    const mql = window.matchMedia('(min-width: 721px)');
-    mql.addEventListener('change', (ev)=>{
-      if(ev.matches) closeMenu();
-    });
-  })();
-</script>
-<script>
- // Lien actif
-(function highlightActive() {
-  const path = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html')) {
-      a.classList.add('active');
-    } else {
-      a.classList.remove('active');
-    }
-  });
-})();
-
-
-    // Formulaire -> mailto
-    (function wireMailto(){
-      const f = document.getElementById('contactForm');
-      if(!f) return;
-      f.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nom = encodeURIComponent(document.getElementById('nom').value || '');
-        const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
-        const email = encodeURIComponent(document.getElementById('email').value || '');
-        const msg = encodeURIComponent(document.getElementById('message').value || '');
-        const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
-        const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
-        window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
-      });
-    })();
-  </script>
+  <!-- SCRIM requis par le menu (placé AVANT les scripts) -->
   <div class="scrim" id="navScrim" hidden></div>
 
+  <!-- Scripts : menu mobile (identique index) + lien actif + mailto -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // ===== Menu mobile : .open + scrim + blocage scroll
+      (function mobileMenu(){
+        const btn   = document.getElementById('navToggle');
+        const panel = document.getElementById('menuMobile');
+        const scrim = document.getElementById('navScrim');
+        if(!btn || !panel || !scrim) return;
+
+        function openMenu(){
+          panel.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('no-scroll');
+          scrim.hidden = false;
+          scrim.classList.add('show');
+        }
+        function closeMenu(){
+          panel.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('no-scroll');
+          scrim.classList.remove('show');
+          setTimeout(()=>{ scrim.hidden = true; }, 250);
+        }
+        function toggleMenu(){ panel.classList.contains('open') ? closeMenu() : openMenu(); }
+
+        btn.addEventListener('click', toggleMenu);
+        scrim.addEventListener('click', closeMenu);
+        panel.addEventListener('click', (e)=>{ if(e.target.closest('a')) closeMenu(); });
+        document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && panel.classList.contains('open')) closeMenu(); });
+
+        // Nettoyage en repassant desktop
+        const mql = window.matchMedia('(min-width: 721px)');
+        mql.addEventListener('change', (ev)=>{ if(ev.matches) closeMenu(); });
+      })();
+
+      // ===== Lien actif
+      (function highlightActive() {
+        const path = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
+          const href = a.getAttribute('href');
+          if (href === path || (path === '' && href === 'index.html')) a.classList.add('active');
+          else a.classList.remove('active');
+        });
+      })();
+
+      // ===== Formulaire -> mailto
+      (function wireMailto(){
+        const f = document.getElementById('contactForm');
+        if(!f) return;
+        f.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nom = encodeURIComponent(document.getElementById('nom').value || '');
+          const prenom = encodeURIComponent(document.getElementById('prenom').value || '');
+          const email = encodeURIComponent(document.getElementById('email').value || '');
+          const msg = encodeURIComponent(document.getElementById('message').value || '');
+          const subject = encodeURIComponent(`Contact Easy Chief — ${prenom} ${nom}`);
+          const body = encodeURIComponent(`Nom: ${nom}\nPrénom: ${prenom}\nEmail: ${email}\n\nMessage:\n${msg}`);
+          window.location.href = `mailto:contact@easychief.fr?subject=${subject}&body=${body}`;
+        });
+      })();
+    });
+  </script>
 </body>
 </html>
