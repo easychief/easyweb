@@ -180,7 +180,7 @@ body.no-scroll{ overflow:hidden }
       display: grid;
       grid-template-columns: var(--side-col) minmax(360px, 1fr) var(--side-col);
       gap: 8px;
-
+  justify-items: center;  
       padding: 8px var(--pad-x) 0;
       align-items: stretch;  /* nécessaire pour coller en bas à gauche */
       overflow: hidden;
@@ -481,6 +481,61 @@ body.no-scroll{ overflow:hidden }
   }
 }
 
+/* ======= FIX HERO mobile : images latérales qui débordent + badges qui wrap ======= */
+
+/* 1) Les images gauche/droite ne doivent JAMAIS dépasser l'écran en mobile */
+@media (max-width: 960px){
+  /* écrase la largeur inline du visuel GAUCHE si trop grande */
+  .hero .col-left .side-img{
+    width: min(82vw, 420px) !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  /* visuel DROIT : même logique, un peu plus petit */
+  .hero .col-right .side-img{
+    width: min(76vw, 380px) !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* 2) Colonne du milieu : largeur lisible + césure sûre */
+.hero .col-mid > .inner{
+  max-width: 760px;            /* desktop */
+}
+@media (max-width: 960px){
+  .hero .col-mid > .inner{
+    max-width: 92vw;           /* mobile : pleine largeur moins marges */
+    margin-inline: auto;
+    text-align: center;
+  }
+  /* pas de texte "coupé" : on autorise la césure partout si besoin */
+  .hero .col-mid h1,
+  .hero .col-mid p,
+  .hero .col-mid a{
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
+/* 3) Badges App Store / Google Play qui se centrent et wrap correctement */
+.cta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  align-items:center;
+}
+.cta-row .store-badge img{
+  height:auto;
+  max-width: 200px;            /* desktop */
+}
+@media (max-width: 960px){
+  .cta-row .store-badge img{
+    max-width: min(44vw, 180px);  /* mobile : 2 badges côte à côte ou l’un sous l’autre */
+  }
+}
 
 
     
