@@ -243,6 +243,16 @@
       .site-footer .footer-inner span[aria-hidden="true"]{ display:none; }
       .site-footer a{ display:block; }
     }
+
+    .brand-text a {
+  color: inherit;
+  text-decoration: none;
+}
+.brand-text a:hover,
+.brand-text a:focus {
+  text-decoration: underline;
+}
+
   </style>
 </head>
 <body>
@@ -331,17 +341,21 @@
   <!-- CONTACT (FULL WIDTH) -->
   <section class="section-contact" aria-label="Présentation et contact">
     <div class="wrap">
-      <div class="col brand-col">
-        <div class="inner">
-          <div class="brand-text">
-            <h3>DARKLABS</h3>
-            <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
-               au service des sapeurs-pompiers.</p>
-            <p>www.darklabs.fr</p>
-            <p>contact@darklabs.fr</p>
-          </div>
-        </div>
-      </div>
+   <div class="col brand-col">
+  <div class="inner">
+    <div class="brand-text">
+      <h3>DARKLABS</h3>
+      <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+         au service des sapeurs-pompiers.</p>
+
+      <!-- liens cliquables -->
+      <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
+      <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
+      <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
+    </div>
+  </div>
+</div>
+
 
       <div class="col logo-col">
         <div class="inner">
