@@ -131,6 +131,11 @@
       font-size: clamp(18px, 2.8vw, 24px);
       font-weight:800;
     }
+    .policy h3{
+      margin:18px 0 6px;
+      font-size: clamp(16px, 2.4vw, 20px);
+      font-weight:700;
+    }
     .policy p{
       margin:8px 0;
       color:#374151;
@@ -230,62 +235,60 @@
       .site-footer a{ display: block; }
     }
 
-    .brand-text a {
-  color: inherit;
-  text-decoration: none;
-}
-.brand-text a:hover,
-.brand-text a:focus {
-  text-decoration: underline;
-}
-
+    .brand-text a { color: inherit; text-decoration: none; }
+    .brand-text a:hover,
+    .brand-text a:focus { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <!-- NAV -->
+ <!-- NAV -->
   <nav class="nav" aria-label="Navigation principale">
     <div class="nav-inner">
       <a class="brand" href="index.html">Easy Chief</a>
-      <div class="menu" role="menubar" aria-label="Liens principaux">
-        <a href="index.html" role="menuitem">Accueil</a>
-        <a href="fonction.html" role="menuitem">Fonctions</a>
-        <a href="tarif.html" role="menuitem">Tarifs</a>
-        <a href="apropos.html" role="menuitem">À propos</a>
+   <div class="menu" role="menubar" aria-label="Liens principaux">
+  <a href="index.html" role="menuitem">Accueil</a>
+  <a href="fonction.html" role="menuitem">Fonctions</a>
+  <a href="tarif.html" role="menuitem">Tarifs</a>
+  <a href="apropos.html" role="menuitem">À propos</a>
+  <a href="faq.html" role="menuitem">FAQ</a>
       </div>
       <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
         <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
         Menu
       </button>
-    </div>
-    <div class="menu-mobile" id="menuMobile">
-      <a href="index.html">Accueil</a>
-      <a href="fonction.html">Fonctions</a>
-      <a href="tarif.html">Tarifs</a>
-      <a href="apropos.html">À propos</a>
-    </div>
-  </nav>
+   </div>
+<div class="menu-mobile" id="menuMobile">
+  <a href="index.html">Accueil</a>
+  <a href="fonction.html">Fonctions</a>
+  <a href="tarif.html">Tarifs</a>
+  <a href="apropos.html">À propos</a>
+  <a href="faq.html">FAQ</a>
+</div>
+</nav>
 
   <main>
     <div class="container">
       <header class="page-title">
         <h1>Politique de confidentialité</h1>
-        <p class="meta">Easy Chief — Version : 29 octobre 2025 — Entrée en vigueur : 01 novembre 2025</p>
+        <p class="meta">Easy Chief — Version : 06 novembre 2025 — Entrée en vigueur : 06 novembre 2025</p>
       </header>
 
       <!-- SECTION CENTRALE : contenu -->
       <article class="policy" aria-label="Politique de confidentialité">
         <h2>1. Qui sommes-nous ?</h2>
-        <p>Éditeur : Pierre DAZIN – EI - DARKLABS<br>
-           Adresse : 88 rue de jarlard 81000 Albi<br>
+        <p>Éditeur : Pierre DAZIN – EI – DARKLABS<br>
+           Adresse : 88 rue de jarlard, 81000 Albi<br>
            Contact : <a href="mailto:contact@easychief.fr">contact@easychief.fr</a>
         </p>
 
         <h2>2. Portée</h2>
         <p>Cette politique décrit la manière dont Easy Chief traite les données lorsque vous utilisez l’application sur iOS et/ou Android.</p>
+        <p>Lorsque vous utilisez l’activation par lien e-mail, un traitement minimal côté serveur et par notre prestataire d’e-mail transactionnel est nécessaire pour envoyer le lien et valider son utilisation.</p>
 
-        <h2>3. Philosophie “privacy-first”</h2>
+        <h2>3. Philosophie « privacy-first »</h2>
         <ul>
-          <li>Pas de compte, pas d’e-mail, pas de profilage.</li>
+          <li>Pas de compte, pas de profilage.</li>
+          <li>Adresse e-mail collectée uniquement si vous choisissez l’activation par lien (offre Entreprise/organisation), et uniquement pour envoyer ce lien et sécuriser l’activation.</li>
           <li>Aucune publicité ciblée dans l’app.</li>
           <li>Les achats intégrés (y compris essai 7 jours puis abonnement) sont gérés par Apple et Google. Nous n’avons pas accès à vos coordonnées de paiement.</li>
         </ul>
@@ -294,7 +297,8 @@
 
         <h3>4.1 Données que nous ne collectons pas</h3>
         <ul>
-          <li>Aucune donnée d’identité (nom, e-mail, téléphone).</li>
+          <li>Aucune donnée d’identité (nom, téléphone).</li>
+          <li>Hors activation par e-mail : si vous utilisez l’activation par lien, nous traitons votre adresse e-mail uniquement pour l’envoi du lien et la sécurisation du processus (voir § 4.2).</li>
           <li>Aucun contenu utilisateur stocké sur nos serveurs.</li>
         </ul>
 
@@ -307,21 +311,30 @@
           </li>
           <li>
             Identifiant technique anonyme pour lier l’achat à votre session/appareil (ex. appUserId anonyme ou identifiant généré par l’app).<br>
-            <em>Finalité :</em> vérifier localement si votre accès premium est actif et / ou activer des fonctionnalités payantes.<br>
+            <em>Finalité :</em> vérifier localement si votre accès premium est actif et/ou activer des fonctionnalités payantes.<br>
             <em>Base légale :</em> intérêt légitime (art. 6(1)(f)) à sécuriser l’accès.
           </li>
+          <li>
+            RevenueCat (si activé) : nous pouvons utiliser leur SDK sans transmettre d’e-mail. RevenueCat traite les reçus Apple/Google pour confirmer l’abonnement et nous retourner un entitlement (droit d’accès). Voir § 8 (sous-traitants).
+          </li>
+          <li>
+            <strong>Activation par e-mail (offre Entreprise/organisation)</strong> :<br>
+            <em>Données :</em> adresse e-mail, jeton d’activation (token) éphémère, horodatages techniques, identifiant d’application (appUserId) sur l’appareil.<br>
+            <em>Finalité :</em> envoyer un lien d’activation, vérifier que le lien est utilisé par le destinataire attendu, activer l’accès sur l’appareil, prévenir la fraude.<br>
+            <em>Base légale (UE/RGPD) :</em> exécution du contrat (activation), intérêt légitime (sécurité/antifraude).<br>
+            <em>Conservation :</em> le token expire rapidement (ex. ≤ 24&nbsp;h) ; les journaux d’e-mail/serveur sont conservés pour la preuve d’envoi et la sécurité pendant une durée limitée (ex. ≤ 12&nbsp;mois) puis supprimés/anonymisés ; l’appUserId demeure local sur l’appareil tant que l’accès est actif.
+          </li>
         </ul>
-        <p>Si vous activez RevenueCat : nous pouvons utiliser leur SDK sans transmettre d’e-mail. RevenueCat traite les reçus Apple/Google pour confirmer l’abonnement et nous retourner un entitlement (droit d’accès). Voir §8 (sous-traitants).</p>
 
         <h3>4.3 Cartographie &amp; données de localisation (Google Maps Platform)</h3>
-        <p><strong>Quelles données ?</strong><br>
-        Lorsque vous utilisez les fonctionnalités de carte, d’itinéraire ou d’autocomplétion d’adresse, EasyChief peut traiter :</p>
+        <p><strong>Quelles données&nbsp;?</strong><br>
+        Lorsque vous utilisez les fonctionnalités de carte, d’itinéraire ou d’autocomplétion d’adresse, Easy Chief peut traiter&nbsp;:</p>
         <ul>
           <li>Données de localisation : position approximative ou précise (si vous l’autorisez), coordonnées GPS, adresse IP, et/ou points d’intérêt à proximité ;</li>
           <li>Requêtes de recherche/entrée d’adresse et identifiants techniques (p. ex. identifiant de session ou de requête) nécessaires au fonctionnement du service.</li>
         </ul>
         <p><strong>Finalités.</strong><br>
-        Afficher la carte, proposer des adresses et des lieux, calculer des trajets, améliorer la pertinence des résultats et assurer la sécurité/fonctionnement du service.</p>
+        Afficher la carte, proposer des adresses et des lieux, calculer des trajets, améliorer la pertinence des résultats et assurer la sécurité/le fonctionnement du service.</p>
         <p><strong>Base légale (RGPD).</strong></p>
         <ul>
           <li>Exécution du contrat (art. 6(1)(b)) pour fournir les fonctionnalités cartographiques demandées ;</li>
@@ -329,50 +342,52 @@
           <li>Intérêt légitime (art. 6(1)(f)) pour prévenir l’abus et assurer la sécurité du service.</li>
         </ul>
         <p><strong>Partage avec Google.</strong><br>
-        Ces fonctionnalités s’appuient sur Google Maps Platform. Les données strictement nécessaires aux requêtes cartographiques peuvent être transmises à Google en qualité de fournisseur. Pour certaines opérations, Google peut agir en responsable de traitement indépendant conformément à ses propres politiques. Consultez la Politique de confidentialité de Google : <a href="https://policies.google.com/privacy?hl=fr" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+        Ces fonctionnalités s’appuient sur Google Maps Platform. Les données strictement nécessaires aux requêtes cartographiques peuvent être transmises à Google en qualité de fournisseur. Pour certaines opérations, Google peut agir en responsable de traitement indépendant conformément à ses propres politiques. Consultez la Politique de confidentialité de Google&nbsp;: <a href="https://policies.google.com/privacy?hl=fr" target="_blank" rel="noopener">policies.google.com/privacy</a> et la documentation Google Maps Platform&nbsp;: <a href="https://cloud.google.com/maps-platform/terms" target="_blank" rel="noopener">cloud.google.com/maps-platform/terms</a>.</p>
         <p><strong>Transferts hors UE.</strong><br>
         Google peut traiter des données en dehors de l’UE (notamment aux États-Unis). Ces transferts reposent sur les garanties applicables (p. ex. cadre de protection des données UE–États-Unis et/ou clauses contractuelles types).</p>
         <p><strong>Durée de conservation.</strong><br>
-        Easy Chief conserve les journaux techniques et requêtes associés aux fonctionnalités cartographiques pour la durée strictement nécessaire à leur fourniture, au dépannage et à la sécurité, puis les supprime ou les anonymisent. Google détermine ses propres durées selon ses politiques.</p>
+        Easy Chief conserve les journaux techniques et requêtes associés aux fonctionnalités cartographiques pour la durée strictement nécessaire à leur fourniture, au dépannage et à la sécurité, puis les supprime ou les anonymise. Google détermine ses propres durées selon ses politiques.</p>
         <p><strong>Vos choix.</strong></p>
         <ul>
           <li>Refuser ou retirer l’autorisation Localisation dans les réglages de votre appareil ; certaines fonctionnalités pourraient alors être indisponibles.</li>
-          <li>Gérer les autorisations spécifiques de l’app (localisation “Toujours”, “Quand l’app est active”, “Jamais”, selon votre OS).</li>
+          <li>Gérer les autorisations spécifiques de l’app (localisation «&nbsp>Toujours&nbsp;», «&nbsp;Quand l’app est active&nbsp;», «&nbsp;Jamais&nbsp;», selon votre OS).</li>
         </ul>
 
-        <h3>4.3 Journaux techniques (logs) minimaux</h3>
+        <h3>4.4 Journaux techniques (logs) minimaux</h3>
         <ul>
           <li>Événements de base (ex. démarrage de l’app, réussite/échec d’achat).</li>
           <li>Ces journaux n’incluent aucune donnée d’identité.</li>
-          <li>Finalité : diagnostic et lutte anti-fraude de base.</li>
-          <li>Base légale : intérêt légitime (art. 6(1)(f)).</li>
+          <li><em>Finalité :</em> diagnostic et lutte anti-fraude de base.</li>
+          <li><em>Base légale :</em> intérêt légitime (art. 6(1)(f)).</li>
         </ul>
 
-        <h3>4.4 Analytics (optionnel)</h3>
+        <h3>4.5 Analytics (optionnel)</h3>
         <ul>
-          <li>Si nous activons des statistiques respectueuses de la vie privée (sans identifiants publicitaires, sans e-mail), nous l’indiquerons ici : “Aucun”.</li>
+          <li>Si nous activons des statistiques respectueuses de la vie privée (sans identifiants publicitaires, sans e-mail), nous l’indiquerons ici : «&nbsp;Aucun&nbsp;».</li>
         </ul>
 
         <h2>5. Vos droits (UE/RGPD)</h2>
-        <p>Vous disposez des droits : d’accès, rectification, effacement, opposition, limitation et portabilité.<br>
-        Pour exercer vos droits : contactez-nous à <a href="mailto:support@easychief.fr">support@easychief.fr</a>.<br>
+        <p>Vous disposez des droits : accès, rectification, effacement, opposition, limitation et portabilité.<br>
+        Pour exercer vos droits : contactez-nous à <a href="mailto:contact@easychief.fr">contact@easychief.fr</a>.<br>
         Vous pouvez également saisir l’autorité de contrôle de votre pays (en France : CNIL).</p>
 
         <h2>6. Conservation</h2>
         <ul>
-          <li>Statut d’abonnement (dates, type d’offre) : jusqu’à 24 mois après la dernière activité, sauf obligation légale différente.</li>
-          <li>Journaux techniques : ≤ 12 mois, puis suppression ou anonymisation.</li>
-          <li>Aucune conservation d’e-mails (nous n’en collectons pas).</li>
+          <li>Statut d’abonnement (dates, type d’offre) : jusqu’à 24&nbsp;mois après la dernière activité, sauf obligation légale différente.</li>
+          <li>Journaux techniques : ≤ 12&nbsp;mois, puis suppression ou anonymisation.</li>
+          <li>Aucun e-mail conservé (nous n’en collectons pas).</li>
+          <li>E-mail d’activation (si utilisé) : conservé uniquement pour la preuve d’envoi et la sécurité pendant une durée limitée (ex. ≤ 12&nbsp;mois), puis suppression ou anonymisation. Pas de conservation à des fins marketing sans consentement distinct.</li>
         </ul>
 
         <h2>7. Sécurité</h2>
-        <p>Nous appliquons des mesures techniques et organisationnelles raisonnables (chiffrement en transit, contrôle d’accès, principe du moindre privilège). Aucune méthode n’est infaillible à 100 %, mais nous nous engageons à corriger rapidement toute faille découverte.</p>
+        <p>Nous appliquons des mesures techniques et organisationnelles raisonnables (chiffrement en transit, contrôle d’accès, principe du moindre privilège). Aucune méthode n’est infaillible à 100&nbsp;%, mais nous nous engageons à corriger rapidement toute faille découverte.</p>
 
         <h2>8. Partage et sous-traitants</h2>
         <p>Nous ne vendons pas vos données. Nous partageons uniquement ce qui est nécessaire au fonctionnement :</p>
         <ul>
           <li>Apple (App Store) &amp; Google (Play Store) : traitement des achats et abonnements.</li>
           <li>RevenueCat : validation des reçus et gestion des entitlements (sans e-mail par défaut).</li>
+          <li>[Prestataire d’e-mail transactionnel] : envoi des e-mails d’activation (adresse e-mail + contenu technique du lien). Pas d’usage marketing sans votre consentement.</li>
         </ul>
         <p>Des transferts hors UE peuvent exister (ex. États-Unis) — dans ce cas, nous nous appuyons sur des garanties légales adéquates (clauses contractuelles types, etc.).</p>
 
@@ -380,14 +395,14 @@
         <p>Aucun cookie dans l’application mobile. Pas d’ID publicitaire utilisé à des fins de ciblage.</p>
 
         <h2>10. Mineurs</h2>
-        <p>L’app n’est pas destinée aux moins de 18 ans. Si vous pensez qu’un mineur nous a fourni des informations, contactez-nous pour suppression.</p>
+        <p>L’app n’est pas destinée aux moins de 18&nbsp;ans. Si vous pensez qu’un mineur nous a fourni des informations, contactez-nous pour suppression.</p>
 
         <h2>11. Changements de cette politique</h2>
-        <p>Nous pouvons mettre à jour ce document. En cas de changement matériel, nous l’indiquerons dans l’app et/ou via une note de version. Date de dernière mise à jour : 29 octobre 2025.</p>
+        <p>Nous pouvons mettre à jour ce document. En cas de changement matériel, nous l’indiquerons dans l’app et/ou via une note de version. Date de dernière mise à jour : 06 novembre 2025.</p>
 
         <h2>12. Nous contacter</h2>
-        <p>Éditeur : Pierre DAZIN – EI - DARKLABS<br>
-           Adresse : 88 rue de jarlard 81000 Albi<br>
+        <p>Éditeur : Pierre DAZIN – EI – DARKLABS<br>
+           Adresse : 88 rue de jarlard, 81000 Albi<br>
            Contact : <a href="mailto:contact@easychief.fr">contact@easychief.fr</a>
         </p>
       </article>
@@ -397,21 +412,18 @@
     <section class="section-contact" aria-label="Présentation et contact">
       <div class="wrap">
         <!-- Colonne 1 : texte -->
-      <div class="col brand-col">
-  <div class="inner">
-    <div class="brand-text">
-      <h3>DARKLABS</h3>
-      <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
-         au service des sapeurs-pompiers.</p>
-
-      <!-- liens cliquables -->
-      <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
-      <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
-      <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
-    </div>
-  </div>
-</div>
-
+        <div class="col brand-col">
+          <div class="inner">
+            <div class="brand-text">
+              <h3>DARKLABS</h3>
+              <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+                 au service des sapeurs-pompiers.</p>
+              <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
+              <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
+              <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
+            </div>
+          </div>
+        </div>
 
         <!-- Colonne 2 : logo centré -->
         <div class="col logo-col">

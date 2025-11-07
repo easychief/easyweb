@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Easy Chief — Mentions légales</title>
+  <title>Easy Chief — Foire aux questions (FAQ)</title>
 
   <!-- Police Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,11 +20,9 @@
       --border:#e5e7eb;
       --nav-h:64px;
       --container-w:1100px;
-
-      /* espacements globaux */
+      --left-indent: clamp(16px, 2vw, 24px);
       --pad-x: clamp(16px, 6vw, 74px);
       --col-pad: clamp(16px, 2vw, 24px);
-      --left-indent: clamp(16px, 2vw, 24px);
     }
     *{ box-sizing:border-box }
     html,body{ margin:0 }
@@ -32,10 +30,10 @@
       font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--fg);
       background:var(--bg);
-      padding-top: var(--nav-h); /* nav fixe => décale le contenu */
+      padding-top: var(--nav-h); /* nav FIXE => décale le contenu */
     }
 
-    /* ===== NAV identique index : FIXE + menu mobile animé ===== */
+    /* ===== NAV identique : FIXE + menu mobile animé ===== */
     .nav{
       position:fixed; top:0; left:0; right:0; z-index:1000;
       background:#fff; border-bottom:1px solid var(--border);
@@ -58,19 +56,18 @@
     }
     .toggle:focus{ outline:2px solid #c7d2fe; outline-offset:2px }
 
-    /* Panneau mobile fermé (animé via max-height) */
+    /* Panneau mobile */
     .menu-mobile{
       position: fixed;
       top: var(--nav-h);
-      left: 0;
-      right: 0;
-      max-height: 0;                 /* fermé */
+      left: 0; right: 0;
+      max-height: 0;
       overflow: hidden;
       background:#fff;
       border-bottom:1px solid var(--border);
-      display:block;                 /* on gère l’ouverture avec max-height */
+      display:block;
       transition: max-height .25s ease;
-      z-index: 999;                  /* sous la barre (1000) mais au-dessus du contenu */
+      z-index: 999;
     }
     .menu-mobile a{
       display:block;
@@ -80,8 +77,8 @@
       font-weight:600;
       font-size: clamp(16px, 4.5vw, 18px);
       line-height: 1.3;
-      white-space: nowrap;           /* évite “À” seul sur une ligne */
-      border-top:1px solid #f3f4f6;  /* séparateurs fins */
+      white-space: nowrap;
+      border-top:1px solid #f3f4f6;
     }
     .menu-mobile a:first-child{ border-top:0 }
     .menu-mobile a:hover,.menu-mobile a:focus{ background:#f9fafb; outline:none }
@@ -106,7 +103,7 @@
       .toggle{ display:inline-flex; align-items:center; gap:8px }
     }
 
-    /* SECTION de contenu — centrée */
+    /* SECTION CENTRALE */
     main{ padding:24px 0 72px }
     .container{ max-width:var(--container-w); margin:0 auto; padding:24px 16px; }
 
@@ -134,15 +131,41 @@
       font-size: clamp(18px, 2.8vw, 24px);
       font-weight:800;
     }
+    .policy h3{
+      margin:18px 0 6px;
+      font-size: clamp(16px, 2.4vw, 20px);
+      font-weight:700;
+    }
     .policy p{
       margin:8px 0;
       color:#374151;
       line-height:1.75;
       font-size: clamp(14px, 2.2vw, 16px);
     }
+    .policy ul{ margin:8px 0 8px 1.2em; padding:0; }
+    .policy li{ margin:4px 0; }
     .policy a{ color:#1d4ed8; text-decoration:underline; }
+    .policy .meta{ color:#6b7280; font-size:14px; }
 
-    /* === SECTION CONTACT — 3 colonnes full width === */
+    /* Accordéon (details/summary) */
+    .faq-list details{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      background:#fff;
+    }
+    .faq-list details[open]{ box-shadow:0 4px 12px rgba(0,0,0,.05); }
+    .faq-list summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:700;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .faq-list summary::-webkit-details-marker{ display:none }
+    .faq-answer{ margin-top:8px }
+
+    /* === CONTACT — 3 colonnes full width === */
     .section-contact {
       background:#fff; color:#111827; width:100%;
       border-top:1px solid #e5e7eb;
@@ -153,12 +176,11 @@
       gap:24px;
       width:100%; max-width:none; margin:0;
       padding:64px var(--pad-x);
-      align-items:center; /* centre verticalement les 3 colonnes */
+      align-items:center;
     }
     .section-contact .col .inner{
       padding-left: var(--col-pad);
-      max-width: 900px;
-      width: 100%;
+      max-width: 900px; width: 100%;
     }
     .section-contact .brand-text h3 { margin:0 0 8px; font-size:clamp(22px,3vw,30px); font-weight:700; }
     .section-contact .brand-text p  { margin:0; font-size:clamp(15px,2.2vw,18px); line-height:1.7; color:#374151; }
@@ -183,11 +205,14 @@
     .section-contact button[type="submit"]:hover { opacity:.92; }
 
     @media (max-width: 960px){
-      .section-contact .wrap { grid-template-columns: 1fr; padding:40px var(--pad-x) 48px; }
+      .section-contact .wrap {
+        grid-template-columns: 1fr;
+        padding:40px var(--pad-x) 48px;
+      }
       .section-contact .col .inner{ padding-left: var(--col-pad); }
     }
 
-    /* === FOOTER minime — version responsive (wrap + anti-overflow) === */
+    /* === FOOTER responsive === */
     .site-footer{
       background:#fff;
       border-top:1px solid #e5e7eb;
@@ -216,8 +241,6 @@
     .site-footer a:hover, .site-footer a:focus{
       text-decoration:underline; outline:none;
     }
-
-    /* Mobile : une ligne par élément, points séparateurs masqués */
     @media (max-width: 720px){
       .site-footer .footer-inner{
         padding:16px;
@@ -225,74 +248,168 @@
         align-items: center;
         gap: 8px;
       }
-      .site-footer .footer-inner span[aria-hidden="true"]{
-        display:none;
-      }
-      .site-footer a{
-        display: block;
-      }
+      .site-footer .footer-inner span[aria-hidden="true"]{ display:none; }
+      .site-footer a{ display: block; }
     }
-    .brand-text a {
-  color: inherit;
-  text-decoration: none;
-}
-.brand-text a:hover,
-.brand-text a:focus {
-  text-decoration: underline;
-}
 
+    .brand-text a { color: inherit; text-decoration: none; }
+    .brand-text a:hover,
+    .brand-text a:focus { text-decoration: underline; }
   </style>
 </head>
 <body>
- <!-- NAV -->
+  <!-- NAV -->
   <nav class="nav" aria-label="Navigation principale">
     <div class="nav-inner">
       <a class="brand" href="index.html">Easy Chief</a>
-   <div class="menu" role="menubar" aria-label="Liens principaux">
-  <a href="index.html" role="menuitem">Accueil</a>
-  <a href="fonction.html" role="menuitem">Fonctions</a>
-  <a href="tarif.html" role="menuitem">Tarifs</a>
-  <a href="apropos.html" role="menuitem">À propos</a>
-  <a href="faq.html" role="menuitem">FAQ</a>
+      <div class="menu" role="menubar" aria-label="Liens principaux">
+        <a href="index.html" role="menuitem">Accueil</a>
+        <a href="fonction.html" role="menuitem">Fonctions</a>
+        <a href="tarif.html" role="menuitem">Tarifs</a>
+        <a href="apropos.html" role="menuitem">À propos</a>
+        <a href="faq.html" role="menuitem" class="active">FAQ</a>
       </div>
       <button class="toggle" id="navToggle" aria-expanded="false" aria-controls="menuMobile">
         <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
         Menu
       </button>
-   </div>
-<div class="menu-mobile" id="menuMobile">
-  <a href="index.html">Accueil</a>
-  <a href="fonction.html">Fonctions</a>
-  <a href="tarif.html">Tarifs</a>
-  <a href="apropos.html">À propos</a>
-  <a href="faq.html">FAQ</a>
-</div>
-</nav>
+    </div>
+    <div class="menu-mobile" id="menuMobile">
+      <a href="index.html">Accueil</a>
+      <a href="fonction.html">Fonctions</a>
+      <a href="tarif.html">Tarifs</a>
+      <a href="apropos.html">À propos</a>
+      <a href="faq.html" class="active">FAQ</a>
+    </div>
+  </nav>
+
   <main>
     <div class="container">
       <header class="page-title">
-        <h1>MENTIONS LÉGALES</h1>
-        <p class="meta">Easy Chief</p>
+        <h1>Foire aux questions</h1>
+        <p class="meta">Easy Chief — Version : 06 novembre 2025</p>
       </header>
 
-      <!-- SECTION CENTRALE : contenu -->
-      <article class="policy" aria-label="Mentions légales">
-        <h2>Mentions légales</h2>
-        <p>En conformité avec les dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, veuillez trouver ci-dessous les informations concernant ce site :</p>
+      <!-- CONTENU FAQ -->
+      <article class="policy" aria-label="Foire aux questions (FAQ)">
+        <p class="meta">Vous trouverez ci-dessous les réponses aux questions fréquentes concernant l’application, l’abonnement, l’activation par e-mail, la confidentialité et l’assistance.</p>
 
-        <p><strong>Raison sociale :</strong> Entreprise Individuelle<br>
-           <strong>Adresse du siège social :</strong> 88 rue de Jarlard 81000 Albi<br>
-           <strong>Dirigeant :</strong> Pierre DAZIN<br>
-           <strong>Email :</strong> <a href="mailto:contact@easychief.fr">contact@easychief.fr</a><br>
-           <strong>Numéro SIRET :</strong> 99327277200019<br>
-           <strong>Hébergeur du site :</strong> GITHUB
-        </p>
+        <div class="faq-list">
 
-        <p>
-          En cas de litige, vous avez la possibilité de recourir à la plateforme de règlement des litiges en ligne (RLL) mise à disposition par la Commission européenne.
-          Pour ce faire, veuillez vous rendre sur le site :
-          <a href="http://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">ec.europa.eu/consumers/odr/</a>.
-        </p>
+          <details>
+            <summary>Qu’est-ce qu’Easy Chief&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Easy Chief est une application destinée aux sapeurs-pompiers et chefs d’agrès pour la préparation et le suivi opérationnels (SITAC, cartographie, fiches, modules dédiés). Elle est disponible sur iOS et Android.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>L’app propose-t-elle un essai gratuit&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Oui, un essai de 7&nbsp;jours est proposé avant passage à l’abonnement, selon les conditions de l’App Store et/ou du Play Store.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Comment fonctionne l’abonnement&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>L’abonnement est géré par Apple (App Store) et Google (Play Store). Le Store choisi gère la facturation et le renouvellement. Easy Chief ne reçoit pas vos coordonnées de paiement.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Puis-je utiliser Easy Chief sans créer de compte&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Oui. Il n’y a pas de compte obligatoire. Certaines offres Entreprise peuvent utiliser une activation par lien e-mail pour sécuriser l’accès.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Qu’est-ce que l’activation par lien e-mail&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Pour des déploiements Organisation/Entreprise, vous pouvez activer l’accès via un lien envoyé à votre adresse e-mail. Nous traitons alors l’adresse e-mail, un jeton d’activation éphémère, des horodatages techniques et l’identifiant d’application local (appUserId) pour sécuriser l’opération.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Quelles données personnelles sont traitées&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Pas de compte ni de profilage. En dehors de l’activation par e-mail, nous ne collectons pas d’e-mail. Les informations d’abonnement proviennent d’Apple/Google. Des journaux techniques minimaux peuvent être générés à des fins de diagnostic et de sécurité.</p>
+              <p>Voir la <a href="politique-confidentialite.html">Politique de confidentialité</a> pour le détail.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Utilisez-vous des publicités ou des traceurs publicitaires&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Il n’y a pas de publicité ciblée dans l’application et pas d’ID publicitaire utilisé à des fins de ciblage.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>La cartographie utilise-t-elle ma localisation&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Oui, si vous l’autorisez. Les fonctionnalités de carte, d’itinéraire et d’autocomplétion d’adresse s’appuient sur Google Maps Platform. Vous pouvez retirer l’autorisation dans les réglages de votre appareil.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Puis-je utiliser l’app hors connexion&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Plusieurs fonctions sont disponibles hors ligne (ex. consultation de certains éléments déjà chargés). Les services nécessitant une connexion (requêtes cartographiques, vérification d’abonnement, envoi d’un lien d’activation) requièrent Internet.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Comment annuler ou gérer mon abonnement&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>La gestion (annulation, changement d’offre) se fait depuis votre compte <em>App&nbsp;Store</em> ou <em>Google&nbsp;Play</em>, dans la section Abonnements de l’OS.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Proposez-vous des licences pour les organisations&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Oui. Des déploiements Organisation/Entreprise sont possibles (ex. activation par e-mail). Contactez-nous pour discuter de votre besoin.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Quelles sont vos mesures de sécurité&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Nous appliquons des mesures techniques et organisationnelles raisonnables (chiffrement en transit, contrôle d’accès, principe du moindre privilège). Reportez-vous à la Politique de confidentialité pour plus de détails.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Qui sont vos sous-traitants&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Apple/Google pour les achats, RevenueCat pour la validation des reçus, Google Maps Platform pour la cartographie, et un prestataire d’e-mail transactionnel pour l’envoi des liens d’activation (si utilisé).</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Comment exercer mes droits (accès, rectification, effacement, etc.)&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Vous pouvez nous écrire à <a href="mailto:contact@easychief.fr">contact@easychief.fr</a>. Vous pouvez également saisir l’autorité de contrôle compétente (en France&nbsp;: CNIL).</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Que faire en cas de problème d’activation ou d’abonnement&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Vérifiez d’abord votre connexion Internet et la dernière version de l’app. Si le souci persiste, contactez-nous en précisant votre plateforme (iOS/Android) et, si possible, une capture de l’erreur.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Comment vous contacter&nbsp;?</summary>
+            <div class="faq-answer">
+              <p>Écrivez-nous à <a href="mailto:contact@easychief.fr">contact@easychief.fr</a>. Vous pouvez aussi utiliser le formulaire au bas de cette page.</p>
+            </div>
+          </details>
+
+        </div>
       </article>
     </div>
 
@@ -300,21 +417,19 @@
     <section class="section-contact" aria-label="Présentation et contact">
       <div class="wrap">
         <!-- Colonne 1 : texte -->
-      <div class="col brand-col">
-  <div class="inner">
-    <div class="brand-text">
-      <h3>DARKLABS</h3>
-      <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
-         au service des sapeurs-pompiers.</p>
+        <div class="col brand-col">
+          <div class="inner">
+            <div class="brand-text">
+              <h3>DARKLABS</h3>
+              <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+                 au service des sapeurs-pompiers.</p>
 
-      <!-- liens cliquables -->
-      <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
-      <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
-      <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
-    </div>
-  </div>
-</div>
-
+              <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
+              <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
+              <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
+            </div>
+          </div>
+        </div>
 
         <!-- Colonne 2 : logo centré -->
         <div class="col logo-col">
@@ -372,10 +487,10 @@
   <!-- SCRIM requis par le menu -->
   <div class="scrim" id="navScrim" hidden></div>
 
-  <!-- SCRIPTS : menu mobile (identique index) + lien actif + mailto -->
+  <!-- Scripts : menu mobile (identique) + lien actif + mailto -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // ===== Menu mobile (classe .open + scrim + no-scroll)
+      // ===== Menu mobile : .open + scrim + blocage scroll
       (function mobileMenu(){
         const btn   = document.getElementById('navToggle');
         const panel = document.getElementById('menuMobile');
@@ -403,12 +518,12 @@
         panel.addEventListener('click', (e)=>{ if(e.target.closest('a')) closeMenu(); });
         document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && panel.classList.contains('open')) closeMenu(); });
 
-        // Nettoyage si on repasse en desktop
+        // Nettoyage en repassant desktop
         const mql = window.matchMedia('(min-width: 721px)');
         mql.addEventListener('change', (ev)=>{ if(ev.matches) closeMenu(); });
       })();
 
-      // ===== Surligner le lien actif
+      // ===== Lien actif
       (function highlightActive() {
         const path = location.pathname.split('/').pop() || 'index.html';
         document.querySelectorAll('.menu a, .menu-mobile a').forEach(a => {
