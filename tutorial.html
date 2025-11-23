@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Easy Chief — Fonctions</title>
+  <title>Easy Chief — Tutoriels</title>
+
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
   <!-- Police Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -136,6 +138,8 @@
     }
     .page-title h1{ margin:0 0 6px; font-size:clamp(24px,4vw,48px); font-weight:800; letter-spacing:.2px }
     .page-title p{ margin:0; color:var(--muted); font-size:clamp(14px,2vw,16px) }
+    .page-title a{ color:var(--accent); font-weight:700; text-decoration:none; }
+    .page-title a:hover, .page-title a:focus{ text-decoration:underline; outline:none; }
 
     /* Blocs “fonction” */
     .feature-block{
@@ -167,21 +171,28 @@
       text-align:left;
     }
 
-    .feature-list{
-      margin:8px 0 0;
-      padding-left:0;
-      list-style: disc inside;
-      color:#374151;
-      font-size:clamp(15px,2.2vw,18px);
-      line-height:1.7;
-      text-align:left;
-    }
-    .feature-list li{ margin:2px 0; }
-
     .feature-block .media{ order:0 }
     .feature-block .content{ order:1 }
     .feature-block.reverse .media{ order:1 }
     .feature-block.reverse .content{ order:0 }
+
+    /* === EMBED YOUTUBE RESPONSIVE === */
+    .video-wrap{
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background:#000;
+      border-radius:12px;
+      overflow:hidden;
+      margin-top:14px;
+    }
+    .video-wrap iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
 
     /* Mobile : pile en 1 colonne, image avant texte */
     @media (max-width: 960px){
@@ -305,14 +316,13 @@
       .site-footer a{ display: block; }
     }
     .brand-text a {
-  color: inherit;
-  text-decoration: none;
-}
-.brand-text a:hover,
-.brand-text a:focus {
-  text-decoration: underline;
-}
-
+      color: inherit;
+      text-decoration: none;
+    }
+    .brand-text a:hover,
+    .brand-text a:focus {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -336,7 +346,7 @@
       </button>
     </div>
 
-   </div>
+
     <div class="menu-mobile" id="menuMobile">
       <a href="index.html">Accueil</a>
       <a href="fonction.html">Fonctions</a>
@@ -347,225 +357,397 @@
     </div>
   </nav>
 
+
   <!-- CONTENU -->
   <main>
     <div class="container">
       <header class="page-title">
-        <h1>FONCTIONNALITÉS</h1>
-        <p>Un concentré d’outils pensés pour l’intervention — clairs, rapides, fiables.</p>
+        <h1>Tutorial Easy Chief</h1>
+        <p>
+          Vous pouvez directement visiter la
+          <a href="https://www.youtube.com/@EasyChief" target="_blank" rel="noopener noreferrer">chaîne YouTube</a>.
+        </p>
       </header>
 
-      <!-- Sous-section 1 -->
-      <section class="feature-block" aria-label="Fonction 1">
+      <!-- EASY REFLEX -->
+      <section class="feature-block" aria-label="Tutoriel Easy Reflex">
         <div class="media">
-          <img src="images/icons/icon_fiches.png" alt="Aperçu fonction 1">
+          <img src="images/icons/icon_fiches.png" alt="Aperçu Easy Reflex">
         </div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY REFLEX</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">
-            NE PERDEZ PLUS VOTRE TEMPS, INTÉGREZ UNIQUEMENT VOS BESOINS, TEXTE, IMAGES ET ACCEDEZ À L'INFORMATION EN UN INSTANT.
-          </p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Reflex</p>
+
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/8gaynQdqo74?si=9vRCf6G6I887Jd3e"
+              title="Tutoriel Easy Reflex"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
 
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Sous-section 2 -->
-      <section class="feature-block reverse" aria-label="Fonction 2">
+      <!-- EASY STORE -->
+      <section class="feature-block reverse" aria-label="Tutoriel Easy Store">
         <div class="media">
-          <img src="images/icons/icon_stockage.png" alt="Aperçu fonction 2">
+          <img src="images/icons/icon_stockage.png" alt="Aperçu Easy Store">
         </div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY STORE</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">
-            CRÉEZ VOS RUBRIQUES ET RANGEZ VOS DOCUMENTS COMME BON VOUS SEMBLE, FINI LES RECHERCHES INTERMINABLES !
-          </p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Store</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/h2XStpN6frs"
+              title="Tutoriel Easy Store"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
 
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Sous-section 3 -->
-      <section class="feature-block" aria-label="Fonction 3">
+      <!-- EASY OPS -->
+      <section class="feature-block" aria-label="Tutoriel Easy Ops">
         <div class="media">
-          <img src="images/icons/icon_consignes.png" alt="Aperçu fonction 3">
+          <img src="images/icons/icon_consignes.png" alt="Aperçu Easy Ops">
         </div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY OPS</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">
-            INTÉGREZ VOS CONSIGNES ET ACTIVEZ LES NOTIFICATIONS. EASYCHIEF VEILLE POUR VOUS ET EFFACE LES DONNÉES DÈS LA DATE DÉPASSÉE.
-          </p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Ops</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/qzqXTx5jnWM"
+              title="Tutoriel Easy Ops"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
 
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Sous-section 4 -->
-      <section class="feature-block reverse" aria-label="Fonction 4">
+      <!-- EASY CARE -->
+      <section class="feature-block reverse" aria-label="Tutoriel Easy Care">
         <div class="media">
-          <img src="images/icons/icon_victimes.png" alt="Aperçu fonction 4">
+          <img src="images/icons/icon_victimes.png" alt="Aperçu Easy Care">
         </div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY CARE</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">
-            UN TABLEAU DES VICTIMES PENSÉ POUR L'INTERVENTION : SAISIE ÉCLAIR, CODE COULEUR, IDENTITÉS MASQUÉES ET ACCÈS À LA PAGE VIA AUTHENTIFICATION*.
-          </p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Care</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/zwBnj8N62Dk"
+              title="Tutoriel Easy Care"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
 
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <!-- Sous-section 5 -->
-      <section class="feature-block" aria-label="Fonction 5">
+      <!-- EASY 360 -->
+      <section class="feature-block" aria-label="Tutoriel Easy 360">
         <div class="media">
-          <img src="images/icons/icon_loca.png" alt="Aperçu fonction 5">
+          <img src="images/icons/icon_loca.png" alt="Aperçu Easy 360">
         </div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY 360</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">RÉGLEZ LE CURSEUR ET ACCÉDEZ AUX INFORMATIONS OPS AUTOUR DE VOUS :</p>
-          <ul class="feature-list">
-            <li>POINTS D'EAU NATURELS / ARTIFICIELS</li>
-            <li>HÉLIPORTS</li>
-            <li>STADES</li>
-            <li>CARTE DFCI</li>
-            <li>CARTE DU VENT</li>
-            <li>RECHERCHE DE COORDONNÉES GPS / DFCI</li>
-            <li>ITINÉRAIRES</li>
-          </ul>
+          <p class="feature-text">Découvrez le tutoriel d'Easy 360</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/rZHoYFMokVM"
+              title="Tutoriel Easy 360"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
     </div> <!-- /container -->
 
     <!-- Bandeau image -->
     <section class="full-bleed" aria-label="Bandeau image pleine largeur">
-      <img src="images/BG_WEB_VL.png" alt="Bandeau Easy Chief pleine largeur">
+      <img src="images/tutoweba.png" alt="Bandeau Easy Chief pleine largeur">
     </section>
 
-    <!-- Autres blocs (A1..B5) -->
+    <!-- Autres blocs (A1..A5) -->
     <div class="container">
-      <section class="feature-block" aria-label="Fonction A1">
-        <div class="media"><img src="images/icons/icon_perte.png" alt="Aperçu A1"></div>
+      <!-- EASY DROP -->
+      <section class="feature-block" aria-label="Tutoriel Easy Drop">
+        <div class="media"><img src="images/icons/icon_perte.png" alt="Aperçu Easy Drop"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY DROP</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">UNE LONGUEUR D'ÉTABLISSEMENT, UN DIAMÈTRE DE TUYAU, UN DÉBIT ET UNE PRESSION SOUHAITÉ, CET OUTIL CALCUL POUR VOUS LES PERTES DE CHARGES ET VOUS PROPOSE LES RELAIS NECESSAIRE. PENSÉ POUR TOUS, LA PERSONNALISATION DES CARACTÉRISTIQUES DES POMPES EST POSSIBLE.</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Drop</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/soLGjaLCJK0"
+              title="Tutoriel Easy Drop"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
+
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <section class="feature-block reverse" aria-label="Fonction A2">
-        <div class="media"><img src="images/icons/icon_xplo.png" alt="Aperçu A2"></div>
+      <!-- EASY X -->
+      <section class="feature-block reverse" aria-label="Tutoriel Easy X">
+        <div class="media"><img src="images/icons/icon_xplo.png" alt="Aperçu Easy X"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY X</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">DU GAZ ÉTALON AU GAZ CIBLE, UNE PASSERELLE INSTANTANÉE.</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy X</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/yfF9gK4_Jxg"
+              title="Tutoriel Easy X"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
+
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <section class="feature-block" aria-label="Fonction A3">
-        <div class="media"><img src="images/icons/icon_lif.png" alt="Aperçu A3"></div>
+      <!-- EASY LIF -->
+      <section class="feature-block" aria-label="Tutoriel Easy LIF">
+        <div class="media"><img src="images/icons/icon_lif.png" alt="Aperçu Easy LIF"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY LIF</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">CALCUL AUTOMATIQUE DES QUANTITÉS D'EMULSEUR.</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy LIF</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/1s6H4DYM53g"
+              title="Tutoriel Easy LIF"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
+
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <section class="feature-block reverse" aria-label="Fonction A4">
-        <div class="media"><img src="images/icons/icon_onu.png" alt="Aperçu A4"></div>
+      <!-- EASY O.N.U -->
+      <section class="feature-block reverse" aria-label="Tutoriel Easy O.N.U">
+        <div class="media"><img src="images/icons/icon_onu.png" alt="Aperçu Easy O.N.U"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY O.N.U</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">RECHERCHEZ N'IMPORTE QUEL CODE DANGER, EASYCHIEF L'IDENTIFIE ET VOUS DONNE UNE FICHE DÉTAILLÉE AVEC SCORE ET FICHE INTERVENTION.</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy O.N.U</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/tvAYFOMMxMo"
+              title="Tutoriel Easy O.N.U"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
+
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <section class="feature-block" aria-label="Fonction A5">
-        <div class="media"><img src="images/icons/icon_propag.png" alt="Aperçu A5"></div>
+      <!-- EASY FIRE -->
+      <section class="feature-block" aria-label="Tutoriel Easy Fire">
+        <div class="media"><img src="images/icons/icon_propag.png" alt="Aperçu Easy Fire"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY FIRE</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">CE SIMULATEUR DE PROPAGATION DE FEUX D'ESPACES NATURELS VOUS PERMETTRA CHAQUE JOUR D'AVOIR UNE IDÉE DE LA VITESSE DE PROPAGATION SUR VOTRE SECTEUR ET SELON LE TYPE DE VÉGÉTATION.</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Fire</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/jv1LPwR2et8"
+              title="Tutoriel Easy Fire"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
+        
       </section>
     </div>
 
     <!-- Bandeau image 2 -->
     <section class="full-bleed" aria-label="Bandeau image pleine largeur 2">
-      <img src="images/BG_WEB_VL2.png" alt="Bandeau Easy Chief pleine largeur 2">
+      <img src="images/tutowebb.png" alt="Bandeau Easy Chief pleine largeur 2">
     </section>
 
     <div class="container">
-      <section class="feature-block" aria-label="Fonction B1">
-        <div class="media"><img src="images/icons/icon_sitac.png" alt="Aperçu B1"></div>
+      <!-- EASY DRAW -->
+      <section class="feature-block" aria-label="Tutoriel Easy Draw">
+        <div class="media"><img src="images/icons/icon_sitac.png" alt="Aperçu Easy Draw"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY DRAW</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">DESSINEZ VOTRE SITAC RAPIDEMENT DEPUIS VOTRE TABLETTE, ENREGISTREMENT, EXPORT, IMPORT DE SYMBOLES... UN OUTIL INCROYABLE À LA PORTÉE DE TOUS !</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Draw</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/9CC2ip74Du4"
+              title="Tutoriel Easy Draw"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
+
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <section class="feature-block reverse" aria-label="Fonction B2">
-        <div class="media"><img src="images/icons/icon_oct.png" alt="Aperçu B2"></div>
+      <!-- EASY CELL -->
+      <section class="feature-block reverse" aria-label="Tutoriel Easy CELL">
+        <div class="media"><img src="images/icons/icon_oct.png" alt="Aperçu Easy CELL"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY CELL</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">CRÉER VOTRE O.C.T, SAUVEGARDEZ LE MODÈLE, ADAPTEZ ET PARTAGEZ !</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy CELL</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/NTUaTaBZqRs"
+              title="Tutoriel Easy CELL"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
+
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <section class="feature-block" aria-label="Fonction B3">
-        <div class="media"><img src="images/icons/icon_charte.png" alt="Aperçu B3"></div>
+      <!-- EASY GRAPH -->
+      <section class="feature-block" aria-label="Tutoriel Easy Graph">
+        <div class="media"><img src="images/icons/icon_charte.png" alt="Aperçu Easy Graph"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY GRAPH</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">OFFICIER RENS-MOYENS, UN SYMBOLE OUBLIÉ? EASYCHIEF VOUS AIDE À GARDER LA MÉMOIRE.</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Graph</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/zbhfw5vIHLc"
+              title="Tutoriel Easy Graph"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
+
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <section class="feature-block reverse" aria-label="Fonction B4">
-        <div class="media"><img src="images/icons/icon_radio.png" alt="Aperçu B4"></div>
+      <!-- EASY TALK -->
+      <section class="feature-block reverse" aria-label="Tutoriel Easy Talk">
+        <div class="media"><img src="images/icons/icon_radio.png" alt="Aperçu Easy Talk"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY TALK</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">AJOUTEZ VOS FRÉQUENCES FACILEMENT ET RETROUVEZ-LES EN UN CLIC.</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Talk</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/GV1CTljO9YA"
+              title="Tutoriel Easy Talk"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
+
       <div class="soft-sep" aria-hidden="true"></div>
 
-      <section class="feature-block" aria-label="Fonction B5">
-        <div class="media"><img src="images/icons/icon_expo.png" alt="Aperçu B5"></div>
+       <!-- EASY RISK -->
+      <section class="feature-block" aria-label="Tutoriel Easy Risk">
+        <div class="media"><img src="images/icons/icon_expo.png" alt="Aperçu Easy Risk"></div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY RISK</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">GARDEZ UNE TRACE DE VOS EXPOSITIONS À RISQUES, EASYCHIEF INTÈGRE UNE DESCRIPTION EXTRÊMEMENT DÉTAILLÉE ET PERMET UN EXPORT MULTI-FORMAT POUR INTÉGRATION EXTERNE.</p>
+          <p class="feature-text">Découvrez le tutoriel d'Easy Risk</p>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/gNOxadER9Ks"
+              title="Tutoriel Easy Risk"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </section>
-      <div class="soft-sep" aria-hidden="true"></div>
+    </div>
 
-    <section class="feature-block reverse" aria-label="Fonction B4">
-        <div class="media"><img src="images/icons/icon_easytext.png" alt="Aperçu B4"></div>
+    <div class="soft-sep" aria-hidden="true"></div>
+
+    <div class="container">
+      <!-- EASY TEXT -->
+      <section class="feature-block reverse" aria-label="Tutoriel Easy Text">
+        <div class="media">
+          <img src="images/icons/icon_easytext.png" alt="Aperçu Easy Text">
+        </div>
         <div class="content feature-content">
           <h2 class="feature-title">EASY TEXT</h2>
           <div class="feature-divider" aria-hidden="true"></div>
-          <p class="feature-text">LAISSEZ-VOUS GUIDER POUR CONSTRUIRE DES MESSAGES D'INTERVENTION FIABLES ET RÉUTILISABLES.</p>
+          <p class="feature-text">Découvrez les tutoriels d'Easy TEXT</p>
+
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/GowYgl44nQk"
+              title="Tutoriel Easy Text — vidéo 1"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/L5d7z29jng0"
+              title="Tutoriel Easy Text — vidéo 2"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+
         </div>
       </section>
-</div>
+    </div>
+
+    <div class="soft-sep" aria-hidden="true"></div>
 
     <!-- Note finale -->
     <section class="section-note center" aria-label="Note finale">
+
       <div class="container">
         <p>SÉCURITÉ AVANCÉE</p>
         <p>La protection des données est notre priorité, EASYCHIEF vous offre deux options d'authentification, biométrique ou code pin, pour accéder à l'application et aux pages sensibles. (Victimes / Expositions / Identités)</p>
@@ -575,21 +757,19 @@
     <!-- SECTION 10 — Contact -->
     <section class="section-contact" aria-label="Présentation et contact">
       <div class="wrap">
-      <div class="col brand-col">
-  <div class="inner">
-    <div class="brand-text">
-      <h3>DARKLABS</h3>
-      <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
-         au service des sapeurs-pompiers.</p>
+        <div class="col brand-col">
+          <div class="inner">
+            <div class="brand-text">
+              <h3>DARKLABS</h3>
+              <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+                 au service des sapeurs-pompiers.</p>
 
-      <!-- liens cliquables -->
-      <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
-      <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
-      <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
-    </div>
-  </div>
-</div>
-
+              <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
+              <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
+              <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
+            </div>
+          </div>
+        </div>
 
         <div class="col logo-col">
           <div class="inner">
@@ -642,8 +822,6 @@
     </div>
   </footer>
 
-
-
   <script>
     // Formulaire -> mailto
     (function wireMailto(){
@@ -665,7 +843,7 @@
   <!-- SCRIM requis par le menu -->
   <div class="scrim" id="navScrim" hidden></div>
 
-    <!-- SCRIPTS : un seul menu mobile (identique index) + mailto -->
+  <!-- SCRIPTS : un seul menu mobile (identique index) + mailto -->
   <script>
     (function mobileMenu(){
       const btn   = document.getElementById('navToggle');
