@@ -242,9 +242,27 @@
     }
     .site-footer a:hover, .site-footer a:focus{ text-decoration:underline; outline:none; }
     @media (max-width: 720px){
-      .site-footer .footer-inner{ padding:16px; flex-direction: column; align-items: center; gap: 8px; }
+      .site-footer .footer-inner{
+        padding:16px;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
       .site-footer .footer-inner span[aria-hidden="true"]{ display:none; }
-      .site-footer a{ display:block; }
+      .site-footer a{ display: block; }
+    }
+
+    .footer-note-box{
+      max-width:1100px;
+      margin:0 auto 20px;
+      padding:0 26px 20px;
+      text-align:center;
+    }
+    .footer-note{
+      margin:0;
+      font-size:12px;
+      line-height:1.5;
+      color:#6b7280;
     }
 
     .brand-text a {
@@ -255,6 +273,7 @@
 .brand-text a:focus {
   text-decoration: underline;
 }
+
 
   </style>
 </head>
@@ -407,18 +426,26 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="site-footer" aria-label="Pied de page">
-    <div class="footer-inner">
-      <a href="politique-confidentialite.html">Politique de confidentialité</a>
-      <span aria-hidden="true">•</span>
-      <a href="politique-cookies.html">Politique de cookies</a>
-      <span aria-hidden="true">•</span>
-      <a href="mentions-legales.html">Mentions légales</a>
-      <span aria-hidden="true">•</span>
-      <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
-    </div>
-  </footer>
+<!-- FOOTER -->
+<footer class="site-footer" aria-label="Pied de page">
+  <div class="footer-inner">
+    <a href="politique-confidentialite.html">Politique de confidentialité</a>
+    <span aria-hidden="true">•</span>
+    <a href="politique-cookies.html">Politique de cookies</a>
+    <span aria-hidden="true">•</span>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <span aria-hidden="true">•</span>
+    <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+  </div>
+
+  <div class="footer-note-box">
+    <p class="footer-note">
+      Sauf mention contraire, tous les contenus de ce site (textes, images, illustrations, etc.)
+      sont protégés par le droit d’auteur. Toute reproduction, représentation ou réutilisation,
+      totale ou partielle, est interdite sans autorisation préalable écrite de l’éditeur.
+    </p>
+  </div>
+</footer>
 
   <!-- SCRIM requis par le menu (placé AVANT les scripts) -->
   <div class="scrim" id="navScrim" hidden></div>
@@ -486,5 +513,15 @@
       })();
     });
   </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('img').forEach(function (img) {
+      img.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+      });
+    });
+  });
+</script>
+
 </body>
 </html>

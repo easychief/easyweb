@@ -249,14 +249,28 @@
       .site-footer .footer-inner span[aria-hidden="true"]{ display:none; }
       .site-footer a{ display: block; }
     }
+
+    .footer-note-box{
+      max-width:1100px;
+      margin:0 auto 20px;
+      padding:0 26px 20px;
+      text-align:center;
+    }
+    .footer-note{
+      margin:0;
+      font-size:12px;
+      line-height:1.5;
+      color:#6b7280;
+    }
+
     .brand-text a {
-  color: inherit;
-  text-decoration: none;
-}
-.brand-text a:hover,
-.brand-text a:focus {
-  text-decoration: underline;
-}
+      color: inherit;
+      text-decoration: none;
+    }
+    .brand-text a:hover,
+    .brand-text a:focus {
+      text-decoration: underline;
+    }
 
   </style>
 </head>
@@ -324,12 +338,11 @@
         <!-- Colonne DROITE : image + texte -->
         <div class="right">
           <img src="images/Pierre.png" alt="Pierre — fondateur DARKLABS">
-                 <p>Sérénité. Confiance. Stabilité.</p>
-                 <br>
-              <p>  C’est la signature de Pierre, StarClimber international, pas de sommet sans paliers importants et difficiles. Rester concentré, c’est rester sur la bonne trajectoire.</p>
-              <br>
-             <p> <em style="font-size:0.9em;">69 étages gravis à Seattle, en tenue de feu et ARI capelé, en 17 minutes. Chaque palier compte ; cette persévérance, Pierre l’applique au quotidien dans son travail.</em></p>
-
+          <p>Sérénité. Confiance. Stabilité.</p>
+          <br>
+          <p>Pierre, compétiteur international de Stairclimb, sait qu'il n'y à pas de sommet sans paliers importants et difficiles. Rester concentré, c’est rester sur la bonne trajectoire.</p>
+          <br>
+          <p><em style="font-size:0.9em;">69 étages gravis à Seattle, en tenue de feu et ARI capelé, en 17 minutes. Chaque palier compte ; cette persévérance, il faut l'appliquer au quotidien dans son travail.</em></p>
         </div>
       </div>
     </section>
@@ -341,19 +354,19 @@
     <section class="section-contact" aria-label="Présentation et contact">
       <div class="wrap">
         <div class="col brand-col">
-  <div class="inner">
-    <div class="brand-text">
-      <h3>DARKLABS</h3>
-      <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
-         au service des sapeurs-pompiers.</p>
+          <div class="inner">
+            <div class="brand-text">
+              <h3>DARKLABS</h3>
+              <p>Solutions opérationnelles conçues pour le terrain. Innovation, fiabilité et simplicité
+                 au service des sapeurs-pompiers.</p>
 
-      <!-- liens cliquables -->
-      <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
-      <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
-      <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
-    </div>
-  </div>
-</div>
+              <!-- liens cliquables -->
+              <p><a href="https://darklabs.fr" target="_blank" rel="noopener noreferrer">www.darklabs.fr</a></p>
+              <p><a href="mailto:contact@darklabs.fr">contact@darklabs.fr</a></p>
+              <p><a href="mailto:contact@easychief.fr">contact@easychief.fr</a></p>
+            </div>
+          </div>
+        </div>
 
         <div class="col logo-col">
           <div class="inner"><img src="images/Darklabs.png" alt="Logo DARKLABS"></div>
@@ -399,6 +412,14 @@
       <a href="mentions-legales.html">Mentions légales</a>
       <span aria-hidden="true">•</span>
       <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
+    </div>
+
+    <div class="footer-note-box">
+      <p class="footer-note">
+        Sauf mention contraire, tous les contenus de ce site (textes, images, illustrations, etc.)
+        sont protégés par le droit d’auteur. Toute reproduction, représentation ou réutilisation,
+        totale ou partielle, est interdite sans autorisation préalable écrite de l’éditeur.
+      </p>
     </div>
   </footer>
 
@@ -469,5 +490,15 @@
       })();
     });
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('img').forEach(function (img) {
+        img.addEventListener('contextmenu', function (event) {
+          event.preventDefault();
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
