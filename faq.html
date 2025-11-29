@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Easy Chief — Foire aux questions (FAQ)</title>
-    <meta name="description" content="FAQ Easy Chief : essai, abonnement, activation par e-mail, confidentialité, cartes, assistance.">
+  <meta name="description" content="FAQ Easy Chief : essai, abonnement, activation par e-mail, confidentialité, cartes, assistance.">
 
   <link rel="canonical" href="https://www.easychief.fr/faq.html">
 
@@ -255,6 +255,19 @@
       .site-footer a{ display: block; }
     }
 
+    .footer-note-box{
+      max-width:1100px;
+      margin:0 auto 20px;
+      padding:0 26px 20px;
+      text-align:center;
+    }
+    .footer-note{
+      margin:0;
+      font-size:12px;
+      line-height:1.5;
+      color:#6b7280;
+    }
+
     .brand-text a { color: inherit; text-decoration: none; }
     .brand-text a:hover,
     .brand-text a:focus { text-decoration: underline; }
@@ -362,14 +375,14 @@
             </div>
           </details>
 
-               <details>
+          <details>
             <summary>Pourquoi je ne vois pas tous les poteaux/bouches d’incendie autour de moi ?&nbsp;?</summary>
             <div class="faq-answer">
               <p>EasyChief affiche ces points via des données publiques d’OpenStreetMap (OSM). Comme OSM est mis à jour par des contributeurs bénévoles, la couverture peut varier selon les zones : certains hydrants n’ont peut-être pas encore été saisis ou correctement “tagués” (par ex. emergency=fire_hydrant). En conséquence, il est normal que tous les équipements ne soient pas visibles partout. Si vous connaissez un point manquant ou erroné, vous pouvez contribuer directement sur OSM ; vos modifications seront ensuite reprises lors des prochaines mises à jour des données.</p>
             </div>
           </details>
 
-                        <details>
+          <details>
             <summary>Pourquoi j'ai des petits décalages quand je zoom ou dézoome dans Easy DRAW ?&nbsp;?</summary>
             <div class="faq-answer">
               <p>Dans certaines situations, un léger décalage peut apparaître entre les symboles que vous placez et l’emplacement réel sur la carte. C’est normal : la position transmise par votre téléphone (GPS/GNSS) comporte une incertitude inhérente qui varie selon l’environnement (bâtiments, relief, couverture ciel, interférences) et le moment de la mesure. De plus, les fonds de carte Google Maps sont des assemblages d’images/reliefs projetés en 2D ; selon le niveau de zoom, la projection et la qualité des données locales, de petites divergences peuvent se voir. En résumé, entre la précision limitée des coordonnées et la nature cartographique des plans, de petits écarts (visibles surtout en fort zoom) sont possibles. Si besoin, zoomez et ajustez le symbole par un léger déplacement pour le caler au mieux.</p>
@@ -505,6 +518,14 @@
       <span aria-hidden="true">•</span>
       <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
     </div>
+
+    <div class="footer-note-box">
+      <p class="footer-note">
+        Sauf mention contraire, tous les contenus de ce site (textes, images, illustrations, etc.)
+        sont protégés par le droit d’auteur. Toute reproduction, représentation ou réutilisation,
+        totale ou partielle, est interdite sans autorisation préalable écrite de l’éditeur.
+      </p>
+    </div>
   </footer>
 
   <!-- SCRIM requis par le menu -->
@@ -573,5 +594,15 @@
       })();
     });
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('img').forEach(function (img) {
+        img.addEventListener('contextmenu', function (event) {
+          event.preventDefault();
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>

@@ -481,6 +481,22 @@ body.no-scroll{ overflow:hidden }
   }
 }
 
+/* === Boîte de note légale dans le footer === */
+.footer-note-box{
+  max-width:1100px;
+  margin:12px auto 20px;
+  padding:10px 16px;
+  border-radius:10px;
+  background-color:rgba(220, 38, 38, 0); /* rouge clair transparent */
+  text-align:center;
+}
+.footer-note{
+  margin:0;
+  font-size:12px;
+  line-height:1.5;
+}
+
+
 /* ======= FIX HERO mobile : images latérales qui débordent + badges qui wrap ======= */
 
 /* 1) Les images gauche/droite ne doivent JAMAIS dépasser l'écran en mobile */
@@ -929,7 +945,17 @@ body.no-scroll{ overflow:hidden }
     <span aria-hidden="true">•</span>
     <a href="index.html">© www.easychief.fr - 2025 - Tous droits réservés.</a>
   </div>
+
+  <div class="footer-note-box">
+    <p class="footer-note">
+      Sauf mention contraire, tous les contenus de ce site (textes, images, illustrations, etc.)
+      sont protégés par le droit d’auteur. Toute reproduction, représentation ou réutilisation,
+      totale ou partielle, est interdite sans autorisation préalable écrite de l’éditeur.
+    </p>
+  </div>
 </footer>
+
+
 
 
   <div class="scrim" id="navScrim" hidden></div>
@@ -983,5 +1009,15 @@ body.no-scroll{ overflow:hidden }
     });
   })();
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('img').forEach(function (img) {
+      img.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
